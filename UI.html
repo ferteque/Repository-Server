@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV M3U Editor</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; cursor: pointer; }
+        tr:hover { background-color: #ddd; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Select an IPTV Service</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Service</th>
+                <th>Countries</th>
+                <th>Main Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr onclick="selectRow('{{ row['ID'] }}')">
+                <td>{{ row['ID'] }}</td>
+                <td>{{ row['Service'] }}</td>
+                <td>{{ row['Countries'] }}</td>
+                <td>{{ row['Main Categorie (Sports, TV shows, Documentaries)'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Enter Your Credentials</h2>
+    <form id="form" action="/process" method="post">
+        <input type="hidden" id="selected_id" name="id">
+        <label>DNS:</label> <input type="text" name="dns" required><br>
+        <label>Username:</label> <input type="text" name="username" required><br>
+        <label>Password:</label> <input type="text" name="password" required><br>
+        <button type="submit">Generate M3U</button>
+    </form>
+
+    <script>
+        function selectRow(id) {
+            document.getElementById("selected_id").value = id;
+        }
+    </script>
+</body>
+</html>
