@@ -3,50 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV M3U Editor</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; cursor: pointer; }
-        tr:hover { background-color: #ddd; cursor: pointer; }
-    </style>
+    <title>IPTV M3U Generator</title>
 </head>
 <body>
-    <h2>Select an IPTV Service</h2>
-    <table>
+    <h2>Select a Service</h2>
+    <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Service</th>
                 <th>Countries</th>
                 <th>Main Category</th>
+                <th>M3U File Link</th>
             </tr>
         </thead>
-        <tbody>
-            {% for row in data %}
-            <tr onclick="selectRow('{{ row['ID'] }}')">
-                <td>{{ row['ID'] }}</td>
-                <td>{{ row['Service'] }}</td>
-                <td>{{ row['Countries'] }}</td>
-                <td>{{ row['Main Categorie (Sports, TV shows, Documentaries)'] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+        <tbody id="tableBody"></tbody>
     </table>
 
-    <h2>Enter Your Credentials</h2>
-    <form id="form" action="/process" method="post">
-        <input type="hidden" id="selected_id" name="id">
-        <label>DNS:</label> <input type="text" name="dns" required><br>
-        <label>Username:</label> <input type="text" name="username" required><br>
-        <label>Password:</label> <input type="text" name="password" required><br>
-        <button type="submit">Generate M3U</button>
-    </form>
+    <h3>Enter Your Details</h3>
+    <label>DNS: <input type="text" id="dns"></label><br>
+    <label>Username: <input type="text" id="username"></label><br>
+    <label>Password: <input type="password" id="password"></label><br>
+    <input type="hidden" id="selectedID">
+    <input type="hidden" id="m3uUrl">
+    <button onclick="submitForm()">Generate M3U</button>
 
     <script>
-        function selectRow(id) {
-            document.getElementById("selected_id").value = id;
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; // Nueva URL
+
+        async function loadCSV() {
+            try {
+                let response = await fetch(CSV_URL, { redirect: "follow" }); // Sigue la redirección automáticamente
+                if (!response.ok) throw new Error("Failed to fetch CSV file");
+
+                let text = await response.text();
+                console.log("CSV Text:", text);  // Debug: Verificamos el contenido CSV
+
+                let rows = text.split("\n").slice(2); // Omitimos las primeras 2 líneas (mensaje y encabezado)
+                let tableBody = document.getElementById("tableBody");
+
+                rows.forEach(row => {
+                    let columns = row.split(",");
+                    console.log("Row Columns:", columns);  // Debug: Verificamos cada fila
+
+                    if (columns.length >= 5) {
+                        let newRow = document.createElement("tr");
+                        newRow.innerHTML = `
+                            <td>${columns[0]}</td>
+                            <td>${columns[1]}</td>
+                            <td>${columns[2]}</td>
+                            <td>${columns[3]}</td>
+                            <td><a href="${columns[4]}" target="_blank">Download</a></td>
+                        `;
+                        newRow.onclick = () => selectRow(columns[0], columns[4]);
+                        tableBody.appendChild(newRow);
+                    }
+                });
+            } catch (error) {
+                console.error("Error loading CSV:", error);
+            }
         }
+
+        function selectRow(id, url) {
+            document.getElementById("selectedID").value = id;
+            document.getElementById("m3uUrl").value = url;
+            alert(`Selected ID: ${id}`);
+        }
+
+        function submitForm() {
+            let dns = document.getElementById("dns").value;
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let selectedID = document.getElementById("selectedID").value;
+            let m3uUrl = document.getElementById("m3uUrl").value;
+
+            if (!selectedID || !dns || !username || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            alert(`Processing M3U file for ID: ${selectedID} with DNS: ${dns}`);
+            // Aquí puedes hacer una petición a un backend para procesar la M3U con las credenciales
+        }
+
+        loadCSV();
     </script>
 </body>
 </html>
