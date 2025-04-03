@@ -20,9 +20,39 @@
         tr:hover {
             background-color: #f2f2f2;
         }
+        .selected {
+            background-color: #add8e6 !important; /* Celeste */
+        }
+        /* Estilos del Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+
     <h2>Select a Service</h2>
     <table border="1">
         <thead>
@@ -37,13 +67,20 @@
         <tbody id="tableBody"></tbody>
     </table>
 
-    <h3>Enter Your Details</h3>
-    <label>DNS: <input type="text" id="dns" disabled></label><br>
-    <label>Username: <input type="text" id="username" disabled></label><br>
-    <label>Password: <input type="password" id="password" disabled></label><br>
+    <!-- Modal para ingresar credenciales -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Enter Your Details</h3>
+            <label>DNS: <input type="text" id="dns"></label><br><br>
+            <label>Username: <input type="text" id="username"></label><br><br>
+            <label>Password: <input type="password" id="password"></label><br><br>
+            <button onclick="submitForm()">Generate M3U</button>
+        </div>
+    </div>
+
     <input type="hidden" id="selectedID">
     <input type="hidden" id="m3uUrl">
-    <button id="generateBtn" onclick="submitForm()" disabled>Generate M3U</button>
 
     <script>
         const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; 
@@ -54,7 +91,7 @@
                 if (!response.ok) throw new Error("Failed to fetch CSV file");
 
                 let text = await response.text();
-                let rows = text.split("\n").slice(1); 
+                let rows = text.split("\n").slice(1);
                 let tableBody = document.getElementById("tableBody");
 
                 rows.forEach(row => {
@@ -68,7 +105,7 @@
                             <td>${columns[3]}</td>
                             <td>${columns[4]}</td>
                         `;
-                        newRow.onclick = () => selectRow(columns[0], columns[4]);
+                        newRow.onclick = () => selectRow(newRow, columns[0], columns[4]);
                         tableBody.appendChild(newRow);
                     }
                 });
@@ -77,14 +114,23 @@
             }
         }
 
-        function selectRow(id, url) {
+        function selectRow(row, id, url) {
+            // Quitar selección previa
+            document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
+            
+            // Marcar fila actual como seleccionada
+            row.classList.add("selected");
+
+            // Guardar ID y URL
             document.getElementById("selectedID").value = id;
             document.getElementById("m3uUrl").value = url;
-            document.getElementById("dns").disabled = false;
-            document.getElementById("username").disabled = false;
-            document.getElementById("password").disabled = false;
-            document.getElementById("generateBtn").disabled = false;
-            alert(`Selected ID: ${id}`);
+
+            // Mostrar el modal
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
         }
 
         function submitForm() {
@@ -118,7 +164,7 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.blob();  
+                return response.blob();
             })
             .then(blob => {
                 const link = document.createElement('a');
@@ -129,6 +175,7 @@
                 link.click();
                 document.body.removeChild(link);
                 window.URL.revokeObjectURL(url);
+                closeModal(); // Cerrar modal después de la descarga
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -136,6 +183,7 @@
             });
         }
 
+        // Cargar CSV al inicio
         loadCSV();
     </script>
 </body>
