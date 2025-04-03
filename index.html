@@ -83,10 +83,41 @@
             }
 
             alert(`Processing M3U file for ID: ${selectedID} with DNS: ${dns}`);
-            // Aquí puedes hacer una petición a un backend para procesar la M3U con las credenciales
-        }
 
-        loadCSV();
+                // Hacer un log para verificar los valores
+                console.log(`Processing M3U file for ID: ${selectedID} with DNS: ${dns}, Username: ${username}, Password: ${password}`);
+
+                // Crear un objeto con los datos a enviar
+                const postData = {
+                    id: selectedID,
+                    dns: dns,
+                    username: username,
+                    password: password,
+                    m3uUrl: m3uUrl
+                };
+
+                // Hacer la solicitud POST al backend Flask
+                fetch('http://127.0.0.1:5000/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => response.json())  // Respuesta en formato JSON
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);  // Mostrar el mensaje de éxito
+                        console.log(data);  // Imprimir la respuesta en la consola (puedes usarla para otras acciones)
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);  // Manejo de errores en la solicitud
+                    alert('Error processing M3U file');
+                });
+                        }
+
+                        loadCSV();
     </script>
 </body>
 </html>
