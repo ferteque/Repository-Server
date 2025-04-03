@@ -23,9 +23,12 @@ if response.status_code == 200:
             data.append(row)
 
     # Mostrar las primeras 4 columnas de cada fila
-    print("ID | Service | Countries | Main Category")
+    # Mostrar las primeras 4 columnas de cada fila de forma legible
+    print("\nID | Service | Countries | Main Category")
+    print("-" * 50)  # Línea separadora
+
     for row in data:
-        print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]}")
+        print(f"{row[0]:<5} | {row[1]:<20} | {row[2]:<15} | {row[3]:<20}")
 
     # Pedir al usuario que seleccione un ID
     selected_id = input("\nEnter the ID of the row you want to use: ")
