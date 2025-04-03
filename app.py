@@ -40,7 +40,7 @@ def process():
     with open(modified_filename, "w", encoding="utf-8") as file:
         file.write(file_content)
 
-    return jsonify({"message": "File successfully generated!", "file": modified_filename})
+    return send_file(modified_filename, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
