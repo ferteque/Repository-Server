@@ -1,11 +1,17 @@
 from flask import Flask, request, jsonify
 import requests
 import re
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 
+CORS(app)
+
 @app.route('/process', methods=['POST'])
 def process():
+    
+    print(f"Am I here?")
     data = request.json
     id_selected = data['id']
     dns = data['dns']
