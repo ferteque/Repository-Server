@@ -1,59 +1,51 @@
-from flask import Flask, render_template, request, send_file
-import pandas as pd
+import csv
 import requests
-import tempfile
-import os
-import json
 
-app = Flask(__name__)
+# Descargar el Google Sheet como CSV (Reemplaza 'YOUR_CSV_URL' con el enlace real)
+CSV_URL = "YOUR_CSV_URL"
+response = requests.get(CSV_URL)
+csv_content = response.text
 
-# Archivo donde se guarda el contador
-COUNTER_FILE = "downloads.json"
+# Guardar CSV localmente
+csv_filename = "data.csv"
+with open(csv_filename, "w", encoding="utf-8") as file:
+    file.write(csv_content)
 
-# Cargar contador desde archivo
-def load_counter():
-    if os.path.exists(COUNTER_FILE):
-        with open(COUNTER_FILE, "r") as f:
-            return json.load(f).get("downloads", 0)
-    return 0
+# Leer el archivo CSV
+data = []
+with open(csv_filename, newline="", encoding="utf-8") as file:
+    reader = csv.reader(file)
+    headers = next(reader)  # Obtener encabezados
+    for row in reader:
+        data.append(row)
 
-# Guardar contador en archivo
-def save_counter(count):
-    with open(COUNTER_FILE, "w") as f:
-        json.dump({"downloads": count}, f)
+# Mostrar las primeras 4 columnas de cada fila
+print("ID | Service | Countries | Main Category")
+for row in data:
+    print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]}")
 
-download_count = load_counter()
+# Pedir al usuario que seleccione un ID
+selected_id = input("\nEnter the ID of the row you want to use: ")
+selected_row = next((row for row in data if row[0] == selected_id), None)
 
-@app.route("/process", methods=["POST"])
-def process():
-    global download_count
-    download_count += 1
-    save_counter(download_count)  # Guardar el contador actualizado
+if selected_row:
+    # Pedir credenciales
+    dns = input("Enter DNS: ")
+    username = input("Enter Username: ")
+    password = input("Enter Password: ")
 
-    # Obtener y modificar el archivo M3U
-    selected_id = int(request.form["id"])
-    dns = request.form["dns"]
-    username = request.form["username"]
-    password = request.form["password"]
-    
-    df = pd.read_csv("https://docs.google.com/spreadsheets/d/TU_SHEET_ID/gviz/tq?tqx=out:csv")
-    row = df[df["ID"] == selected_id].iloc[0]
-    m3u_url = row["M3U file Link"]
-    
-    response = requests.get(m3u_url)
-    m3u_content = response.text
+    # Descargar archivo M3U de la URL en la 5ª columna
+    m3u_url = selected_row[4]
+    m3u_response = requests.get(m3u_url)
+    m3u_content = m3u_response.text
+
+    # Reemplazar placeholders
     m3u_content = m3u_content.replace("DNS", dns).replace("USERNAME", username).replace("PASSWORD", password)
 
-    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".m3u", mode="w", encoding="utf-8")
-    temp_file.write(m3u_content)
-    temp_file.close()
+    # Guardar el archivo modificado
+    with open("modified_playlist.m3u", "w", encoding="utf-8") as file:
+        file.write(m3u_content)
 
-    return send_file(temp_file.name, as_attachment=True, download_name="custom_playlist.m3u")
-
-@app.route("/stats")
-def stats():
-    """Muestra el número de descargas."""
-    return f"Total Downloads: {download_count}"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    print("\nM3U file has been successfully modified and saved as 'modified_playlist.m3u'!")
+else:
+    print("ID not found.")
