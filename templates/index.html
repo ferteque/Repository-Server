@@ -148,6 +148,30 @@
         .tab-content.active {
             display: block;
         }
+
+        .dynamic-input {
+            font-size: 18px; 
+            padding: 8px 12px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            width: auto; 
+            min-width: 50px; 
+            max-width: 80%; 
+            white-space: nowrap; 
+            overflow: hidden;
+        }
+        
+       
+        .dynamic-input:focus {
+            border-color: #007BFF;
+        }
+        
+        
+        .input-wrapper {
+            display: inline-block;
+            max-width: 80%; 
+        }
     </style>
 </head>
 <body>
@@ -213,9 +237,15 @@
 
             <label>8. Click the USB Drive and select the modified .M3U file </label> <br>
 
-            <label>9. When asked for an EPG URL Enter this: </label>  <input id="EPG"> </label><br>
+            <label>9. When asked for an EPG URL Enter this: </label>  
+            <div class="input-wrapper">
+                <input type="text" id="EPG" class="dynamic-input" oninput="adjustWidth(this)">
+            </div> <br>
             
-            <label>10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> <input id="GitHub_EPG"> </label>
+            <label>10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
+            <div class="input-wrapper">
+                <input type="text" id="GitHub_EPG" class="dynamic-input" oninput="adjustWidth(this)">
+            </div>
             <br>
         </div>
     </div>
@@ -292,6 +322,11 @@
 
             
             document.getElementById("credentials").style.display = "block";
+        }
+
+        function adjustWidth(input) {
+            input.style.width = "auto"; 
+            input.style.width = (input.scrollWidth + 5) + "px";
         }
 
         function closeModal() {
