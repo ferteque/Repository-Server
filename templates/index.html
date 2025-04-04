@@ -67,27 +67,72 @@
     </table>
 
     
-    <div id="credentials" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Enter Your Details</h3>
-            <label>DNS: <input type="text" id="dns"></label><br><br>
-            <label>Username: <input type="text" id="username"></label><br><br>
-            <label>Password: <input type="password" id="password"></label><br><br>
-            <button onclick="submitForm()">Generate M3U</button>
-        </div>
+    <div class="tab">
+        <div id="tab-m3u" class="active" onclick="switchTab('m3u')">M3U</div>
+        <div id="tab-xtream" onclick="switchTab('xtream')">Xtream</div>
     </div>
+
+    <!-- Tab para ingresar solo la URL de M3U -->
+    <div id="m3u-content" class="tab-content active">
+        <h3>Enter M3U URL</h3>
+        <label>M3U URL: <input type="text" id="m3uUrl"></label><br><br>
+        <button onclick="submitM3U()">Generate M3U</button>
+    </div>
+
+    <!-- Tab para ingresar Xtream Credentials -->
+    <div id="xtream-content" class="tab-content">
+        <h3>Enter Xtream Credentials</h3>
+        <label>DNS: <input type="text" id="dnsX"></label><br>
+        <label>Username: <input type="text" id="usernameX"></label><br>
+        <label>Password: <input type="password" id="passwordX"></label><br>
+        <button onclick="submitForm()">Generate Xtream</button>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.getElementById("m3u-content").classList.remove("active");
+            document.getElementById("xtream-content").classList.remove("active");
+            document.getElementById("tab-m3u").classList.remove("active");
+            document.getElementById("tab-xtream").classList.remove("active");
+
+            document.getElementById(`${tab}-content`).classList.add("active");
+            document.getElementById(`tab-${tab}`).classList.add("active");
+        }
 
     <div id="NextSteps" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Next Steps</h3>
-            <label> </label><br><br>
+            <label>
+                    1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example).
+
+                    2. Insert the USB with the edited M3U file in the streaming device
+
+                    3. Open TiviMate and go to "Settings"
+
+                    4. Select "Playlists"
+
+                    5. Select "Add Playlist'
+
+                    6. Select "M3U playlist"
+
+                    7. Click "Select Local Playlist"
+
+                    8. Click the USB Drive and select the modified .M3U file 
+
+                    9. When asked for an EPG URL Enter this:
+            </label> <label id="EPG"> </label><br>
+            10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG:
+            <label id="GitHub_EPG"> </label>
+            <br>
         </div>
     </div>
 
     <input type="hidden" id="selectedID">
     <input type="hidden" id="m3uUrl">
+    <input type="hidden" id="dns">
+    <input type="hidden" id="username">
+    <input type="hidden" id="password">
 
     <script>
         const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; 
@@ -111,7 +156,7 @@
                             <td>${columns[2]}</td>
                             <td>${columns[3]}</td>
                         `;
-                        newRow.onclick = () => selectRow(newRow, columns[0], columns[4]);
+                        newRow.onclick = () => selectRow(newRow, columns[0], columns[4], columns[5], columns[6]);
                         tableBody.appendChild(newRow);
                     }
                 });
@@ -120,7 +165,7 @@
             }
         }
 
-        function selectRow(row, id, url) {
+        function selectRow(row, id, url, epg, GitHub_EPG) {
            
             document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
             
@@ -130,6 +175,8 @@
             
             document.getElementById("selectedID").value = id;
             document.getElementById("m3uUrl").value = url;
+            document.getElementById("EPG").value = epg;
+            document.getElementById("GitHub_EPG").value = GitHub_EPG;
 
             
             document.getElementById("credentials").style.display = "block";
@@ -139,7 +186,31 @@
             document.getElementById("credentials").style.display = "none";
             document.getElementById("NextSteps").style.display = "block";
         }
-
+        
+        function extractM3UDetails(m3uUrl) {
+            try {
+                let url = new URL(m3uUrl);
+                let params = new URLSearchParams(url.search);
+        
+                let username = params.get("username");
+                let password = params.get("password");
+                let dns = `${url.protocol}//${url.host}`; // Extrae solo el dominio
+        
+                if (!username || !password) {
+                    return null;
+                }
+        
+                document.getElementById("dnsX").value = dns;
+                document.getElementById("usernameX").value = username;
+                document.getElementById("passwordX").value = password;
+                
+                return submitForm();
+            } catch (error) {
+                console.error("Error extracting M3U details:", error);
+                return null;
+            }
+        }
+        
         function submitForm() {
             let dns = document.getElementById("dns").value;
             let username = document.getElementById("username").value;
