@@ -21,9 +21,9 @@
             background-color: #f2f2f2;
         }
         .selected {
-            background-color: #add8e6 !important; /* Celeste */
+            background-color: #add8e6 !important;
         }
-        /* Estilos del Modal */
+       
         .modal {
             display: none;
             position: fixed;
@@ -60,15 +60,14 @@
                 <th>ID</th>
                 <th>Service</th>
                 <th>Countries</th>
-                <th>Main Category</th>
-                <th>M3U File Link</th>
+                <th>Main Categories</th>
             </tr>
         </thead>
         <tbody id="tableBody"></tbody>
     </table>
 
-    <!-- Modal para ingresar credenciales -->
-    <div id="myModal" class="modal">
+    
+    <div id="credentials" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Enter Your Details</h3>
@@ -76,6 +75,14 @@
             <label>Username: <input type="text" id="username"></label><br><br>
             <label>Password: <input type="password" id="password"></label><br><br>
             <button onclick="submitForm()">Generate M3U</button>
+        </div>
+    </div>
+
+    <div id="NextSteps" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Next Steps</h3>
+            <label> </label><br><br>
         </div>
     </div>
 
@@ -114,22 +121,23 @@
         }
 
         function selectRow(row, id, url) {
-            // Quitar selección previa
+           
             document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
             
-            // Marcar fila actual como seleccionada
+            
             row.classList.add("selected");
 
-            // Guardar ID y URL
+            
             document.getElementById("selectedID").value = id;
             document.getElementById("m3uUrl").value = url;
 
-            // Mostrar el modal
-            document.getElementById("myModal").style.display = "block";
+            
+            document.getElementById("credentials").style.display = "block";
         }
 
         function closeModal() {
-            document.getElementById("myModal").style.display = "none";
+            document.getElementById("credentials").style.display = "none";
+            document.getElementById("NextSteps").style.display = "block";
         }
 
         function submitForm() {
@@ -174,7 +182,7 @@
                 link.click();
                 document.body.removeChild(link);
                 window.URL.revokeObjectURL(url);
-                closeModal(); // Cerrar modal después de la descarga
+                closeModal(); 
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -182,7 +190,6 @@
             });
         }
 
-        // Cargar CSV al inicio
         loadCSV();
     </script>
 </body>
