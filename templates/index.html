@@ -95,7 +95,7 @@
 
 <div id="credentials" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close" onclick="closeModalCredentials()">&times;</span>
             <div class="tab">
                 <div id="tab-m3u" class="active" onclick="switchTab('m3u')">M3U</div>
                 <div id="tab-xtream" onclick="switchTab('xtream')">Xtream</div>
@@ -104,7 +104,7 @@
             <!-- Tab para ingresar solo la URL de M3U -->
             <div id="m3u-content" class="tab-content active">
                 <h3>Enter M3U URL</h3>
-                <label>M3U URL: <input type="text" id="m3uUrl"></label><br><br>
+                <label>M3U URL: <input type="text" id="m3uUrlUser"></label><br><br>
                 <button onclick="submitM3U()">Generate M3U</button>
             </div>
         
@@ -121,7 +121,7 @@
 
      <div id="NextSteps" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeModalNextSteps()">&times;</span>
             <h3>Next Steps</h3>
             <label>
                     1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example).
@@ -216,9 +216,18 @@
             document.getElementById("credentials").style.display = "none";
             document.getElementById("NextSteps").style.display = "block";
         }
+
+        function closeModalCredentials() {
+            document.getElementById("credentials").style.display = "none";
+        }
+
+        function closeModalNextSteps() {
+            document.getElementById("NextSteps").style.display = "none";
+        }
         
-        function extractM3UDetails(m3uUrl) {
+        function submitM3U() {
             try {
+                let m3uUrlUser = document.getElementById("m3uUrlUser").value;
                 let url = new URL(m3uUrl);
                 let params = new URLSearchParams(url.search);
         
