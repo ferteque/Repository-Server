@@ -15,6 +15,62 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7); 
         }
+        .modal-content2 {
+            background-color: white;
+            margin: 5% auto; 
+            padding: 30px;
+            width: 80%; 
+            max-width: 900px;
+            height: 80vh; 
+            overflow-y: auto; 
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: black;
+        }
+        
+
+        .modal-content2 h3 {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+        
+
+        .modal-content2 label {
+            font-size: 18px; 
+            line-height: 1.8; 
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        .modal-content2 button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .modal-content2 button:hover {
+            background-color: #0056b3;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -111,14 +167,14 @@
                 <div id="tab-xtream">Xtream</div>
             </div>
         
-            <!-- Tab para ingresar solo la URL de M3U -->
+
             <div id="m3u-content" class="tab-content active">
                 <h3>Enter M3U URL</h3>
                 <label>M3U URL: <input type="text" id="m3uUrlUser"></label><br><br>
                 <button id="submitM3U">Generate M3U</button>
             </div>
         
-            <!-- Tab para ingresar Xtream Credentials -->
+  
             <div id="xtream-content" class="tab-content">
                 <h3>Enter Xtream Credentials</h3>
                 <label>DNS: <input type="text" id="dnsX"></label><br>
@@ -129,8 +185,8 @@
     </div>
 </div>
 
-     <div id="NextSteps" class="modal">
-        <div class="modal-content">
+     <div id="NextSteps" class="modal2">
+        <div class="modal-content2">
             <span class="close" id="closeModalNextSteps">&times;</span>
             <h3>Next Steps</h3>
            
