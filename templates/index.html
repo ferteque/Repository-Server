@@ -252,7 +252,7 @@
         
                 let username = params.get("username");
                 let password = params.get("password");
-                let dns = `${url.protocol}//${url.host}`; // Extrae solo el dominio
+                let dns = `${url.host}`; // Extrae solo el dominio
         
                 if (!username || !password) {
                     return null;
@@ -271,9 +271,9 @@
         }
         
         function submitForm() {
-            let dns = document.getElementById("dns").value;
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
+            let dns = document.getElementById("dnsX").value;
+            let username = document.getElementById("usernameX").value;
+            let password = document.getElementById("passwordX").value;
             let selectedID = document.getElementById("selectedID").value;
             let m3uUrl = document.getElementById("m3uUrl").value;
 
