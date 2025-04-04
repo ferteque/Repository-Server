@@ -87,6 +87,7 @@
                 <th>Service</th>
                 <th>Countries</th>
                 <th>Main Categories</th>
+                <th>Last Updated</th>
             </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -94,26 +95,27 @@
 
 <div id="credentials" class="modal">
     <div class="modal-content">
-        <div class="tab">
-            <div id="tab-m3u" class="active" onclick="switchTab('m3u')">M3U</div>
-            <div id="tab-xtream" onclick="switchTab('xtream')">Xtream</div>
-        </div>
-    
-        <!-- Tab para ingresar solo la URL de M3U -->
-        <div id="m3u-content" class="tab-content active">
-            <h3>Enter M3U URL</h3>
-            <label>M3U URL: <input type="text" id="m3uUrl"></label><br><br>
-            <button onclick="submitM3U()">Generate M3U</button>
-        </div>
-    
-        <!-- Tab para ingresar Xtream Credentials -->
-        <div id="xtream-content" class="tab-content">
-            <h3>Enter Xtream Credentials</h3>
-            <label>DNS: <input type="text" id="dnsX"></label><br>
-            <label>Username: <input type="text" id="usernameX"></label><br>
-            <label>Password: <input type="password" id="passwordX"></label><br>
-            <button onclick="submitForm()">Generate Xtream</button>
-        </div>
+        <span class="close" onclick="closeModal()">&times;</span>
+            <div class="tab">
+                <div id="tab-m3u" class="active" onclick="switchTab('m3u')">M3U</div>
+                <div id="tab-xtream" onclick="switchTab('xtream')">Xtream</div>
+            </div>
+        
+            <!-- Tab para ingresar solo la URL de M3U -->
+            <div id="m3u-content" class="tab-content active">
+                <h3>Enter M3U URL</h3>
+                <label>M3U URL: <input type="text" id="m3uUrl"></label><br><br>
+                <button onclick="submitM3U()">Generate M3U</button>
+            </div>
+        
+            <!-- Tab para ingresar Xtream Credentials -->
+            <div id="xtream-content" class="tab-content">
+                <h3>Enter Xtream Credentials</h3>
+                <label>DNS: <input type="text" id="dnsX"></label><br>
+                <label>Username: <input type="text" id="usernameX"></label><br>
+                <label>Password: <input type="password" id="passwordX"></label><br>
+                <button onclick="submitForm()">Generate Xtream</button>
+            </div>
     </div>
 </div>
 
@@ -182,6 +184,7 @@
                             <td>${columns[1]}</td>
                             <td>${columns[2]}</td>
                             <td>${columns[3]}</td>
+                            <td>${columns[7]}</td>
                         `;
                         newRow.onclick = () => selectRow(newRow, columns[0], columns[4], columns[5], columns[6]);
                         tableBody.appendChild(newRow);
