@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV M3U Generator</title>
     <style>
+        #NextSteps {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); 
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -123,27 +133,26 @@
         <div class="modal-content">
             <span class="close" id="closeModalNextSteps">&times;</span>
             <h3>Next Steps</h3>
-            <label>
-                    1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example).
+           
+            <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label> <br>
 
-                    2. Insert the USB with the edited M3U file in the streaming device
+            <label>2. Insert the USB with the edited M3U file in the streaming device </label> <br>
 
-                    3. Open TiviMate and go to "Settings"
+            <label>3. Open TiviMate and go to "Settings" </label> <br>
 
-                    4. Select "Playlists"
+            <label>4. Select "Playlists" </label> <br>
+ 
+            <label>5. Select "Add Playlist' </label> <br>
 
-                    5. Select "Add Playlist'
+            <label>6. Select "M3U playlist" </label> <br>
 
-                    6. Select "M3U playlist"
+            <label>7. Click "Select Local Playlist" </label> <br>
 
-                    7. Click "Select Local Playlist"
+            <label>8. Click the USB Drive and select the modified .M3U file </label> <br>
 
-                    8. Click the USB Drive and select the modified .M3U file 
-
-                    9. When asked for an EPG URL Enter this:
-            </label> <label id="EPG"> </label><br>
-            10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG:
-            <label id="GitHub_EPG"> </label>
+            <label>9. When asked for an EPG URL Enter this: </label>  <label id="EPG"> </label><br>
+            
+            <label>10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> <label id="GitHub_EPG"> </label>
             <br>
         </div>
     </div>
