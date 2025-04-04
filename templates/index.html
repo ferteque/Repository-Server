@@ -92,18 +92,7 @@
       </div>
     </div>
 
-    <script>
-        function switchTab(tab) {
-            document.getElementById("m3u-content").classList.remove("active");
-            document.getElementById("xtream-content").classList.remove("active");
-            document.getElementById("tab-m3u").classList.remove("active");
-            document.getElementById("tab-xtream").classList.remove("active");
-
-            document.getElementById(`${tab}-content`).classList.add("active");
-            document.getElementById(`tab-${tab}`).classList.add("active");
-        }
-
-    <div id="NextSteps" class="modal">
+     <div id="NextSteps" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Next Steps</h3>
@@ -139,6 +128,17 @@
     <input type="hidden" id="password">
 
     <script>
+
+    <script>
+        function switchTab(tab) {
+            document.getElementById("m3u-content").classList.remove("active");
+            document.getElementById("xtream-content").classList.remove("active");
+            document.getElementById("tab-m3u").classList.remove("active");
+            document.getElementById("tab-xtream").classList.remove("active");
+
+            document.getElementById(`${tab}-content`).classList.add("active");
+            document.getElementById(`tab-${tab}`).classList.add("active");
+        }
         const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; 
 
         async function loadCSV() {
