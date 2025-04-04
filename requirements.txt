@@ -2,3 +2,4 @@ Flask
 requests
 flask-cors
 gunicorn
+Jinja2
