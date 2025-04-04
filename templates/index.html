@@ -49,6 +49,32 @@
             font-weight: bold;
             cursor: pointer;
         }
+        .tab {
+            display: flex;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tab div {
+            padding: 10px;
+            margin: 0 5px;
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+        .tab div.active {
+            background-color: #bbb;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -66,8 +92,7 @@
         <tbody id="tableBody"></tbody>
     </table>
 
-<div id="credentials" class="modal">
-    <div class="modal-content">
+<div id="credentials">
         <div class="tab">
             <div id="tab-m3u" class="active" onclick="switchTab('m3u')">M3U</div>
             <div id="tab-xtream" onclick="switchTab('xtream')">Xtream</div>
@@ -88,8 +113,6 @@
             <label>Password: <input type="password" id="passwordX"></label><br>
             <button onclick="submitForm()">Generate Xtream</button>
         </div>
-
-      </div>
     </div>
 
      <div id="NextSteps" class="modal">
