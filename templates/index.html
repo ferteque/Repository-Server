@@ -268,11 +268,6 @@
             let selectedID = document.getElementById("selectedID").value;
             let m3uUrl = document.getElementById("m3uUrl").value;
 
-            if (!selectedID || !dns || !username || !password) {
-                alert("Please fill in all fields.");
-                return;
-            }
-
             alert(`Processing M3U file for ID: ${selectedID} with DNS: ${dns}`);
 
             const postData = {
