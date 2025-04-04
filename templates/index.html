@@ -238,7 +238,7 @@
         function submitM3U() {
             try {
                 let m3uUrlUser = document.getElementById("m3uUrlUser").value;
-                let url = new URL(m3uUrl);
+                let url = new URL(m3uUrlUser);
                 let params = new URLSearchParams(url.search);
         
                 let username = params.get("username");
