@@ -243,7 +243,8 @@
                 document.getElementById("usernameX").value = username;
                 document.getElementById("passwordX").value = password;
                 
-                return submitForm();
+                submitForm();
+                return null;
             } catch (error) {
                 console.error("Error extracting M3U details:", error);
                 return null;
