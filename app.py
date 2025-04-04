@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, render_template
+from flask import Flask, request, jsonify, send_file
 import requests
 import re
 from flask_cors import CORS
@@ -23,7 +23,7 @@ def process():
     password = data['password']
     m3u_url = data['m3uUrl']
 
-    # Extraer el ID del archivo de Google Drive
+    
     match = re.search(r"[-\w]{25,}", m3u_url)
     if not match:
         return "Error: Could not extract the file ID from the URL.", 400
@@ -31,13 +31,13 @@ def process():
     file_id = match.group(0)
     download_url = f"https://drive.google.com/uc?id={file_id}&export=download"
 
-    # Descargar el archivo M3U
+    
     file_response = requests.get(download_url)
     original_filename = "original_playlist.m3u"
     with open(original_filename, "wb") as file:
         file.write(file_response.content)
 
-    # Leer y modificar el archivo
+   
     with open(original_filename, "r", encoding="utf-8") as file:
         file_content = file.read()
 
@@ -45,7 +45,6 @@ def process():
     file_content = file_content.replace("USERNAME", username)
     file_content = file_content.replace("PASSWORD", password)
 
-    # Guardar el archivo final
     modified_filename = f"modified_playlist_{id_selected}.m3u"
     with open(modified_filename, "w", encoding="utf-8") as file:
         file.write(file_content)
