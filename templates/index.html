@@ -347,6 +347,15 @@
         document.getElementById("tab-xtream").addEventListener("click", function() {
             switchTab('xtream');
         });
+       document.querySelectorAll('tr').forEach(element => {
+             element.addEventListener('click', function(event) {
+                 gtag('event', 'click', {
+                     'event_category': 'Row Clicks',
+                     'event_label': event.target.innerText
+                 });
+             });
+         });
+       
         function switchTab(tab) {
             document.getElementById("m3u-content").classList.remove("active");
             document.getElementById("xtream-content").classList.remove("active");
