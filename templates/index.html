@@ -231,8 +231,12 @@
     </style>
 </head>
 <body>
+<h2>
+  You can contribute to this project with your donations.
+  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer">Donate Here</a>
+</h2> <br>
+<h2>Select a Service</h2>
 
-    <h2>Select a Service</h2>
     <table border="1">
         <thead>
             <tr>
@@ -241,6 +245,7 @@
                 <th>Countries</th>
                 <th>Main Categories</th>
                 <th>Last Updated</th>
+                <th>Donations</th>
             </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -397,8 +402,13 @@
                             <td>${columns[1]}</td>
                             <td>${columns[2]}</td>
                             <td>${columns[3]}</td>
-                            <td>${columns[7]}</td>
-                        `;
+                            <td>${columns[7]}</td>`
+                            if (isValidUrl(columns[8])) {
+                                newRow.innerHTML += `<td><a href="${columns[8]}" target="_blank">Donate</a></td>`;
+                              } else {
+                                newRow.innerHTML += `<td style="color:gray;">N/A</td>`;
+                              }
+                        ;
                         newRow.onclick = () => selectRow(newRow, columns[0], columns[4], columns[5], columns[6], columns[1]);
                         tableBody.appendChild(newRow);
                     }
