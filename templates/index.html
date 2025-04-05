@@ -247,7 +247,9 @@
             <span class="close" id="closeModalNextSteps">&times;</span>
             <h3>Next Steps</h3>
            
-            <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label> <br>
+            <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). 
+            or refer to this comment to use google drive instead
+            https://www.reddit.com/r/IPTVGroupBuy/comments/1jfv8jb/comment/ml7rebj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button</label> <br>
 
             <label>2. Insert the USB with the edited M3U file in the streaming device </label> <br>
 
@@ -304,6 +306,8 @@
         }
         const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; 
 
+       const cleanCell = (value) => value.replace(/^"|"$/g, '');
+       
         async function loadCSV() {
             try {
                 let response = await fetch(CSV_URL, { redirect: "follow" });
@@ -315,6 +319,9 @@
 
                 rows.forEach(row => {
                     let columns = row.split(",");
+                   
+                    row.map(cell => cleanCell(cell));
+
                     if (columns.length >= 5) {
                         let newRow = document.createElement("tr");
                         newRow.innerHTML = `
