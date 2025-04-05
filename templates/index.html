@@ -472,7 +472,12 @@
             let password = document.getElementById("passwordX").value;
             let selectedID = document.getElementById("selectedID").value;
             let m3uUrl = document.getElementById("m3uUrl").value;
-
+           
+            if (!selectedID || !dns || !username || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+           
             showLoading();
 
             dns = dns.replace(/^https?:\/\//, '');
