@@ -198,6 +198,22 @@
             display: inline-block;
             max-width: 90%; 
         }
+
+       .spinner {
+          margin-top: 50px;
+          width: 60px;
+          height: 60px;
+          border: 6px solid #ccc;
+          border-top: 6px solid #3498db;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          display: inline-block;
+        }
+      
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -279,6 +295,15 @@
         </div>
     </div>
 
+   <div id="Loading" class="modal2">
+    <div class="modal-content2">
+        <span class="close" id="closeModalLoading">&times;</span>
+           <h3>PLEASE WAIT</h3>
+            <div class="spinner"></div>
+                <p>Your M3U file is processing, please wait...</p>
+            </div>
+   </div>
+
     <input type="hidden" id="selectedID">
     <input type="hidden" id="m3uUrl">
     <input type="hidden" id="dns">
@@ -290,6 +315,7 @@
         document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
         document.getElementById("submitForm").addEventListener("click", submitForm);
         document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
+        document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
         document.getElementById("tab-m3u").addEventListener("click", function() {
             switchTab('m3u');
         });
@@ -370,6 +396,9 @@
 
         function closeModalNextSteps() {
             document.getElementById("NextSteps").style.display = "none";
+        }
+        function closeModalLoading() {
+            document.getElementById("Loading").style.display = "none";
         }
         
         function submitM3U() {
