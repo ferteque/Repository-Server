@@ -44,6 +44,10 @@ def process():
     file_content = file_content.replace("USERNAME", username)
     file_content = file_content.replace("PASSWORD", password)
 
+    file_content = file_content.replace("dns", dns)
+    file_content = file_content.replace("username", username)
+    file_content = file_content.replace("password", password)
+
     modified_filename = f"modified_playlist_{id_selected}.m3u"
     with open(modified_filename, "w", encoding="utf-8") as file:
         file.write(file_content)
