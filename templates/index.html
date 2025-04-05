@@ -305,8 +305,6 @@
             document.getElementById(`tab-${tab}`).classList.add("active");
         }
         const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; 
-
-       const cleanCell = (value) => value.replace(/^"|"$/g, '');
        
         async function loadCSV() {
             try {
@@ -318,9 +316,12 @@
                 let tableBody = document.getElementById("tableBody");
 
                 rows.forEach(row => {
-                    let columns = row.split(",");
-                   
-                    columns.map(cell => cleanCell(cell));
+                    let columns = row.split(",").map(cell => {
+                                                 return cell
+                                                   .trim()                             
+                                                   .replace(/^"|"$/g, '')              
+                                                   .replace(/""/g, '"');
+                                                });
 
                     if (columns.length >= 5) {
                         let newRow = document.createElement("tr");
