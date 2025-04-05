@@ -329,13 +329,6 @@
     <input type="hidden" id="password">
 
     <script>
-
-       document.getElementById('xtreamForm').onsubmit = function(event) {
-          if (!this.checkValidity()) {
-            event.preventDefault();  
-            alert("Please fill out all required fields.");
-          }
-        };
        
         document.getElementById("submitM3U").addEventListener("click", submitM3U);
         document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
@@ -454,7 +447,7 @@
         
                 let username = params.get("username");
                 let password = params.get("password");
-                let dns = `${url.host}`; // Extrae solo el dominio
+                let dns = `${url.host}`; 
         
                 if (!username || !password) {
                     return null;
@@ -473,6 +466,7 @@
         }
         
         function submitForm() {
+           
             let dns = document.getElementById("dnsX").value;
             let username = document.getElementById("usernameX").value;
             let password = document.getElementById("passwordX").value;
