@@ -320,7 +320,7 @@
                 rows.forEach(row => {
                     let columns = row.split(",");
                    
-                    row.map(cell => cleanCell(cell));
+                    columns.map(cell => cleanCell(cell));
 
                     if (columns.length >= 5) {
                         let newRow = document.createElement("tr");
