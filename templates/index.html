@@ -334,6 +334,20 @@
 
             document.getElementById(`${tab}-content`).classList.add("active");
             document.getElementById(`tab-${tab}`).classList.add("active");
+           
+            if (tab == 'm3u') {
+               document.getElementById('m3uUrlUser').required = true;
+               document.getElementById('dnsX').required = false;
+               document.getElementById('usernameX').required = false;
+               document.getElementById('passwordX').required = false;
+            }
+            else {
+               document.getElementById('m3uUrlUser').required = false;
+               document.getElementById('dnsX').required = true;
+               document.getElementById('usernameX').required = true;
+               document.getElementById('passwordX').required = true;
+            }
+           
         }
         const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; 
        
