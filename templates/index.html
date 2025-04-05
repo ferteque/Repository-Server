@@ -231,12 +231,36 @@
     </style>
 </head>
 <body>
-<h2>
-  You can contribute to this project with your donations.
-  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer">Donate Here</a>
-</h2> <br>
-<h2>Select a Service</h2>
+       <div style="border: 1px solid #ccc; background-color: #fdfdfd; padding: 20px; border-radius: 8px; margin-top: 30px; font-family: sans-serif;">
+  <h3 style="color: #c0392b;">📜 Disclaimer</h3>
+  <p>
+    This tool is intended for personal use only. The M3U files available here are pre-configured templates that do <strong>not contain any active credentials or direct access to content</strong>.
+  </p>
+  <p>
+    To use any list, the user must enter their own access details obtained through a <strong>legitimate IPTV provider</strong>. Without such information, the lists are non-functional and do not enable access to any streams.
+  </p>
+  <p>
+    We do not store, provide, or promote access to copyrighted content. The responsibility for the use of the generated files lies entirely with the user.
+  </p>
+  <p style="font-weight: bold; background-color: #fff4e6; padding: 10px; border-left: 4px solid #f39c12;">
+    ✅ By using this service, you confirm that you are authorized to access the content and services associated with the credentials you provide.
+  </p>
+</div>
 
+ 
+ <div style="border: 1px solid #ccc; background-color: #fdfdfd; padding: 20px; border-radius: 8px; margin-top: 30px; font-family: sans-serif;">   
+<h2 style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  You can contribute to this project with your donations.
+</h2>
+<div style="text-align: center; margin-top: 10px;">
+  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer" 
+     style="display: inline-block; background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">
+    ❤️ Donate on Ko-fi
+  </a>
+</div>
+</div>
+<br>
+<br>
     <table border="1">
         <thead>
             <tr>
@@ -413,7 +437,9 @@
                             <td>${columns[3]}</td>
                             <td>${columns[7]}</td>`
                             if (isValidUrl(columns[8])) {
-                                newRow.innerHTML += `<td><a href="${columns[8]}" target="_blank">Donate</a></td>`;
+                                newRow.innerHTML += `<td><a href="${columns[8]}" target="_blank" style="display: inline-block;
+                                 background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;
+                                 box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">Donate</a></td>`;
                               } else {
                                 newRow.innerHTML += `<td style="color:gray;">N/A</td>`;
                               }
