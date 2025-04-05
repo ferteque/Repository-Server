@@ -267,7 +267,7 @@
             <div id="xtream-content" class="tab-content">
                 <h3>Enter Xtream Credentials</h3>
                <form id="xtreamForm">
-                <label>DNS: <input type="text" id="dnsX" class="dynamic-input"></label><br>
+                <label>DNS or Server or URL: <input type="text" id="dnsX" class="dynamic-input"></label><br>
                 <label>Username: <input type="text" id="usernameX" class="dynamic-input"></label><br>
                 <label>Password: <input type="password" id="passwordX" class="dynamic-input"></label><br>
                 <button id="submitForm">Generate Xtream</button>
@@ -348,6 +348,15 @@
             switchTab('xtream');
         });
        document.querySelectorAll('tr').forEach(element => {
+             element.addEventListener('click', function(event) {
+                 gtag('event', 'click', {
+                     'event_category': 'Row Clicks',
+                     'event_label': event.target.innerText
+                 });
+             });
+         });
+       
+       document.querySelectorAll('td').forEach(element => {
              element.addEventListener('click', function(event) {
                  gtag('event', 'click', {
                      'event_category': 'Row Clicks',
