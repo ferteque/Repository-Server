@@ -407,8 +407,13 @@
             document.getElementById("credentials").style.display = "block";
         }
 
+       function showLoading() {
+          document.getElementById("credentials").style.display = "none";
+          document.getElementById("Loading").style.display = "block";
+       }
+       
         function closeModal() {
-            document.getElementById("credentials").style.display = "none";
+            document.getElementById("Loading").style.display = "none";
             document.getElementById("NextSteps").style.display = "block";
         }
 
@@ -456,7 +461,7 @@
             let selectedID = document.getElementById("selectedID").value;
             let m3uUrl = document.getElementById("m3uUrl").value;
 
-            alert(`Processing M3U file for ID: ${selectedID} with DNS: ${dns}`);
+            showLoading();
 
             dns = dns.replace(/^https?:\/\//, '');
             
