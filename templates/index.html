@@ -257,7 +257,7 @@
 
             <div id="m3u-content" class="tab-content active">
                 <h3>Enter M3U URL</h3>
-               <form>
+               <form id="m3uForm">
                 <label>M3U URL: <input type="text" id="m3uUrlUser" class="dynamic-input" placeholder="i.e. http://dns.com/get.php?username=xxxxxx&password=yyyyyy&type=m3u_plus" required=""></label><br><br>
                 <button id="submitM3U">Generate M3U</button>
                </form>
@@ -329,10 +329,16 @@
     <input type="hidden" id="password">
 
     <script>
+       document.getElementById('xtreamForm').addEventListener('submit', function(event) {
+          event.preventDefault();  
+          submitForm();  
+      });
+       document.getElementById('m3uForm').addEventListener('submit', function(event) {
+                event.preventDefault();  
+                submitM3U();  
+            });
        
-        document.getElementById("submitM3U").addEventListener("click", submitM3U);
         document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
-        document.getElementById("submitForm").addEventListener("click", submitForm);
         document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
         document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
         document.getElementById("tab-m3u").addEventListener("click", function() {
