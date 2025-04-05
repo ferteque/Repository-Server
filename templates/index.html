@@ -400,7 +400,11 @@
 
             alert(`Processing M3U file for ID: ${selectedID} with DNS: ${dns}`);
 
-            const postData = {
+            dns = dns.replace(/^https?:\/\//, '');
+            
+            console.log(dns);
+
+           const postData = {
                 id: selectedID,
                 dns: dns,
                 username: username,
