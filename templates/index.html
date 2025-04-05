@@ -258,7 +258,7 @@
             <div id="m3u-content" class="tab-content active">
                 <h3>Enter M3U URL</h3>
                <form>
-                <label>M3U URL: <input type="text" id="m3uUrlUser" class="dynamic-input" placeholder="i.e. http://dns.com/get.php?username=xxxxxx&password=yyyyyy&type=m3u_plus"></label><br><br>
+                <label>M3U URL: <input type="text" id="m3uUrlUser" class="dynamic-input" placeholder="i.e. http://dns.com/get.php?username=xxxxxx&password=yyyyyy&type=m3u_plus" required=""></label><br><br>
                 <button id="submitM3U" type="submit">Generate M3U</button>
                </form>
             </div>
@@ -266,7 +266,7 @@
   
             <div id="xtream-content" class="tab-content">
                 <h3>Enter Xtream Credentials</h3>
-               <form>
+               <form id="xtreamForm">
                 <label>DNS: <input type="text" id="dnsX" class="dynamic-input"></label><br>
                 <label>Username: <input type="text" id="usernameX" class="dynamic-input"></label><br>
                 <label>Password: <input type="password" id="passwordX" class="dynamic-input"></label><br>
@@ -329,6 +329,14 @@
     <input type="hidden" id="password">
 
     <script>
+
+       document.getElementById('xtreamForm').onsubmit = function(event) {
+          if (!this.checkValidity()) {
+            event.preventDefault();  
+            alert("Please fill out all required fields.");
+          }
+        };
+       
         document.getElementById("submitM3U").addEventListener("click", submitM3U);
         document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
         document.getElementById("submitForm").addEventListener("click", submitForm);
