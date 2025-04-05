@@ -352,6 +352,15 @@
         document.getElementById("tab-xtream").addEventListener("click", function() {
             switchTab('xtream');
         });
+
+      function isValidUrl(url) {
+           try {
+             new URL(url);
+             return true;
+           } catch (e) {
+             return false;
+           }
+         }
        
         function switchTab(tab) {
             document.getElementById("m3u-content").classList.remove("active");
