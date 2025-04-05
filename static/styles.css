@@ -229,3 +229,14 @@
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
+
+        html, body {
+            height: 100%; 
+            overflow-x: hidden; 
+        }
+
+        #content-container {
+            flex-grow: 1; 
+            overflow-y: auto; 
+            padding-bottom: 80px; 
+        }
