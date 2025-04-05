@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV M3U Generator</title>
-    
+
 </head>
 <body>
        <div style="border: 1px solid #ccc; background-color: #fdfdfd; padding: 20px; border-radius: 8px; margin-top: 30px; font-family: sans-serif;">
@@ -311,10 +311,10 @@
         
         function submitForm() {
            
-            let dns = document.getElementById("dnsX").value;
-            let username = document.getElementById("usernameX").value;
-            let password = document.getElementById("passwordX").value;
-            let selectedID = document.getElementById("selectedID").value;
+            let dns = document.getElementById("dnsX").value.trim();
+            let username = document.getElementById("usernameX").value.trim();
+            let password = document.getElementById("passwordX").value.trim();
+            let selectedID = document.getElementById("selectedID").value.trim();
             let m3uUrl = document.getElementById("m3uUrl").value;
            
             if (!selectedID || !dns || !username || !password) {
