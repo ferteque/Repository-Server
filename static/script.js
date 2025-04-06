@@ -134,6 +134,18 @@
             function closeModalLoading() {
                 document.getElementById("Loading").style.display = "none";
             }
+
+              const openShareModal = document.getElementById("openShareModal");
+              const closeShareModal = document.getElementById("closeShareModal");
+              const shareModal = document.getElementById("shareModal");
+
+              openShareModal.onclick = () => {
+                shareModal.style.display = "block";
+              };
+
+              closeShareModal.onclick = () => {
+                shareModal.style.display = "none";
+              };
             
             function submitM3U() {
                 try {

@@ -11,9 +11,10 @@
         
         
         #tab-m3u.active, #tab-xtream:hover, #tab-xtream.active, #tab-m3u:hover {
-            background-color: #007bff;  
+            background-color: #fff4e6;  
             color: white;  
         }
+
        #NextSteps {
             display: none; 
             position: fixed;
@@ -25,6 +26,17 @@
             background-color: rgba(0, 0, 0, 0.7);
        }
         
+        #shareModal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 25px;
+       } 
         #credentials, #Loading {
             display: none; 
             position: fixed;
@@ -240,4 +252,131 @@
             overflow-y: auto;  
             padding: 20px;
             box-sizing: border-box;
+        }
+
+        .share-box {
+          background-color: #fff4e6;
+          padding: 20px;
+          margin: 30px auto;
+          border-radius: 10px;
+          max-width: 600px;
+          text-align: center;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .share-box button {
+            cursor: pointer;
+            display: inline-block;
+            background-color: #FF5E5B;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow-y: auto;
+          background-color: rgba(0,0,0,0.6);
+        }
+
+        .modal-content {
+          background-color: white;
+          margin: 10% auto;
+          padding: 30px;
+          border-radius: 10px;
+          max-width: 600px;
+          position: relative;
+        }
+
+        .modal .close {
+          position: absolute;
+          top: 15px;
+          right: 20px;
+          font-size: 24px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        #Disclaimer{
+            border: 1px solid #ccc;
+            background-color: #fdfdfd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-family: sans-serif;
+        }
+
+        #Kofi{
+            display: inline-block;
+            background-color: #FF5E5B;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+
+        .modal-warning {
+          background-color: #fff3cd;
+          border: 1px solid #ffeeba;
+          color: #856404;
+          padding: 12px 16px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+          font-size: 25px;
+          font-family: sans-serif;
+        }
+
+
+        .table-style {
+          background-color: #fff4e6;
+          padding: 20px;
+          margin: 30px auto;
+          border-radius: 10px;
+          max-width: 95%;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          overflow-x: auto;
+        }
+
+        .styled-table {
+          border-collapse: collapse;
+          width: 100%;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 15px;
+          background-color: #ffffff;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .styled-table thead tr {
+          background-color: #FF5E5B;
+          color: white;
+        }
+
+        .styled-table th, .styled-table td {
+          padding: 12px 16px;
+          text-align: center;
+          border-bottom: 1px solid #f2f2f2;
+        }
+
+        .styled-table tbody tr {
+          transition: background-color 0.2s ease;
+          cursor: pointer;
+        }
+
+        .styled-table tbody tr:hover {
+          background-color: #fff0e0;
         }

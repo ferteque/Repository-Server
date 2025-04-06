@@ -15,11 +15,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV M3U Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
-        <!--<link rel="stylesheet" href="../static/styles.css">-->
+       <!-- <link rel="stylesheet" href="../static/styles.css">-->
 </head>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- <script src="../static/script.js"></script> -->
 <body>
     <div id="content-container">
-       <div style="border: 1px solid #ccc; background-color: #fdfdfd; padding: 20px; border-radius: 8px; margin-top: 30px; font-family: sans-serif;">
+       <div id="Disclaimer">
   <h3 style="color: #c0392b;">📜 Disclaimer</h3>
   <p>
     This tool is intended for personal use only. The M3U files available here are pre-configured templates that do <strong>not contain any active credentials or direct access to content</strong>.
@@ -35,22 +37,80 @@
   </p>
 </div>
 
+
+<div id="shareSection" class="share-box">
+  <h2>Want to share your own personalized IPTV list?</h2>
+  <p>If you’ve created a custom playlist and want to share it with the community, follow a few simple steps.</p>
+  <button id="openShareModal">Share my own personalized list</button>
+</div>
+
+
+<div id="shareModal" class="modal2">
+  <div class="modal-content2">
+    <span class="close" id="closeShareModal">&times;</span>
+    <div class="modal-warning">
+      ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
+      It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
+    </div>
+    <h3>Steps to Share Your Playlist</h3><br>
+    <ol>
+      <li>Download your M3U file from your IPTV Editor.</li><br>
+      <li>Open it using Notepad (Windows) or any text editor.</li><br>
+        <li>
+          Use the <strong>"Search and Replace"</strong> function to replace your personal credentials. <br><br>
+
+          <u>For example:</u><br><br>
+
+          <code>http://xxxxx.xxxx-xxx/12345678/12345678</code><br>
+          becomes → <code>http://DNS/USERNAME/PASSWORD</code><br><br>
+
+          ⚠️ <em>Some playlists may use a different structure, such as:</em><br>
+          <code>http://xxxxx.xxxx-xxx/live/12345678/12345678</code><br>
+          which should become → <code>http://DNS/live/USERNAME/PASSWORD</code><br><br>
+
+          <em>Be sure to replace all variations to properly anonymize your playlist.</em>
+        </li><br>
+        <li>
+          Repeat the replacement for <strong>Movies</strong> and <strong>TV Shows</strong> if included.<br><br>
+
+          <u>For example:</u><br><br>
+
+          <strong>Movies</strong><br>
+          <code>http://xxxx.xxx-xxx/movie/12345678/12345678</code><br>
+          becomes → <code>http://DNS/movie/USERNAME/PASSWORD</code><br><br>
+
+          <strong>TV Shows</strong><br>
+          <code>http://xxxx.xxx-xxx/series/12345678/12345678</code><br>
+          becomes → <code>http://DNS/series/USERNAME/PASSWORD</code>
+        </li><br>
+      <li>
+        Once you're done, upload your curated file using this Google Form:  
+        <a href="https://forms.gle/ufrnmrwF5RhGZXyJA" target="_blank" rel="noopener noreferrer">
+          Submit via Google Form
+        </a>
+      </li><br>
+    </ol>
+    <p>We’ll review and publish it if it meets the quality standards. Thanks for contributing!</p>
+  </div>
+</div>
 <br>
-<h2>Select by clicking on any of the rows:</h2>
+<h2 style="text-align:center; font-family: sans-serif;">Select by clicking on any of the rows:</h2>
 <br>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Service</th>
-                <th>Countries</th>
-                <th>Main Categories</th>
-                <th>Last Updated</th>
-                <th>List Owner Donations</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-    </table>
+<div class="share-box table-style">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Service</th>
+        <th>Countries</th>
+        <th>Main Categories</th>
+        <th>Last Updated</th>
+        <th>List Owner Donations</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
 
 <div id="credentials" class="modal2">
     <div class="modal-content2">
@@ -139,15 +199,10 @@
   You can contribute to this project with your donations.
 </h2>
 <div style="margin-top: 10px;">
-  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer" 
-     style="display: inline-block; background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">
+  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer" id="Kofi">
     ❤️ Donate on Ko-fi
   </a>
 </div>
 </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}">
-      
-    </script>
 </body>
 </html>
