@@ -231,7 +231,7 @@
 
                     if (uploadCheckbox) {
                         uploadToGoogleDrive(blob, filename).then(driveLink => {
-                            closeModal();
+                            closeModalDrive();
                         }).catch(err => {
                             console.error('Google Drive upload failed', err);
                             alert('Failed to upload to Google Drive. Try again or download manually.');
