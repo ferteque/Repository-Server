@@ -11,17 +11,20 @@
       gtag('config', 'G-ZGZ91QQZKJ');
     </script>
 
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curated M3U Lists Repository</title>
+    <title>IPTV M3U Generator</title>
    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
        <!--  <link rel="stylesheet" href="../static/styles.css">-->
 </head>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <!--<script src="../static/script.js"></script>-->
+    <script src="https://apis.google.com/js/api.js"></script>
 <body>
     <div id="content-container">
-        <h1 class="page-title">Welcome to Ferteque's Repository</h1>
        <div id="Disclaimer">
   <h3 style="color: #c0392b;">📜 Disclaimer</h3>
   <p>
@@ -129,6 +132,13 @@
                 <h3>Enter M3U URL</h3>
                <form id="m3uForm">
                 <label>M3U URL: <input type="text" id="m3uUrlUser" class="dynamic-input" placeholder="i.e. http://dns.com/get.php?username=xxxxxx&password=yyyyyy&type=m3u_plus" required=""></label><br><br>
+                  <div class="custom-checkbox-container">
+                    <label for="uploadToDriveM3U" class="custom-checkbox-label">
+                        <input type="checkbox" id="uploadToDriveM3U" class="custom-checkbox">
+                        <span class="checkbox-text">Upload modified M3U directly to my Google Drive (This will save some manual steps later)</span>
+                    </label>
+                </div> <br><br>
+
                 <button id="submitM3U">Generate M3U</button>
                </form>
             </div>
@@ -139,6 +149,13 @@
                 <label>DNS or Server or URL: <input type="text" id="dnsX" class="dynamic-input"></label><br>
                 <label>Username: <input type="text" id="usernameX" class="dynamic-input"></label><br>
                 <label>Password: <input type="password" id="passwordX" class="dynamic-input"></label><br>
+                  <div class="custom-checkbox-container">
+                    <label for="uploadToDriveXtream" class="custom-checkbox-label">
+                        <input type="checkbox" id="uploadToDriveXtream" class="custom-checkbox">
+                        <span class="checkbox-text">Upload modified M3U directly to my Google Drive (This will save some manual steps later)</span>
+                    </label>
+                </div> <br><br>
+
                 <button id="submitForm">Generate Xtream</button>
                </form>
             </div>
@@ -150,10 +167,9 @@
             <span class="close" id="closeModalNextSteps">&times;</span>
             <h3>Next Steps</h3>
            
-            <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label> <br>
-            <a href="https://www.reddit.com/r/IPTVGroupBuy/comments/1jfv8jb/comment/ml7rebj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" target="_blank" rel="noopener noreferrer"> 
-               Or refer to this comment to use google drive instead. </a>
-             <br> <br>
+            <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label>
+
+             <br>
  
              <a href="https://www.reddit.com/r/IPTVGroupBuy/comments/1jfv8jb/comment/mlrrh8w/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" target="_blank" rel="noopener noreferrer"> 
                Another user found this solution with RS File </a>
@@ -178,6 +194,40 @@
             </div> <br>
             
             <label>(Optional) 10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
+            <div class="input-wrapper">
+                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
+            </div>
+            <br>
+        </div>
+    </div>
+
+     <div id="NextStepsDrive" class="modal2">
+        <div class="modal-content2">
+            <span class="close" id="closeModalNextStepsDrive">&times;</span>
+            <h3>Next Steps</h3>
+           
+            <label>1. Open your IPTV Player and go to "Settings". </label> <br>
+
+            <label>2. Select "Playlists". </label> <br>
+ 
+            <label>3. Select "Add Playlist'. </label> <br>
+
+            <label>4. Select "M3U playlist". </label> <br>
+
+            <label>5. Click "M3U URL". </label> <br>
+
+            <label>6. Enter this URL: </label> <br>
+
+            <div class="input-wrapper">
+                <input type="text" id="DriveDownloadLink" class="dynamic-input" disabled>
+            </div> <br>
+
+            <label>7. When asked for an EPG URL Enter this: </label>  
+            <div class="input-wrapper">
+                <input type="text" id="EPG" class="dynamic-input" disabled>
+            </div> <br>
+            
+            <label>(Optional) 8. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
             <div class="input-wrapper">
                 <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
             </div>
