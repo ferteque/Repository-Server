@@ -10,6 +10,7 @@
            
             document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
             document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
+            document.getElementById("closeModalNextStepsDrive").addEventListener("click", closeModalNextStepsDrive);
             document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
             document.getElementById("tab-m3u").addEventListener("click", function() {
                 switchTab('m3u');
@@ -127,6 +128,12 @@
                 document.getElementById("NextSteps").style.display = "block";
             }
 
+            function closeModalDrive() {
+                document.getElementById("Loading").style.display = "none";
+                document.getElementById("NextStepsDrive").style.display = "block";
+            }
+
+
             function closeModalCredentials() {
                 document.getElementById("credentials").style.display = "none";
             }
@@ -134,6 +141,11 @@
             function closeModalNextSteps() {
                 document.getElementById("NextSteps").style.display = "none";
             }
+
+            function closeModalNextStepsDrive() {
+                document.getElementById("NextStepsDrive").style.display = "none";
+            }
+
             function closeModalLoading() {
                 document.getElementById("Loading").style.display = "none";
             }
@@ -210,22 +222,34 @@
                     body: JSON.stringify(postData)
                 })
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
+                    if (!response.ok) throw new Error('Network response was not ok');
                     return response.blob();
                 })
                 .then(blob => {
-                    const link = document.createElement('a');
-                    const url = window.URL.createObjectURL(blob);
-                    link.href = url;
-                    link.download = `modified_playlist_${selectedID}.m3u`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    window.URL.revokeObjectURL(url);
-                    closeModal(); 
+                    const filename = `modified_playlist_${selectedID}.m3u`;
+                    const uploadCheckbox = document.getElementById('uploadToDriveM3U')?.checked || document.getElementById('uploadToDriveXtream')?.checked;
+
+                    if (uploadCheckbox) {
+                        uploadToGoogleDrive(blob, filename).then(driveLink => {
+                            closeModal();
+                        }).catch(err => {
+                            console.error('Google Drive upload failed', err);
+                            alert('Failed to upload to Google Drive. Try again or download manually.');
+                        });
+                    } else {
+                        // Direct Download
+                        const link = document.createElement('a');
+                        const url = window.URL.createObjectURL(blob);
+                        link.href = url;
+                        link.download = filename;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+                        closeModal();
+                    }
                 })
+
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Error processing M3U file');
@@ -233,4 +257,68 @@
             }
 
             loadCSV();
+
+const CLIENT_ID = '385455010248-stgruhhb6geh32kontlgi7g929tmfgqa.apps.googleusercontent.com';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+function uploadToGoogleDrive(blob, filename) {
+  return new Promise((resolve, reject) => {
+    gapi.load('client', async () => {
+      try {
+        await gapi.client.init({});
+
+        const tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: async (tokenResponse) => {
+            const accessToken = tokenResponse.access_token;
+
+            const metadata = {
+              name: filename,
+              mimeType: 'application/octet-stream'
+            };
+
+            const form = new FormData();
+            form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+            form.append('file', blob);
+
+            const uploadRes = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
+              method: 'POST',
+              headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
+              body: form
+            });
+
+            const file = await uploadRes.json();
+
+            // Set file to be publicly accessible
+            await fetch(`https://www.googleapis.com/drive/v3/files/${file.id}/permissions`, {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                role: 'reader',
+                type: 'anyone'
+              })
+            });
+
+            const link = `https://drive.google.com/uc?export=download&id=${file.id}&confirm=true`;
+            document.getElementById('DriveDownloadLink').value = link;
+            resolve(link);
+          }
         });
+
+        // Launch the auth flow
+        tokenClient.requestAccessToken();
+      } catch (err) {
+        reject(err);
+      }
+    });
+  });
+}
+
+
+        });
+
+
