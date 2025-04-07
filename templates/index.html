@@ -19,6 +19,7 @@
 </head>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <!--<script src="../static/script.js"></script>-->
+    <script src="https://apis.google.com/js/api.js"></script>
 <body>
     <div id="content-container">
        <div id="Disclaimer">
@@ -128,6 +129,11 @@
                 <h3>Enter M3U URL</h3>
                <form id="m3uForm">
                 <label>M3U URL: <input type="text" id="m3uUrlUser" class="dynamic-input" placeholder="i.e. http://dns.com/get.php?username=xxxxxx&password=yyyyyy&type=m3u_plus" required=""></label><br><br>
+                <label>
+                  <input type="checkbox" id="uploadToDriveM3U">
+                  Upload modified M3U directly to my Google Drive (This will save some manual steps later)
+                </label><br><br>
+
                 <button id="submitM3U">Generate M3U</button>
                </form>
             </div>
@@ -138,6 +144,11 @@
                 <label>DNS or Server or URL: <input type="text" id="dnsX" class="dynamic-input"></label><br>
                 <label>Username: <input type="text" id="usernameX" class="dynamic-input"></label><br>
                 <label>Password: <input type="password" id="passwordX" class="dynamic-input"></label><br>
+                <label>
+                  <input type="checkbox" id="uploadToDriveXtream">
+                  Upload modified M3U directly to my Google Drive (This will save some manual steps later)
+                </label><br><br>
+
                 <button id="submitForm">Generate Xtream</button>
                </form>
             </div>
@@ -150,8 +161,11 @@
             <h3>Next Steps</h3>
            
             <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label> <br>
-            <a href="https://www.reddit.com/r/IPTVGroupBuy/comments/1jfv8jb/comment/ml7rebj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" target="_blank" rel="noopener noreferrer"> 
-               Or refer to this comment to use google drive instead. </a>
+
+            <label> If you want to directly get a URL to use as M3U URL: </label> <br>
+            <button onclick="authenticateAndUpload()">Upload to My Google Drive</button>
+            <input type="file" id="fileInput" style="display:none" />
+
              <br> <br>
  
              <a href="https://www.reddit.com/r/IPTVGroupBuy/comments/1jfv8jb/comment/mlrrh8w/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" target="_blank" rel="noopener noreferrer"> 
@@ -177,6 +191,40 @@
             </div> <br>
             
             <label>(Optional) 10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
+            <div class="input-wrapper">
+                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
+            </div>
+            <br>
+        </div>
+    </div>
+
+     <div id="NextStepsDrive" class="modal2" style="display: block">
+        <div class="modal-content2">
+            <span class="close" id="closeModalNextStepsDrive">&times;</span>
+            <h3>Next Steps</h3>
+           
+            <label>1. Open your IPTV Player and go to "Settings". </label> <br>
+
+            <label>2. Select "Playlists". </label> <br>
+ 
+            <label>3. Select "Add Playlist'. </label> <br>
+
+            <label>4. Select "M3U playlist". </label> <br>
+
+            <label>5. Click "M3U URL". </label> <br>
+
+            <label>6. Enter this URL: </label> <br>
+
+            <div class="input-wrapper">
+                <input type="text" id="DriveDownloadLink" class="dynamic-input" disabled>
+            </div> <br>
+
+            <label>7. When asked for an EPG URL Enter this: </label>  
+            <div class="input-wrapper">
+                <input type="text" id="EPG" class="dynamic-input" disabled>
+            </div> <br>
+            
+            <label>(Optional) 8. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
             <div class="input-wrapper">
                 <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
             </div>
