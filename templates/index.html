@@ -14,11 +14,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV M3U Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
-       <!-- <link rel="stylesheet" href="../static/styles.css">-->
+   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+       <!--  <link rel="stylesheet" href="../static/styles.css">-->
 </head>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <!-- <script src="../static/script.js"></script> -->
+    <script src="{{ url_for('static', filename='script.js') }}">
+    <!--<script src="../static/script.js"></script>-->
 <body>
     <div id="content-container">
        <div id="Disclaimer">
@@ -94,10 +94,11 @@
   </div>
 </div>
 <br>
+
 <br>
 <div class="share-box table-style">
  <h2 style="text-align:center; font-family: sans-serif;">Pick the list that feels right for you – just click on a row:</h2>
-  <br>
+ <br>
   <table class="styled-table">
     <thead>
       <tr>
@@ -119,6 +120,7 @@
             <div class="tab">
                 <div id="tab-m3u" class="active">M3U</div>
                 <div id="tab-xtream">Xtream</div>
+                <div id="tab-next-steps">Next Steps</div>
             </div>
         
 
@@ -150,11 +152,7 @@
             <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label> <br>
             <a href="https://www.reddit.com/r/IPTVGroupBuy/comments/1jfv8jb/comment/ml7rebj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" target="_blank" rel="noopener noreferrer"> 
                Or refer to this comment to use google drive instead. </a>
-            <br> <br>
-
-            <a href="https://www.reddit.com/r/IPTVGroupBuy/comments/1jfv8jb/comment/mlrrh8w/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" target="_blank" rel="noopener noreferrer"> 
-              Another user found this solution with RS File </a>
-            <br> <br>
+             <br> <br>
 
             <label>2. Insert the USB with the edited M3U file in the streaming device. </label> <br>
 
@@ -200,13 +198,13 @@
 </div>
 
 <div class="fixed-bottom">   
-<h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
-  You can contribute to this project with your donations.
+<h2 class="donation-call">
+  <span class="donation-icon">❤️</span>
+  Help this project grow! Your donations support new features, better performance, and a smoother experience for everyone. 
+  <br>
+  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer">Support me on Ko-fi</a>
 </h2>
-<div style="margin-top: 10px;">
-  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer" id="Kofi">
-    ❤️ Donate on Ko-fi
-  </a>
+
 </div>
 </div>
 </body>

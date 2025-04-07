@@ -17,6 +17,9 @@
             document.getElementById("tab-xtream").addEventListener("click", function() {
                 switchTab('xtream');
             });
+            document.getElementById("tab-next-steps").addEventListener("click", function() {
+                closeModal();
+            });
 
           function isValidUrl(url) {
                try {

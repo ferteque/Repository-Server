@@ -27,6 +27,7 @@
        }
         
         #shareModal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: none; 
             position: fixed;
             z-index: 1000;
@@ -255,6 +256,8 @@
         }
 
         .share-box {
+          font-weight: bold;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           background-color: #fff4e6;
           padding: 20px;
           margin: 30px auto;
@@ -265,6 +268,8 @@
         }
 
         .share-box button {
+            border: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             cursor: pointer;
             display: inline-block;
             background-color: #FF5E5B;
@@ -316,7 +321,7 @@
             font-family: sans-serif;
         }
 
-        #Kofi, #submitM3U, #submitForm{
+        #Kofi, #submitM3U, #submitForm, #{
             display: inline-block;
             background-color: #FF5E5B;
             color: white;
@@ -379,4 +384,55 @@
 
         .styled-table tbody tr:hover {
           background-color: #fff0e0;
+        }
+
+        .donation-call {
+          background-color: #fff4e6;
+          padding: 5px;
+          margin: 2px auto;
+          border-radius: 12px;
+          max-width: 700px;
+          text-align: center;
+          box-shadow: 0 0 15px rgba(0,0,0,0.1);
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 1.2em;
+          color: #333;
+          position: relative;
+          animation: pulseBox 2.5s infinite;
+        }
+
+        .donation-icon {
+          font-size: 1.8em;
+          display: block;
+          margin-bottom: 10px;
+          animation: pulseIcon 1.5s infinite;
+        }
+
+        .donation-call a {
+          display: inline-block;
+          margin-top: 12px;
+          background-color: #FF5E5B;
+          color: white;
+          padding: 12px 28px;
+          border-radius: 6px;
+          text-decoration: none;
+          font-weight: bold;
+          transition: background-color 0.3s ease;
+        }
+
+        .donation-call a:hover {
+          background-color: #e14c4a;
+        }
+
+        /* Animaciones */
+        @keyframes pulseIcon {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.15); }
+          100% { transform: scale(1); }
+        }
+
+        @keyframes pulseBox {
+          0% { box-shadow: 0 0 10px rgba(255,94,91,0.2); }
+          50% { box-shadow: 0 0 20px rgba(255,94,91,0.4); }
+          100% { box-shadow: 0 0 10px rgba(255,94,91,0.2); }
         }
