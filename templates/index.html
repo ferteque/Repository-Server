@@ -13,6 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Curated M3U Lists Repository</title>
    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
        <!--  <link rel="stylesheet" href="../static/styles.css">-->
@@ -178,6 +179,40 @@
             </div> <br>
             
             <label>(Optional) 10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
+            <div class="input-wrapper">
+                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
+            </div>
+            <br>
+        </div>
+    </div>
+
+     <div id="NextStepsDrive" class="modal2">
+        <div class="modal-content2">
+            <span class="close" id="closeModalNextStepsDrive">&times;</span>
+            <h3>Next Steps</h3>
+           
+            <label>1. Open your IPTV Player and go to "Settings". </label> <br>
+
+            <label>2. Select "Playlists". </label> <br>
+ 
+            <label>3. Select "Add Playlist'. </label> <br>
+
+            <label>4. Select "M3U playlist". </label> <br>
+
+            <label>5. Click "M3U URL". </label> <br>
+
+            <label>6. Enter this URL: </label> <br>
+
+            <div class="input-wrapper">
+                <input type="text" id="DriveDownloadLink" class="dynamic-input" disabled> <button id="copyButton">Copy to Clipboard</button>
+            </div> <br>
+
+            <label>7. When asked for an EPG URL Enter this: </label>  
+            <div class="input-wrapper">
+                <input type="text" id="EPG" class="dynamic-input" disabled>
+            </div> <br>
+            
+            <label>(Optional) 8. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
             <div class="input-wrapper">
                 <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
             </div>
