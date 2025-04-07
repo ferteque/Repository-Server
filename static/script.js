@@ -113,6 +113,8 @@
                 document.getElementById("m3uUrl").value = url;
                 document.getElementById("EPG").value = epg;
                 document.getElementById("GitHub_EPG").value = GitHub_EPG;
+                document.getElementById("EPGDrive").value = epg;
+                document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;
 
                 
                 document.getElementById("credentials").style.display = "block";
@@ -188,6 +190,23 @@
                     return null;
                 }
             }
+
+            document.getElementById("copyButton").addEventListener("click", function() {
+
+              var input = document.getElementById("DriveDownloadLink");
+
+
+              input.select();
+              input.setSelectionRange(0, 99999); 
+
+
+              try {
+                document.execCommand("copy");
+                alert("Texto copiado: " + input.value); 
+              } catch (err) {
+                console.error("Error al copiar: ", err); 
+              }
+            });
             
             function submitForm() {
                
