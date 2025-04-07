@@ -1,5 +1,5 @@
- #tab-m3u, #tab-xtream {
-            padding: 30px 20%;  
+ #tab-m3u, #tab-xtream, #tab-next-steps {
+            padding: 10px 15%;  
             font-size: 18px;  
             font-weight: bold;  
             margin: 0 15px;  
@@ -10,7 +10,7 @@
         }
         
         
-        #tab-m3u.active, #tab-xtream:hover, #tab-xtream.active, #tab-m3u:hover {
+        #tab-m3u.active, #tab-xtream:hover, #tab-xtream.active, #tab-m3u:hover, #tab-next-steps.active, #tab-next-steps:hover{
             background-color: #FF5E5B;  
             color: white;  
         }
@@ -321,7 +321,7 @@
             font-family: sans-serif;
         }
 
-        #Kofi, #submitM3U, #submitForm, #{
+        #Kofi, #submitM3U, #submitForm{
             display: inline-block;
             background-color: #FF5E5B;
             color: white;
