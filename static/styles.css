@@ -1,3 +1,16 @@
+ .page-title {
+  text-align: center;
+  font-size: 2.4em;
+  color: #333;
+  margin-top: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff4e6;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+
  #tab-m3u, #tab-xtream, #tab-next-steps {
             padding: 10px 12%;  
             font-size: 20px;  
