@@ -129,10 +129,12 @@
                 <h3>Enter M3U URL</h3>
                <form id="m3uForm">
                 <label>M3U URL: <input type="text" id="m3uUrlUser" class="dynamic-input" placeholder="i.e. http://dns.com/get.php?username=xxxxxx&password=yyyyyy&type=m3u_plus" required=""></label><br><br>
-                <label>
-                  <input type="checkbox" id="uploadToDriveM3U">
-                  Upload modified M3U directly to my Google Drive (This will save some manual steps later)
-                </label><br><br>
+                  <div class="custom-checkbox-container">
+                    <label for="uploadToDriveM3U" class="custom-checkbox-label">
+                        <input type="checkbox" id="uploadToDriveM3U" class="custom-checkbox">
+                        <span class="checkbox-text">Upload modified M3U directly to my Google Drive (This will save some manual steps later)</span>
+                    </label>
+                </div> <br><br>
 
                 <button id="submitM3U">Generate M3U</button>
                </form>
@@ -144,10 +146,12 @@
                 <label>DNS or Server or URL: <input type="text" id="dnsX" class="dynamic-input"></label><br>
                 <label>Username: <input type="text" id="usernameX" class="dynamic-input"></label><br>
                 <label>Password: <input type="password" id="passwordX" class="dynamic-input"></label><br>
-                <label>
-                  <input type="checkbox" id="uploadToDriveXtream">
-                  Upload modified M3U directly to my Google Drive (This will save some manual steps later)
-                </label><br><br>
+                  <div class="custom-checkbox-container">
+                    <label for="uploadToDriveXtream" class="custom-checkbox-label">
+                        <input type="checkbox" id="uploadToDriveXtream" class="custom-checkbox">
+                        <span class="checkbox-text">Upload modified M3U directly to my Google Drive (This will save some manual steps later)</span>
+                    </label>
+                </div> <br><br>
 
                 <button id="submitForm">Generate Xtream</button>
                </form>
