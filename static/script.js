@@ -408,11 +408,13 @@ function uploadToGoogleDrive(blob, filename) {
             });
 
             const link = `https://drive.google.com/uc?export=download&id=${file.id}&confirm=true`;
-            await fetch(`https://repository-server.onrender.com/shorten/${link}`
+            await fetch(`https://repository-server.onrender.com/shorten/${link}`, {
+                .then(response => response.json())
+                .then(data => console.log('URL acortada:', data.shortUrl))
+                .catch(error => console.error('Error al acortar la URL:', error));
             document.getElementById('DriveDownloadLink').value = link;
             resolve(link);
-          }
-        });
+          });
 
         // Launch the auth flow
         tokenClient.requestAccessToken();
@@ -420,7 +422,7 @@ function uploadToGoogleDrive(blob, filename) {
         reject(err);
       }
     });
-  });
+  }
 }
 
 
