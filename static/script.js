@@ -194,11 +194,15 @@
             document.getElementById("copyButton").addEventListener("click", function() {
 
               var input = document.getElementById("DriveDownloadLink");
-
+              var cpybtn = document.getElementById("copyButton");
 
              navigator.clipboard.writeText(input.value)
                   .then(() => {
-                    alert("✅ Link copied to clipboard!");
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      button.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
                   })
                   .catch(err => {
                     console.error("Failed to copy: ", err);
