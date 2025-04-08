@@ -513,15 +513,17 @@
         }
         
         .copyButton1 {
-          background-color: #FF5E5B;
-          color: white;
-          padding: 10px 20px;
-          border-radius: 6px;
-          border: none;
-          cursor: pointer;
-          transition: background-color 0.3s;
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
         }
 
         .copyButton1:hover {
-          background-color: #e14c4a;
+          background-color: #0056b3;
         }
