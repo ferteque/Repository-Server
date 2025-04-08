@@ -203,7 +203,6 @@
                       button.innerText = "📋 Copy Link";
                     }, 2000);
                   })
-                  })
                   .catch(err => {
                     console.error("Failed to copy: ", err);
                     alert("❌ Could not copy the link.");
