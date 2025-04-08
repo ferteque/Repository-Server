@@ -208,7 +208,7 @@
                   .then(() => {
                     cpybtn.innerText = "✅ Copied!";
                     setTimeout(() => {
-                      button.innerText = "📋 Copy Link";
+                      cpybtn.innerText = "📋 Copy Link";
                     }, 2000);
                   })
                   .catch(err => {
@@ -226,7 +226,7 @@
                   .then(() => {
                     cpybtn.innerText = "✅ Copied!";
                     setTimeout(() => {
-                      button.innerText = "📋 Copy Link";
+                      cpybtn.innerText = "📋 Copy Link";
                     }, 2000);
                   })
                   .catch(err => {
@@ -244,7 +244,7 @@
                   .then(() => {
                     cpybtn.innerText = "✅ Copied!";
                     setTimeout(() => {
-                      button.innerText = "📋 Copy Link";
+                      cpybtn.innerText = "📋 Copy Link";
                     }, 2000);
                   })
                   .catch(err => {
@@ -262,7 +262,7 @@
                   .then(() => {
                     cpybtn.innerText = "✅ Copied!";
                     setTimeout(() => {
-                      button.innerText = "📋 Copy Link";
+                      cpybtn.innerText = "📋 Copy Link";
                     }, 2000);
                   })
                   .catch(err => {
@@ -280,7 +280,7 @@
                   .then(() => {
                     cpybtn.innerText = "✅ Copied!";
                     setTimeout(() => {
-                      button.innerText = "📋 Copy Link";
+                      cpybtn.innerText = "📋 Copy Link";
                     }, 2000);
                   })
                   .catch(err => {
