@@ -29,15 +29,6 @@
             document.getElementById("tab-next-steps").addEventListener("click", function() {
                 closeModal();
             });
-            document.getElementById('log-in').addEventListener("click", function() {
-                uploadToGoogleDrive(blob, filename).then(driveLink => {
-                    closeModalDrive();
-                }).catch(err => {
-                    console.error('Google Drive upload failed', err);
-                    alert('Failed to upload to Google Drive. Try again or download manually.');
-                });
-                document.getElementById('log-in').style.display = "none";
-            });
 
           function isValidUrl(url) {
                try {
@@ -343,7 +334,12 @@
                            'event_category': 'interaction',
                            'event_label': `User selected Google Drive Checkbox`
                          });
-                        document.getElementById('log-in').style.display = 'block';
+                        uploadToGoogleDrive(blob, filename).then(driveLink => {
+                            closeModalDrive();
+                        }).catch(err => {
+                            console.error('Google Drive upload failed', err);
+                            alert('Failed to upload to Google Drive. Try again or download manually.');
+                        });
                     } else {
                         // Direct Download
                         const link = document.createElement('a');
