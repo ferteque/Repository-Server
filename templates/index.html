@@ -16,7 +16,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV M3U Generator</title>
+
+    <title>Curated M3U Lists Repository</title>
    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
        <!--  <link rel="stylesheet" href="../static/styles.css">-->
 </head>
@@ -25,10 +26,11 @@
     <script src="https://apis.google.com/js/api.js"></script>
 <body>
     <div id="content-container">
+        <h1 class="page-title">Welcome to Ferteque's Repository</h1>
        <div id="Disclaimer">
   <h3 style="color: #c0392b;">📜 Disclaimer</h3>
   <p>
-    This tool is intended for personal use only. The M3U files available here are pre-configured templates that do <strong>not contain any active credentials or direct access to content</strong>.
+    This tool is intended for personal use only. The M3U files provided are pre-configured templates that do <strong>not contain any active credentials or direct access to content</strong>.
   </p>
   <p>
     To use any list, the user must enter their own access details obtained through a <strong>legitimate IPTV provider</strong>. Without such information, the lists are non-functional and do not enable access to any streams.
@@ -190,12 +192,12 @@
 
             <label>9. When asked for an EPG URL Enter this: </label>  
             <div class="input-wrapper">
-                <input type="text" id="EPG" class="dynamic-input" disabled>
+                <input type="text" id="EPG" class="dynamic-input" disabled> <button id="copyButtonEPG" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
             </div> <br>
             
             <label>(Optional) 10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
             <div class="input-wrapper">
-                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
+                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled><button id="copyButtonEPG_GitHub" class="copyButton1">📋 Copy GitHub EPG URL to Clipboard</button>
             </div>
             <br>
         </div>
@@ -219,17 +221,18 @@
             <label>6. Enter this URL: </label> <br>
 
             <div class="input-wrapper">
-                <input type="text" id="DriveDownloadLink" class="dynamic-input" disabled>
+                <input type="text" id="DriveDownloadLink" class="dynamic-input" disabled> <button id="copyButton" class="copyButton1">📋 Copy Drive URL to Clipboard</button>
+
             </div> <br>
 
             <label>7. When asked for an EPG URL Enter this: </label>  
             <div class="input-wrapper">
-                <input type="text" id="EPG" class="dynamic-input" disabled>
+                <input type="text" id="EPGDrive" class="dynamic-input" disabled><button id="copyButtonEPGDrive" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
             </div> <br>
             
             <label>(Optional) 8. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
             <div class="input-wrapper">
-                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled>
+                <input type="text" id="GitHub_EPGDrive" class="dynamic-input" disabled><button id="copyButtonEPG_GitHubDrive" class="copyButton1">📋 Copy GitHub EPG URL to Clipboard</button>
             </div>
             <br>
         </div>

@@ -1,10 +1,18 @@
  document.addEventListener('DOMContentLoaded', function () {
      document.getElementById('xtreamForm').addEventListener('submit', function(event) {
-              event.preventDefault();  
+              event.preventDefault();
+                gtag('event', 'Xtream_selected', {
+                    'event_category': 'interaction',
+                    'event_label': `User selected Xtream`
+                     });  
               submitForm();  
           });
            document.getElementById('m3uForm').addEventListener('submit', function(event) {
-                    event.preventDefault();  
+                    event.preventDefault();
+                    gtag('event', 'M3U_selected', {
+                       'event_category': 'interaction',
+                       'event_label': `User selected M3U`
+                     });
                     submitM3U();  
                 });
            
@@ -113,6 +121,8 @@
                 document.getElementById("m3uUrl").value = url;
                 document.getElementById("EPG").value = epg;
                 document.getElementById("GitHub_EPG").value = GitHub_EPG;
+                document.getElementById("EPGDrive").value = epg;
+                document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;
 
                 
                 document.getElementById("credentials").style.display = "block";
@@ -188,6 +198,96 @@
                     return null;
                 }
             }
+
+            document.getElementById("copyButton").addEventListener("click", function() {
+
+              var input = document.getElementById("DriveDownloadLink");
+              var cpybtn = document.getElementById("copyButton");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      cpybtn.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });
+
+            document.getElementById("copyButtonEPG").addEventListener("click", function() {
+
+              var input = document.getElementById("EPG");
+              var cpybtn = document.getElementById("copyButtonEPG");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      cpybtn.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });
+
+            document.getElementById("copyButtonEPG_GitHub").addEventListener("click", function() {
+
+              var input = document.getElementById("GitHub_EPG");
+              var cpybtn = document.getElementById("copyButtonEPG_GitHub");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      cpybtn.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });            
+
+            document.getElementById("copyButtonEPG_GitHubDrive").addEventListener("click", function() {
+
+              var input = document.getElementById("GitHub_EPGDrive");
+              var cpybtn = document.getElementById("copyButtonEPG_GitHubDrive");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      cpybtn.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });
+
+            document.getElementById("copyButtonEPGDrive").addEventListener("click", function() {
+
+              var input = document.getElementById("EPGDrive");
+              var cpybtn = document.getElementById("copyButtonEPGDrive");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      cpybtn.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });
             
             function submitForm() {
                
@@ -230,6 +330,10 @@
                     const uploadCheckbox = document.getElementById('uploadToDriveM3U')?.checked || document.getElementById('uploadToDriveXtream')?.checked;
 
                     if (uploadCheckbox) {
+                        gtag('event', 'drive_selected', {
+                           'event_category': 'interaction',
+                           'event_label': `User selected Google Drive Checkbox`
+                         });
                         uploadToGoogleDrive(blob, filename).then(driveLink => {
                             closeModalDrive();
                         }).catch(err => {
