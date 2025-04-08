@@ -1,10 +1,18 @@
  document.addEventListener('DOMContentLoaded', function () {
      document.getElementById('xtreamForm').addEventListener('submit', function(event) {
-              event.preventDefault();  
+              event.preventDefault();
+                gtag('event', 'Xtream_selected', {
+                    'event_category': 'interaction',
+                    'event_label': `User selected Xtream`
+                     });  
               submitForm();  
           });
            document.getElementById('m3uForm').addEventListener('submit', function(event) {
-                    event.preventDefault();  
+                    event.preventDefault();
+                    gtag('event', 'M3U_selected', {
+                       'event_category': 'interaction',
+                       'event_label': `User selected M3U`
+                     });
                     submitM3U();  
                 });
            
@@ -250,6 +258,10 @@
                     const uploadCheckbox = document.getElementById('uploadToDriveM3U')?.checked || document.getElementById('uploadToDriveXtream')?.checked;
 
                     if (uploadCheckbox) {
+                        gtag('event', 'drive_selected', {
+                           'event_category': 'interaction',
+                           'event_label': `User selected Google Drive Checkbox`
+                         });
                         uploadToGoogleDrive(blob, filename).then(driveLink => {
                             closeModalDrive();
                         }).catch(err => {
