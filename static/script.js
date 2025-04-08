@@ -196,16 +196,14 @@
               var input = document.getElementById("DriveDownloadLink");
 
 
-              input.select();
-              input.setSelectionRange(0, 99999); 
-
-
-              try {
-                document.execCommand("copy");
-                alert("Texto copiado: " + input.value); 
-              } catch (err) {
-                console.error("Error al copiar: ", err); 
-              }
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    alert("✅ Link copied to clipboard!");
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
             });
             
             function submitForm() {
