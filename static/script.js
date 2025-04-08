@@ -339,6 +339,8 @@
                         document.getElementById('spinner').style.display = 'none';
                         document.getElementById('log-in').style.display = 'block';
                         document.getElementById('log-in').addEventListener("click", function() {
+                            document.getElementById('Wait1').style.display = 'block';
+                            document.getElementById('spinner').style.display = 'block';
                             uploadToGoogleDrive(blob, filename).then(driveLink => {
                                 closeModalDrive();
                             }).catch(err => {
