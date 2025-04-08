@@ -3,6 +3,7 @@ import requests
 import re
 from flask_cors import CORS
 
+const API_TOKEN = process.env.BIT_TOKEN
 
 app = Flask(__name__)
 
@@ -53,6 +54,32 @@ def process():
         file.write(file_content)
 
     return send_file(modified_filename, as_attachment=True)
+
+@app.route('/shorten', methods=['GET'])
+    def shorten_url():
+        long_url = request.args.get('url') 
+
+        if not long_url:
+            return jsonify({"error": "Bad URL"}), 400
+
+        
+        bitly_api_url = 'https://api-ssl.bitly.com/v4/shorten'
+        headers = {
+            'Authorization': f'Bearer {API_TOKEN}',
+            'Content-Type': 'application/json'
+        }
+        data = {
+            'long_url': long_url
+        }
+
+        response = requests.post(bitly_api_url, json=data, headers=headers)
+
+        # Verificar la respuesta de la API
+        if response.status_code == 200:
+            short_url = response.json().get('link')  
+            return jsonify({'shortUrl': short_url})
+        else:
+            return jsonify({'error': 'Error al acortar la URL', 'details': response.json()}), response.status_code
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

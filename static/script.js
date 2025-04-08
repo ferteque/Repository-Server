@@ -304,6 +304,7 @@ function uploadToGoogleDrive(blob, filename) {
             });
 
             const link = `https://drive.google.com/uc?export=download&id=${file.id}&confirm=true`;
+            await fetch(`https://repository-server.onrender.com/shorten/${link}`
             document.getElementById('DriveDownloadLink').value = link;
             resolve(link);
           }
