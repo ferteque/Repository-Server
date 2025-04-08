@@ -511,7 +511,7 @@
         .custom-checkbox-label:hover {
             opacity: 0.9;
         }
-        #copyButton {
+        .copyButton1 {
           background-color: #FF5E5B;
           color: white;
           padding: 10px 20px;
@@ -521,6 +521,6 @@
           transition: background-color 0.3s;
         }
 
-        #copyButton:hover {
+        .copyButton1:hover {
           background-color: #e14c4a;
         }

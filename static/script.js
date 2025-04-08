@@ -216,6 +216,78 @@
                     alert("❌ Could not copy the link.");
                   });
             });
+
+            document.getElementById("copyButtonEPG").addEventListener("click", function() {
+
+              var input = document.getElementById("EPG");
+              var cpybtn = document.getElementById("copyButtonEPG");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      button.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });
+
+            document.getElementById("copyButtonEPG_GitHub").addEventListener("click", function() {
+
+              var input = document.getElementById("GitHub_EPG");
+              var cpybtn = document.getElementById("copyButtonEPG_GitHub");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      button.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });            
+
+            document.getElementById("copyButtonEPG_GitHubDrive").addEventListener("click", function() {
+
+              var input = document.getElementById("GitHub_EPGDrive");
+              var cpybtn = document.getElementById("copyButtonEPG_GitHubDrive");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      button.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });
+
+            document.getElementById("copyButtonEPGDrive").addEventListener("click", function() {
+
+              var input = document.getElementById("EPGDrive");
+              var cpybtn = document.getElementById("copyButtonEPGDrive");
+
+             navigator.clipboard.writeText(input.value)
+                  .then(() => {
+                    cpybtn.innerText = "✅ Copied!";
+                    setTimeout(() => {
+                      button.innerText = "📋 Copy Link";
+                    }, 2000);
+                  })
+                  .catch(err => {
+                    console.error("Failed to copy: ", err);
+                    alert("❌ Could not copy the link.");
+                  });
+            });
             
             function submitForm() {
                
