@@ -433,7 +433,7 @@ function uploadToGoogleDrive(blob, filename) {
 
 
 let lastScroll = 0;
-const banner = document.querySelector('.fixed-bottom');
+const banner = document.getElementById('donations');
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.scrollY;
