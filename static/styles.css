@@ -115,9 +115,9 @@
         
         .modal-content2 button {
             display: block;
-            width: 100%;
+            width: 93.5%;
             padding: 12px;
-            background-color: #007BFF;
+            background-color: #FF5E5B;
             color: white;
             font-size: 18px;
             border: none;
@@ -264,7 +264,7 @@
 
         #content-container {
             height: calc(100vh - 157px); 
-            overflow-y: auto;  
+  
             padding: 20px;
             box-sizing: border-box;
         }
@@ -513,18 +513,3 @@
             opacity: 0.9;
         }
         
-        .copyButton1 {
-            width: 100%;
-            padding: 12px;
-            background-color: #007BFF;
-            color: white;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        .copyButton1:hover {
-          background-color: #0056b3;
-        }
