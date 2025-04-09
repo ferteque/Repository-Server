@@ -432,6 +432,23 @@ function uploadToGoogleDrive(blob, filename) {
 }
 
 
+let lastScroll = 0;
+const banner = document.querySelector('.fixed-bottom');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+
+  if (currentScroll > lastScroll) {
+    banner.style.transform = 'translateY(100%)';
+  } else {
+    banner.style.transform = 'translateY(0)';
+  }
+
+  lastScroll = currentScroll;
+});
+
+
+
         });
 
 
