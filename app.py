@@ -23,12 +23,18 @@ def process():
     m3u_url = data['m3uUrl']
 
     
-    match = re.search(r"[-\w]{25,}", m3u_url)
-    if not match:
-        return "Error: Could not extract the file ID from the URL.", 400
+    if "drive.google.com" in m3u_url:
+        match = re.search(r"[-\w]{25,}", m3u_url)
+        if not match:
+            return "Error: Could not extract the file ID from the URL.", 400
+        
+        file_id = match.group(0)
+        download_url = f"https://drive.google.com/uc?id={file_id}&export=download"
 
-    file_id = match.group(0)
-    download_url = f"https://drive.google.com/uc?id={file_id}&export=download"
+    elif "github.com" in m3u_url or "raw.githubusercontent.com" in m3u_url:
+        download_url = m3u_url
+    else:
+        return "Error: Unsupported URL. Only Google Drive and GitHub links are supported.", 400
 
     
     file_response = requests.get(download_url)
