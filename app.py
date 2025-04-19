@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/process": {"origins": "https://repository-server.onrender.com"}})
+CORS(app, resources={r"/process": {"origins": ["https://repository-server.onrender.com" , "https://striking-orella-ferteque-e35fe763.koyeb.app"]}})
 
 @app.route('/')
 def home():
