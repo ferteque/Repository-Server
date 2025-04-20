@@ -316,7 +316,7 @@
                     m3uUrl: m3uUrl
                 };
 
-                fetch('https://repository-server.onrender.com/process', {
+                fetch('https://striking-orella-ferteque-e35fe763.koyeb.app/process', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(postData)
