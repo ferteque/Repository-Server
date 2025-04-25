@@ -45,9 +45,10 @@ def process():
     content = re.sub(r'(?<!http://)(DNS)', r'http://\1', content)
     content = re.sub(r'(?<!http://)(dns)', r'http://\1', content)
     
-    content = content.replace("DNS", dns).replace("dns", dns)
-    content = content.replace("USERNAME", username).replace("username", username)
-    content = content.replace("PASSWORD", password).replace("password", password)
+    content = re.sub(r'\bDNS\b', dns, file_content, flags=re.IGNORECASE)
+    content = re.sub(r'\bUSERNAME\b', username, file_content, flags=re.IGNORECASE)
+    content = re.sub(r'\bPASSWORD\b', password, file_content, flags=re.IGNORECASE)
+
 
     output = io.BytesIO()
     output.write(content.encode('utf-8'))
