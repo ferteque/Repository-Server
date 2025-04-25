@@ -62,7 +62,7 @@
                 }
                
             }
-            const CSV_URL = "https://docs.google.com/spreadsheets/d/1JZ3K-7VKtXdZfnqcUBU2Mv2cGKwgWa73NACNQFrylD4/gviz/tq?tqx=out:csv"; 
+            const CSV_URL = "https://docs.google.com/spreadsheets/d/1e2vNzLszjd2Ss7kTztF6x1OdNClVuxCqn03MXnFTvwc/gviz/tq?tqx=out:csv"; 
            
             async function loadCSV() {
                 try {
