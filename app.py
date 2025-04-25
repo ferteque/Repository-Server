@@ -41,6 +41,10 @@ def process():
         return f"Download error: {str(e)}", 500
 
     content = response.content.decode('utf-8')
+
+    content = re.sub(r'(?<!http://)(DNS)', r'http://\1', content)
+    content = re.sub(r'(?<!http://)(dns)', r'http://\1', content)
+    
     content = content.replace("DNS", dns).replace("dns", dns)
     content = content.replace("USERNAME", username).replace("username", username)
     content = content.replace("PASSWORD", password).replace("password", password)
