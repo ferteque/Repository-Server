@@ -62,6 +62,9 @@
                 }
                
             }
+
+            // If you are reading this: Yes, I know it is exposed. I figured out, if you can access here, you know what you are doing, so will not come asking stupid questions to me :)
+            
             const CSV_URL = "https://docs.google.com/spreadsheets/d/1e2vNzLszjd2Ss7kTztF6x1OdNClVuxCqn03MXnFTvwc/gviz/tq?tqx=out:csv"; 
            
             async function loadCSV() {
