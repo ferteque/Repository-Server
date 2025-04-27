@@ -3,3 +3,4 @@ requests
 flask-cors
 gunicorn
 Jinja2
+flask-compress
