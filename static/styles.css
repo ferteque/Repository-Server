@@ -114,19 +114,16 @@
         }
         
         .modal-content2 button {
-
             display: block;
             width: 93.5%;
-            align-items: center;
-            padding: 80px;
+            padding: 12px;
             background-color: #FF5E5B;
             color: white;
             font-size: 18px;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 300px;
-            margin-bottom: 200px;
+            margin-top: 15px;
         }
         
         .modal-content2 button:hover {
@@ -151,6 +148,21 @@
             background-color: #add8e6 !important;
         }
        
+        #log-in {
+            display: block;
+            width: 93.5%;
+            align-items: center;
+            padding: 80px;
+            background-color: #FF5E5B;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 300px;
+            margin-bottom: 200px;
+        }
+
         .modal {
             display: none;
             position: fixed;
