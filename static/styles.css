@@ -114,16 +114,19 @@
         }
         
         .modal-content2 button {
+
             display: block;
             width: 93.5%;
-            padding: 12px;
+            align-items: center;
+            padding: 80px;
             background-color: #FF5E5B;
             color: white;
             font-size: 18px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 300px;
+            margin-bottom: 200px;
         }
         
         .modal-content2 button:hover {
@@ -449,7 +452,6 @@
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           font-size: 1.2em;
           color: #333;
-          position: fixed;
           animation: pulseBox 2.5s infinite;
         }
 
