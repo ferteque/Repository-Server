@@ -16,6 +16,7 @@
                     submitM3U();  
                 });
            
+            document.getElementById("closeModalSelector").addEventListener("click", closeModalSelector);
             document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
             document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
             document.getElementById("closeModalNextStepsDrive").addEventListener("click", closeModalNextStepsDrive);
