@@ -110,25 +110,24 @@
             }
 
             function selectRow(row, id, url, epg, GitHub_EPG, service) {
-               
                 document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
-                
-                
                 row.classList.add("selected");
 
                 gtag('event', 'row_selected', {
                    'event_category': 'interaction',
                    'event_label': `Selected: ${id} ${service}`
-                 });
+                });
+
                 document.getElementById("selectedID").value = id;
                 document.getElementById("m3uUrl").value = url;
                 document.getElementById("EPG").value = epg;
                 document.getElementById("GitHub_EPG").value = GitHub_EPG;
                 document.getElementById("EPGDrive").value = epg;
                 document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;
+                document.getElementById("RawDownloadLink").href = url;
 
-                
-                document.getElementById("credentials").style.display = "block";
+
+                document.getElementById("modeSelectorModal").style.display = "block";
             }
 
            function showLoading() {
@@ -291,7 +290,24 @@
                     alert("❌ Could not copy the link.");
                   });
             });
-            
+
+
+             document.getElementById("openNextSteps").addEventListener("click", function() {
+
+                document.getElementById('manualInstructions').style.display='none'; 
+                document.getElementById('nextSteps').style.display='block';
+            });
+
+            document.getElementById("AutomaticProcess").addEventListener("click", function() {
+
+                document.getElementById('credentials').style.display='block';
+            });
+
+            document.getElementById("ManualSteps").addEventListener("click", function() {
+
+                document.getElementById('manualInstructions').style.display='block';
+            });
+
             function submitForm() {
                
                 let dns = document.getElementById("dnsX").value.trim();

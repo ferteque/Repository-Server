@@ -273,6 +273,25 @@
 
 </div>
 </div>
+
+<div class="modal fade" id="modeSelectorModal" tabindex="-1" aria-labelledby="modeSelectorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modeSelectorModalLabel">Choose Mode</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Please choose how you want to configure your M3U list:</p>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" id="AutomaticProcess" data-bs-dismiss="modal">Automatic</button>
+          <button class="btn btn-secondary" id="ManualSteps" data-bs-dismiss="modal">Manual</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="manualInstructions" class="modal2" style="display:none;">
   <div class="modal-content2">
     <span class="close" onclick="document.getElementById('manualInstructions').style.display='none'">&times;</span>
