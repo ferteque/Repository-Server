@@ -125,7 +125,18 @@
                 document.getElementById("GitHub_EPG").value = GitHub_EPG;
                 document.getElementById("EPGDrive").value = epg;
                 document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;
-                document.getElementById("RawDownloadLink").href = url;
+                
+                if (url.includes("drive.google.com")) {
+                    const match = url.match(/[-\w]{25,}/);
+                    if (!match) {
+                      throw new Error("Error: Could not extract the file ID from the URL.");
+                    }
+                    const fileId = match[0];
+                    downloadUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
+                  } else {
+                    downloadUrl = url;
+                  }
+                document.getElementById("RawDownloadLink").href = downloadUrl;
 
 
                 document.getElementById("modeSelectorModal").style.display = "block";
