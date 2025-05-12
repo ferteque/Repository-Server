@@ -299,12 +299,12 @@
             });
 
             document.getElementById("AutomaticProcess").addEventListener("click", function() {
-
+                document.getElementById("modeSelectorModal").style.display = "none";
                 document.getElementById('credentials').style.display='block';
             });
 
             document.getElementById("ManualSteps").addEventListener("click", function() {
-
+                document.getElementById("modeSelectorModal").style.display = "none";
                 document.getElementById('manualInstructions').style.display='block';
             });
 
