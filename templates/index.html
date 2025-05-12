@@ -292,17 +292,15 @@
     <span class="close" onclick="document.getElementById('manualInstructions').style.display='none'">&times;</span>
     <h3>Manual Process</h3>
     <p>You have chosen the manual process. Please follow these steps:</p>
-    <ol>
-      <li>Download the original playlist.</li>
+      <label>Download the original playlist.</label>
       <div class="input-wrapper">
-                <a id="RawDownloadLink" target="_blank" rel="noopener noreferrer"> Download</a>
+                <a class="btn btn-primary" id="RawDownloadLink" target="_blank" rel="noopener noreferrer"> Download</a>
 
             </div> <br><br><br>
-      <li>Open it with Windows Notepad (or any other text editor).</li>
-      <li>Use the "Search and Replace" function to find <code>http://DNS/USERNAME/PASSWORD</code> and replace it with your credentials (e.g., <code>http://xxxxx.xxxx-xxx/12345678/12345678</code>).</li>
-      <li>Repeat the process for Movies and TV Shows by searching for <code>http://DNS/movie/USERNAME/PASSWORD</code> and replacing it with your credentials (e.g., <code>http://xxxx.xxx-xxx/movie/12345678/12345678</code>).</li>
-      <li>Upload the modified M3U file to your IPTV player, or use it in your IPTV editor as a starting point.</li>
-    </ol>
+      <label>Open it with Windows Notepad (or any other text editor).</label><br>
+      <label>Use the "Search and Replace" function to find <code>http://DNS/USERNAME/PASSWORD</code> and replace it with your credentials (e.g., <code>http://xxxxx.xxxx-xxx/12345678/12345678</code>).</label><br>
+      <label>Repeat the process for Movies and TV Shows by searching for <code>http://DNS/movie/USERNAME/PASSWORD</code> and replacing it with your credentials (e.g., <code>http://xxxx.xxx-xxx/movie/12345678/12345678</code>).</label><br>
+      <label>Upload the modified M3U file to your IPTV player, or use it in your IPTV editor as a starting point.</label><br>
 
     <button id="openNextSteps">
       Next Steps
