@@ -162,6 +162,10 @@
                 document.getElementById("Loading").style.display = "none";
             }
 
+            function closeModalSelector() {
+                document.getElementById("modeSelectorModal").style.display = "none";
+            }
+
               const openShareModal = document.getElementById("openShareModal");
               const closeShareModal = document.getElementById("closeShareModal");
               const shareModal = document.getElementById("shareModal");
