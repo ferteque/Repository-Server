@@ -129,6 +129,24 @@
         .modal-content2 button:hover {
             background-color: #0056b3;
         }
+
+        .modal-content2 a {
+            display: block;
+            width: 93.5%;
+            padding: 12px;
+            background-color: #FF5E5B;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .modal-content2 a:hover {
+            background-color: #0056b3;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
