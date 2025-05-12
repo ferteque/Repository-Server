@@ -300,7 +300,7 @@
              document.getElementById("openNextSteps").addEventListener("click", function() {
 
                 document.getElementById('manualInstructions').style.display='none'; 
-                document.getElementById('nextSteps').style.display='block';
+                document.getElementById('NextSteps').style.display='block';
             });
 
             document.getElementById("AutomaticProcess").addEventListener("click", function() {
