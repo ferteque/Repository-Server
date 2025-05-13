@@ -351,7 +351,7 @@
                     m3uUrl: m3uUrl
                 };
 
-                fetch('https://repository-server.onrender.com/process', {
+                fetch('157.180.95.85/process', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(postData)
