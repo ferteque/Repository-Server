@@ -315,11 +315,19 @@
             });
 
             document.getElementById("AutomaticProcess").addEventListener("click", function() {
+                gtag('event', 'automatic_selected', {
+                           'event_category': 'interaction',
+                           'event_label': `User selected Automatic Process`
+                         });
                 document.getElementById("modeSelectorModal").style.display = "none";
                 document.getElementById('credentials').style.display='block';
             });
 
             document.getElementById("ManualSteps").addEventListener("click", function() {
+                gtag('event', 'manual_selected', {
+                           'event_category': 'interaction',
+                           'event_label': `User selected Manual Steps`
+                         });
                 document.getElementById("modeSelectorModal").style.display = "none";
                 document.getElementById('manualInstructions').style.display='block';
             });
