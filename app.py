@@ -9,7 +9,8 @@ app = Flask(__name__)
 Compress(app)  
 CORS(app, resources={r"/process": {"origins": [
     "https://repository-server.onrender.com",
-    "https://striking-orella-ferteque-e35fe763.koyeb.app"
+    "https://striking-orella-ferteque-e35fe763.koyeb.app", 
+    "https://repo-server.site"
 ]}})
 
 @app.route('/')
