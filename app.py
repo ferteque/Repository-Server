@@ -10,7 +10,7 @@ Compress(app)
 CORS(app, resources={r"/process": {"origins": [
     "https://repository-server.onrender.com",
     "https://striking-orella-ferteque-e35fe763.koyeb.app", 
-    "157.180.95.85"
+    "https://repo-server.site"
 ]}})
 
 @app.route('/')
