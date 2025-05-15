@@ -62,11 +62,7 @@
                    document.getElementById('passwordX').required = true;
                 }
                
-            }
-
-            // If you are reading this: Yes, I know it is exposed. I figured out, if you can access here, you know what you are doing, so will not come asking stupid questions to me :)
-            
-            const CSV_URL = "https://docs.google.com/spreadsheets/d/1e2vNzLszjd2Ss7kTztF6x1OdNClVuxCqn03MXnFTvwc/gviz/tq?tqx=out:csv"; 
+            }            
            
             async function loadCSV() {
                     try {
@@ -79,14 +75,15 @@
                         data.forEach(row => {
                             let newRow = document.createElement("tr");
                             newRow.innerHTML = `
-                                <td>${row.service}</td>
+                                <td>${row.id}</td>
+                                <td>${row.service_name}</td>
                                 <td>${row.countries}</td>
-                                <td>${row.categories}</td>
+                                <td>${row.main_categories}</td>
                                 <td>${row.timestamp}</td>
-                                <td>${row.owner_donations || "N/A"}</td>`;
+                                <td>${row.donation_info || "N/A"}</td>`;
 
-                            if (isValidUrl(row.owner_donations)) {
-                                newRow.innerHTML += `<td><a href="${row.owner_donations}" target="_blank" style="display: inline-block;
+                            if (isValidUrl(row.donation_info)) {
+                                newRow.innerHTML += `<td><a href="${row.donation_info}" target="_blank" style="display: inline-block;
                                     background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;
                                     box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">Donate</a></td>`;
                             } else {
@@ -94,7 +91,7 @@
                             }
 
                             newRow.onclick = () =>
-                                selectRow(newRow, row.service, row.playlist_url, row.epg, row.github_epg, row.countries);
+                                selectRow(newRow, row.id, row.m3u_url, row.epg_url, row.github_epg_url, row.service_name);
 
                             tableBody.appendChild(newRow);
                         });
