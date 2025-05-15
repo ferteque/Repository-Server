@@ -79,8 +79,7 @@
                                 <td>${row.service_name}</td>
                                 <td>${row.countries}</td>
                                 <td>${row.main_categories}</td>
-                                <td>${row.timestamp}</td>
-                                <td>${row.donation_info || "N/A"}</td>`;
+                                <td>${row.timestamp}</td>`;
 
                             if (isValidUrl(row.donation_info)) {
                                 newRow.innerHTML += `<td><a href="${row.donation_info}" target="_blank" style="display: inline-block;
