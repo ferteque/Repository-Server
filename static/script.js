@@ -69,45 +69,39 @@
             const CSV_URL = "https://docs.google.com/spreadsheets/d/1e2vNzLszjd2Ss7kTztF6x1OdNClVuxCqn03MXnFTvwc/gviz/tq?tqx=out:csv"; 
            
             async function loadCSV() {
-                try {
-                    let response = await fetch(CSV_URL, { redirect: "follow" });
-                    if (!response.ok) throw new Error("Failed to fetch CSV file");
+                    try {
+                        const response = await fetch("http://157.180.95.85:8081/playlists");
+                        if (!response.ok) throw new Error("Failed to fetch data");
 
-                    let text = await response.text();
-                    let rows = text.split("\n").slice(1);
-                    let tableBody = document.getElementById("tableBody");
+                        const data = await response.json();
+                        const tableBody = document.getElementById("tableBody");
 
-                    rows.forEach(row => {
-                        let columns = row.split(",").map(cell => {
-                                                     return cell
-                                                       .trim()                             
-                                                       .replace(/^"|"$/g, '')              
-                                                       .replace(/""/g, '"');
-                                                    });
-
-                        if (columns.length >= 5) {
+                        data.forEach(row => {
                             let newRow = document.createElement("tr");
                             newRow.innerHTML = `
-                                <td>${columns[0]}</td>
-                                <td>${columns[1]}</td>
-                                <td>${columns[2]}</td>
-                                <td>${columns[3]}</td>
-                                <td>${columns[7]}</td>`
-                                if (isValidUrl(columns[8])) {
-                                    newRow.innerHTML += `<td><a href="${columns[8]}" target="_blank" style="display: inline-block;
-                                     background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;
-                                     box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">Donate</a></td>`;
-                                  } else {
-                                    newRow.innerHTML += `<td style="color:gray;">N/A</td>`;
-                                  }
-                            ;
-                            newRow.onclick = () => selectRow(newRow, columns[0], columns[4], columns[5], columns[6], columns[1]);
+                                <td>${row.service}</td>
+                                <td>${row.countries}</td>
+                                <td>${row.categories}</td>
+                                <td>${row.timestamp}</td>
+                                <td>${row.owner_donations || "N/A"}</td>`;
+
+                            if (isValidUrl(row.owner_donations)) {
+                                newRow.innerHTML += `<td><a href="${row.owner_donations}" target="_blank" style="display: inline-block;
+                                    background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;
+                                    box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">Donate</a></td>`;
+                            } else {
+                                newRow.innerHTML += `<td style="color:gray;">N/A</td>`;
+                            }
+
+                            newRow.onclick = () =>
+                                selectRow(newRow, row.service, row.playlist_url, row.epg, row.github_epg, row.countries);
+
                             tableBody.appendChild(newRow);
-                        }
-                    });
-                } catch (error) {
-                    console.error("Error loading CSV:", error);
-                }
+                        });
+                    } catch (error) {
+                        console.error("Error loading data:", error);
+                    }
+
             }
 
             function selectRow(row, id, url, epg, GitHub_EPG, service) {

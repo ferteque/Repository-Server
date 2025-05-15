@@ -1,6 +1,7 @@
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, jsonify
 from flask_cors import CORS
 from flask_compress import Compress
+from db import get_connection
 import requests
 import re
 import io
@@ -16,6 +17,19 @@ CORS(app, resources={r"/process": {"origins": [
 @app.route('/')
 def home():
     return render_template("index.html") 
+
+@app.route("/playlists")
+def get_playlists():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM playlists")
+    data = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify(data)
 
 @app.route('/process', methods=['POST'])
 def process():
