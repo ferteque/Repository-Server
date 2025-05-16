@@ -39,6 +39,7 @@ def process():
     username = data['username']
     password = data['password']
 
+    db = get_connection()
     cursor = db.cursor()
     cursor.execute("SELECT m3u_url FROM playlists WHERE id = %s", (id_selected,))
     row = cursor.fetchone()
