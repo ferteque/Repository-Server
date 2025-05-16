@@ -50,10 +50,8 @@ def process():
 
     m3u_path = row[0]
 
-    print(m3u_path)
-
     if not os.path.exists(m3u_path):
-        return "File not found on server", 404
+        return "File not found on server: {m3u_path}", 404
 
     try:
         with open(m3u_path, 'r', encoding='utf-8') as f:
