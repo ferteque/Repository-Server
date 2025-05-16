@@ -51,7 +51,10 @@ def process():
     m3u_path = row[0]
 
     if not os.path.exists(m3u_path):
-        return "File not found on server: {m3u_path}", 404
+        return jsonify({
+            "error": "File not found on server",
+            "path": m3u_path
+        }), 404
 
     try:
         with open(m3u_path, 'r', encoding='utf-8') as f:
