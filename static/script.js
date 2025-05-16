@@ -331,7 +331,6 @@
                     link.click();
                     document.body.removeChild(link);
                     window.URL.revokeObjectURL(url);
-                    closeModal();
                 })
                 .catch(error => {
                     console.error('Error:', error);
