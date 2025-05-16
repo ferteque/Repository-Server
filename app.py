@@ -5,6 +5,7 @@ from db import get_connection
 import requests
 import re
 import io
+import os
 
 app = Flask(__name__)
 Compress(app)  
