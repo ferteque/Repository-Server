@@ -88,7 +88,7 @@
                             }
 
                             newRow.onclick = () =>
-                                selectRow(newRow, row.id);
+                                selectRow(newRow, row.id, row.service_name);
 
                             tableBody.appendChild(newRow);
                         });
@@ -98,7 +98,7 @@
 
             }
 
-            function selectRow(row, id) {
+            function selectRow(row, id, service) {
                 document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
                 row.classList.add("selected");
 
