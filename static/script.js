@@ -306,6 +306,39 @@
                 document.getElementById('manualInstructions').style.display='block';
             });
 
+            document.getElementById("RawDownloadLink").addEventListener("click", function() {
+                let selectedID = document.getElementById("selectedID").value.trim();
+                const postData = {
+                    id: selectedID,
+                };
+
+                fetch('/manual', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const filename = `raw_playlist_${selectedID}.m3u`;
+                    const link = document.createElement('a');
+                    const url = window.URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                    closeModal();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error processing M3U file');
+                });
+            });
+
             function submitForm() {
                
                 let dns = document.getElementById("dnsX").value.trim();

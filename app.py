@@ -32,6 +32,47 @@ def get_playlists():
 
     return jsonify(data)
 
+@app.route('/manual', methods=['POST'])
+def manual():
+    data = request.json
+    id_selected = data['id']
+
+    db = get_connection()
+    cursor = db.cursor()
+    cursor.execute("SELECT m3u_url FROM playlists WHERE id = %s", (id_selected,))
+    row = cursor.fetchone()
+
+    if not row:
+        return "Playlist not found", 404
+
+    m3u_path = row[0]
+
+    if not os.path.exists(m3u_path):
+        current_path = os.getcwd()
+        return jsonify({
+            "error": "File not found on server",
+            "path": m3u_path
+        }), 404
+
+    try:
+        with open(m3u_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except Exception as e:
+        return f"File read error: {str(e)}", 500
+    
+    output = io.BytesIO()
+    output.write(content.encode('utf-8'))
+    output.seek(0)
+
+    filename = f"raw_playlist_{id_selected}.m3u"
+
+    return send_file(
+        output,
+        mimetype='audio/x-mpegurl',
+        as_attachment=True,
+        download_name=filename
+    )
+
 @app.route('/process', methods=['POST'])
 def process():
     data = request.json
@@ -54,8 +95,7 @@ def process():
         current_path = os.getcwd()
         return jsonify({
             "error": "File not found on server",
-            "path": m3u_path,
-            "current": current_path
+            "path": m3u_path
         }), 404
 
     try:
