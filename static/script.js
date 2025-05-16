@@ -50,67 +50,55 @@
                 document.getElementById(`tab-${tab}`).classList.add("active");
                
                 if (tab == 'm3u') {
-                   document.getElementById('m3uUrlUser').required = true;
                    document.getElementById('dnsX').required = false;
                    document.getElementById('usernameX').required = false;
                    document.getElementById('passwordX').required = false;
                 }
                 else {
-                   document.getElementById('m3uUrlUser').required = false;
                    document.getElementById('dnsX').required = true;
                    document.getElementById('usernameX').required = true;
                    document.getElementById('passwordX').required = true;
                 }
                
-            }
-
-            // If you are reading this: Yes, I know it is exposed. I figured out, if you can access here, you know what you are doing, so will not come asking stupid questions to me :)
-            
-            const CSV_URL = "https://docs.google.com/spreadsheets/d/1e2vNzLszjd2Ss7kTztF6x1OdNClVuxCqn03MXnFTvwc/gviz/tq?tqx=out:csv"; 
+            }            
            
             async function loadCSV() {
-                try {
-                    let response = await fetch(CSV_URL, { redirect: "follow" });
-                    if (!response.ok) throw new Error("Failed to fetch CSV file");
+                    try {
+                        const response = await fetch("http://157.180.95.85:8081/playlists");
+                        if (!response.ok) throw new Error("Failed to fetch data");
 
-                    let text = await response.text();
-                    let rows = text.split("\n").slice(1);
-                    let tableBody = document.getElementById("tableBody");
+                        const data = await response.json();
+                        const tableBody = document.getElementById("tableBody");
 
-                    rows.forEach(row => {
-                        let columns = row.split(",").map(cell => {
-                                                     return cell
-                                                       .trim()                             
-                                                       .replace(/^"|"$/g, '')              
-                                                       .replace(/""/g, '"');
-                                                    });
-
-                        if (columns.length >= 5) {
+                        data.forEach(row => {
                             let newRow = document.createElement("tr");
                             newRow.innerHTML = `
-                                <td>${columns[0]}</td>
-                                <td>${columns[1]}</td>
-                                <td>${columns[2]}</td>
-                                <td>${columns[3]}</td>
-                                <td>${columns[7]}</td>`
-                                if (isValidUrl(columns[8])) {
-                                    newRow.innerHTML += `<td><a href="${columns[8]}" target="_blank" style="display: inline-block;
-                                     background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;
-                                     box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">Donate</a></td>`;
-                                  } else {
-                                    newRow.innerHTML += `<td style="color:gray;">N/A</td>`;
-                                  }
-                            ;
-                            newRow.onclick = () => selectRow(newRow, columns[0], columns[4], columns[5], columns[6], columns[1]);
+                                <td>${row.id}</td>
+                                <td>${row.service_name}</td>
+                                <td>${row.countries}</td>
+                                <td>${row.main_categories}</td>
+                                <td>${row.timestamp}</td>`;
+
+                            if (isValidUrl(row.donation_info)) {
+                                newRow.innerHTML += `<td><a href="${row.donation_info}" target="_blank" style="display: inline-block;
+                                    background-color: #FF5E5B; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;
+                                    box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s;">Donate</a></td>`;
+                            } else {
+                                newRow.innerHTML += `<td style="color:gray;">N/A</td>`;
+                            }
+
+                            newRow.onclick = () =>
+                                selectRow(newRow, row.id, row.service_name, row.epg_url, row.github_epg_url);
+
                             tableBody.appendChild(newRow);
-                        }
-                    });
-                } catch (error) {
-                    console.error("Error loading CSV:", error);
-                }
+                        });
+                    } catch (error) {
+                        console.error("Error loading data:", error);
+                    }
+
             }
 
-            function selectRow(row, id, url, epg, GitHub_EPG, service) {
+            function selectRow(row, id, service, epg, GitHub_EPG) {
                 document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
                 row.classList.add("selected");
 
@@ -119,26 +107,12 @@
                    'event_label': `Selected: ${id} ${service}`
                 });
 
-                document.getElementById("selectedID").value = id;
-                document.getElementById("m3uUrl").value = url;
+                document.getElementById("selectedID").value = id;   
                 document.getElementById("EPG").value = epg;
                 document.getElementById("GitHub_EPG").value = GitHub_EPG;
                 document.getElementById("EPGDrive").value = epg;
-                document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;
+                document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;             
                 
-                if (url.includes("drive.google.com")) {
-                    const match = url.match(/[-\w]{25,}/);
-                    if (!match) {
-                      throw new Error("Error: Could not extract the file ID from the URL.");
-                    }
-                    const fileId = match[0];
-                    downloadUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
-                  } else {
-                    downloadUrl = url;
-                  }
-                document.getElementById("RawDownloadLink").href = downloadUrl;
-
-
                 document.getElementById("modeSelectorModal").style.display = "block";
             }
 
@@ -338,7 +312,6 @@
                 let username = document.getElementById("usernameX").value.trim();
                 let password = document.getElementById("passwordX").value.trim();
                 let selectedID = document.getElementById("selectedID").value.trim();
-                let m3uUrl = document.getElementById("m3uUrl").value;
                
                 if (!selectedID || !dns || !username || !password) {
                     alert("Please fill in all fields.");
@@ -356,7 +329,6 @@
                     dns: dns,
                     username: username,
                     password: password,
-                    m3uUrl: m3uUrl
                 };
 
                 fetch('/process', {

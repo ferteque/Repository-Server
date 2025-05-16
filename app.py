@@ -1,6 +1,7 @@
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, jsonify
 from flask_cors import CORS
 from flask_compress import Compress
+from db import get_connection
 import requests
 import re
 import io
@@ -18,6 +19,19 @@ CORS(app, resources={r"/process": {"origins": [
 def home():
     return render_template("index.html") 
 
+@app.route("/playlists")
+def get_playlists():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT id, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM playlists")
+    data = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify(data)
+
 @app.route('/process', methods=['POST'])
 def process():
     data = request.json
@@ -25,24 +39,30 @@ def process():
     dns = data['dns']
     username = data['username']
     password = data['password']
-    m3u_url = data['m3uUrl']
 
-    if "drive.google.com" in m3u_url:
-        match = re.search(r"[-\w]{25,}", m3u_url)
-        if not match:
-            return "Error: Could not extract the file ID from the URL.", 400
-        file_id = match.group(0)
-        download_url = f"https://drive.google.com/uc?id={file_id}&export=download"
-    else:
-        download_url = m3u_url
+    db = get_connection()
+    cursor = db.cursor()
+    cursor.execute("SELECT m3u_url FROM playlists WHERE id = %s", (id_selected,))
+    row = cursor.fetchone()
+
+    if not row:
+        return "Playlist not found", 404
+
+    m3u_path = row[0]
+
+    if not os.path.exists(m3u_path):
+        current_path = os.getcwd()
+        return jsonify({
+            "error": "File not found on server",
+            "path": m3u_path,
+            "current": current_path
+        }), 404
 
     try:
-        response = requests.get(download_url, timeout=30)
-        response.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        return f"Download error: {str(e)}", 500
-
-    content = response.content.decode('utf-8')
+        with open(m3u_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except Exception as e:
+        return f"File read error: {str(e)}", 500
 
     
     content = re.sub(r'(?<!http://)(DNS)', r'http://\1', content)
