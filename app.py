@@ -4,6 +4,7 @@ from flask_compress import Compress
 import requests
 import re
 import io
+import os
 
 app = Flask(__name__)
 Compress(app)  
@@ -39,7 +40,8 @@ def process():
         response = requests.get(download_url, timeout=30)
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
-        return f"Download error: {str(e)}", 500
+        current_path = os.getcwd()
+        return f"Download error: {str(current_path)}", 500
 
     content = response.content.decode('utf-8')
 
