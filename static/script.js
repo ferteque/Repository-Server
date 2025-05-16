@@ -88,7 +88,7 @@
                             }
 
                             newRow.onclick = () =>
-                                selectRow(newRow, row.id, row.service_name);
+                                selectRow(newRow, row.id, row.service_name, row.epg_url, row.github_epg_url);
 
                             tableBody.appendChild(newRow);
                         });
@@ -98,7 +98,7 @@
 
             }
 
-            function selectRow(row, id, service) {
+            function selectRow(row, id, service, epg, GitHub_EPG) {
                 document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
                 row.classList.add("selected");
 
@@ -107,7 +107,11 @@
                    'event_label': `Selected: ${id} ${service}`
                 });
 
-                document.getElementById("selectedID").value = id;                
+                document.getElementById("selectedID").value = id;   
+                document.getElementById("EPG").value = epg;
+                document.getElementById("GitHub_EPG").value = GitHub_EPG;
+                document.getElementById("EPGDrive").value = epg;
+                document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;             
                 
                 document.getElementById("modeSelectorModal").style.display = "block";
             }
