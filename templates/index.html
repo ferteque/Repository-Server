@@ -60,48 +60,48 @@
     </div>
     <h3>Steps to Share Your Playlist</h3><br>
     <ol>
-        <form action="/upload-playlist" method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label>Service Name</label>
-            <input type="text" name="service_name" class="form-control" required>
+            <input type="text" name="service_name" class="dynamic-input" required>
           </div>
 
           <div class="form-group">
             <label>Countries</label>
-            <input type="text" name="countries" class="form-control" required>
+            <input type="text" name="countries" class="dynamic-input" required>
           </div>
 
           <div class="form-group">
             <label>Reddit Username</label>
-            <input type="text" name="reddit_username" class="form-control">
+            <input type="text" name="reddit_username" class="dynamic-input">
           </div>
 
           <div class="form-group">
             <label>Main Categories</label>
-            <input type="text" name="main_categories" class="form-control">
+            <input type="text" name="main_categories" class="dynamic-input">
           </div>
 
           <div class="form-group">
             <label>EPG URL</label>
-            <input type="url" name="epg" class="form-control">
+            <input type="url" name="epg" class="dynamic-input">
           </div>
 
           <div class="form-group">
             <label>Donation Link</label>
-            <input type="url" name="donation_link" class="form-control">
+            <input type="url" name="donation_link" class="dynamic-input">
           </div>
 
           <div class="form-group">
             <label>List Password</label>
-            <input type="password" name="list_password" class="form-control">
+            <input type="password" name="list_password" class="dynamic-input">
           </div>
 
           <div class="form-group">
             <label>Upload M3U File</label>
-            <input type="file" name="m3u_file" class="form-control" accept=".m3u" required>
+            <input type="file" name="m3u_file" class="dynamic-input" accept=".m3u" required>
           </div>
 
-          <button type="submit" class="btn btn-primary mt-2">Submit Playlist</button>
+          <button type="submit" class="btn btn-primary mt-2" id="submitPlaylist">Submit Playlist</button>
         </form>
     </ol>
     <p>We’ll review and publish it if it meets the quality standards. Thanks for contributing!</p>
