@@ -64,7 +64,7 @@
            
             async function loadCSV() {
                     try {
-                        const response = await fetch("http://157.180.95.85:8081/playlists");
+                        const response = await fetch("/playlists");
                         if (!response.ok) throw new Error("Failed to fetch data");
 
                         const data = await response.json();
