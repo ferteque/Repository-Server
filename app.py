@@ -23,7 +23,7 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM playlists")
+    cursor.execute("SELECT id, service_name, countries, main_categories, timestamp, donation_info FROM playlists")
     data = cursor.fetchall()
 
     cursor.close()
@@ -46,7 +46,7 @@ def process():
     if not row:
         return "Playlist not found", 404
 
-    m3u_url = row[0]
+    m3u_path = row[0]
 
     if not os.path.exists(m3u_path):
         return "File not found on server", 404

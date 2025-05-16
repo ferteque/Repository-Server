@@ -50,13 +50,11 @@
                 document.getElementById(`tab-${tab}`).classList.add("active");
                
                 if (tab == 'm3u') {
-                   document.getElementById('m3uUrlUser').required = true;
                    document.getElementById('dnsX').required = false;
                    document.getElementById('usernameX').required = false;
                    document.getElementById('passwordX').required = false;
                 }
                 else {
-                   document.getElementById('m3uUrlUser').required = false;
                    document.getElementById('dnsX').required = true;
                    document.getElementById('usernameX').required = true;
                    document.getElementById('passwordX').required = true;
@@ -90,7 +88,7 @@
                             }
 
                             newRow.onclick = () =>
-                                selectRow(newRow, row.id, row.m3u_url, row.epg_url, row.github_epg_url, row.service_name);
+                                selectRow(newRow, row.id);
 
                             tableBody.appendChild(newRow);
                         });
@@ -100,7 +98,7 @@
 
             }
 
-            function selectRow(row, id, url, epg, GitHub_EPG, service) {
+            function selectRow(row, id) {
                 document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
                 row.classList.add("selected");
 
@@ -109,26 +107,8 @@
                    'event_label': `Selected: ${id} ${service}`
                 });
 
-                document.getElementById("selectedID").value = id;
-                document.getElementById("m3uUrl").value = url;
-                document.getElementById("EPG").value = epg;
-                document.getElementById("GitHub_EPG").value = GitHub_EPG;
-                document.getElementById("EPGDrive").value = epg;
-                document.getElementById("GitHub_EPGDrive").value = GitHub_EPG;
+                document.getElementById("selectedID").value = id;                
                 
-                if (url.includes("drive.google.com")) {
-                    const match = url.match(/[-\w]{25,}/);
-                    if (!match) {
-                      throw new Error("Error: Could not extract the file ID from the URL.");
-                    }
-                    const fileId = match[0];
-                    downloadUrl = `https://drive.google.com/uc?id=${fileId}&export=download`;
-                  } else {
-                    downloadUrl = url;
-                  }
-                document.getElementById("RawDownloadLink").href = downloadUrl;
-
-
                 document.getElementById("modeSelectorModal").style.display = "block";
             }
 
@@ -328,7 +308,6 @@
                 let username = document.getElementById("usernameX").value.trim();
                 let password = document.getElementById("passwordX").value.trim();
                 let selectedID = document.getElementById("selectedID").value.trim();
-                let m3uUrl = document.getElementById("m3uUrl").value;
                
                 if (!selectedID || !dns || !username || !password) {
                     alert("Please fill in all fields.");
@@ -346,7 +325,6 @@
                     dns: dns,
                     username: username,
                     password: password,
-                    m3uUrl: m3uUrl
                 };
 
                 fetch('/process', {
