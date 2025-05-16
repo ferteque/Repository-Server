@@ -60,41 +60,49 @@
     </div>
     <h3>Steps to Share Your Playlist</h3><br>
     <ol>
-      <li>Download your M3U file from your IPTV Editor.</li><br>
-      <li>Open it using Notepad (Windows) or any text editor.</li><br>
-        <li>
-          Use the <strong>"Search and Replace"</strong> function to replace your personal credentials. <br><br>
+        <form action="/submit-playlist" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Service Name</label>
+            <input type="text" name="service_name" class="form-control" required>
+          </div>
 
-          <u>For example:</u><br><br>
+          <div class="form-group">
+            <label>Countries</label>
+            <input type="text" name="countries" class="form-control" required>
+          </div>
 
-          <code>http://xxxxx.xxxx-xxx/12345678/12345678</code><br>
-          becomes → <code>http://DNS/USERNAME/PASSWORD</code><br><br>
+          <div class="form-group">
+            <label>Reddit Username</label>
+            <input type="text" name="reddit_username" class="form-control">
+          </div>
 
-          ⚠️ <em>Some playlists may use a different structure, such as:</em><br>
-          <code>http://xxxxx.xxxx-xxx/live/12345678/12345678</code><br>
-          which should become → <code>http://DNS/live/USERNAME/PASSWORD</code><br><br>
+          <div class="form-group">
+            <label>Main Categories</label>
+            <input type="text" name="main_categories" class="form-control">
+          </div>
 
-          <em>Be sure to replace all variations to properly anonymize your playlist.</em>
-        </li><br>
-        <li>
-          Repeat the replacement for <strong>Movies</strong> and <strong>TV Shows</strong> if included.<br><br>
+          <div class="form-group">
+            <label>EPG URL</label>
+            <input type="url" name="epg" class="form-control">
+          </div>
 
-          <u>For example:</u><br><br>
+          <div class="form-group">
+            <label>Donation Link</label>
+            <input type="url" name="donation_link" class="form-control">
+          </div>
 
-          <strong>Movies</strong><br>
-          <code>http://xxxx.xxx-xxx/movie/12345678/12345678</code><br>
-          becomes → <code>http://DNS/movie/USERNAME/PASSWORD</code><br><br>
+          <div class="form-group">
+            <label>List Password</label>
+            <input type="password" name="list_password" class="form-control">
+          </div>
 
-          <strong>TV Shows</strong><br>
-          <code>http://xxxx.xxx-xxx/series/12345678/12345678</code><br>
-          becomes → <code>http://DNS/series/USERNAME/PASSWORD</code>
-        </li><br>
-      <li>
-        Once you're done, upload your curated file using this Google Form:  
-        <a href="https://forms.gle/ufrnmrwF5RhGZXyJA" target="_blank" rel="noopener noreferrer">
-          Submit via Google Form
-        </a>
-      </li><br>
+          <div class="form-group">
+            <label>Upload M3U File</label>
+            <input type="file" name="m3u_file" class="form-control" accept=".m3u" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-2">Submit Playlist</button>
+        </form>
     </ol>
     <p>We’ll review and publish it if it meets the quality standards. Thanks for contributing!</p>
   </div>
@@ -316,7 +324,6 @@
     </button>
   </div>
 </div>
-
 
 </body>
 </html>
