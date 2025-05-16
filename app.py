@@ -40,8 +40,7 @@ def process():
         response = requests.get(download_url, timeout=30)
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
-        current_path = os.getcwd()
-        return f"Download error: {str(current_path)}", 500
+        return f"Download error: {str(e)}", 500
 
     content = response.content.decode('utf-8')
 
