@@ -51,9 +51,11 @@ def process():
     m3u_path = row[0]
 
     if not os.path.exists(m3u_path):
+        current_path = os.getcwd()
         return jsonify({
             "error": "File not found on server",
-            "path": m3u_path
+            "path": m3u_path,
+            "current": current_path
         }), 404
 
     try:
