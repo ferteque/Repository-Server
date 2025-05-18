@@ -47,7 +47,7 @@ def detect_content_type(filepath):
                     break
     return content_type or 'live'  # default
 
-def process_m3u_file(filepath, dns, username, password):
+def process_m3u_file(filepath, dns):
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
@@ -114,13 +114,13 @@ def upload_playlist():
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("""
-            INSERT INTO playlists (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password, m3u_url)
+            INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg, donation_link, list_password, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, '')
         """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password))
         connection.commit()
         playlist_id = cursor.lastrowid
 
-        process_m3u_file(temp_path, "DNS", reddit_username, list_password)
+        process_m3u_file(temp_path, "DNS")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
