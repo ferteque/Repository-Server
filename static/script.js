@@ -18,7 +18,9 @@
 
            document.getElementById('submitPlaylistForm').addEventListener('submit', function(event) {
                     event.preventDefault();
-                    submitPlaylist();  
+                    const form = e.target;
+                    const formData = new FormData(form);
+                    submitPlaylist(formData);  
                 });
            
             document.getElementById("closeModalSelector").addEventListener("click", closeModalSelector);
@@ -170,28 +172,11 @@
                 shareModal.style.display = "none";
               };
             
-            function submitPlaylist() {
-                let service_name = document.getElementById("service_name").value;
-                let countries = document.getElementById("countries").value;
-                let reddit_username = document.getElementById("reddit_username").value;
-                let main_categories = document.getElementById("main_categories").value;
-                let epgForm = document.getElementById("epgForm").value;
-                let donation_link = document.getElementById("donation_link").value;
-                let list_password = document.getElementById("list_password").value;
+            function submitPlaylist(formData) {
 
-                const postData = {  
-                    service_name: service_name,
-                    countries: countries,
-                    reddit_username: reddit_username,
-                    main_categories: main_categories,
-                    epgForm: epgForm,
-                    donation_link: donation_link,
-                    list_password: list_password
-                };
                 fetch('/upload_playlist', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(postData)
+                    body: formData
                 })
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');

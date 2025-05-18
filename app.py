@@ -87,7 +87,6 @@ def process_m3u_file(filepath, dns, username, password):
 
 @app.route('/upload_playlist', methods=['POST'])
 def upload_playlist():
-    # Validar campos del formulario
     required_fields = ['service_name', 'countries', 'reddit_username', 'main_categories', 'epg', 'donation_link', 'list_password']
     for field in required_fields:
         if field not in request.form:
