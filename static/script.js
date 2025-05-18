@@ -15,6 +15,11 @@
                      });
                     submitM3U();  
                 });
+
+           document.getElementById('submitPlaylistForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    submitPlaylist();  
+                });
            
             document.getElementById("closeModalSelector").addEventListener("click", closeModalSelector);
             document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
@@ -64,7 +69,7 @@
            
             async function loadCSV() {
                     try {
-                        const response = await fetch("http://157.180.95.85:8081/playlists");
+                        const response = await fetch("/playlists");
                         if (!response.ok) throw new Error("Failed to fetch data");
 
                         const data = await response.json();
@@ -75,6 +80,7 @@
                             newRow.innerHTML = `
                                 <td>${row.id}</td>
                                 <td>${row.service_name}</td>
+                                <td>${row.reddit_user}</td>
                                 <td>${row.countries}</td>
                                 <td>${row.main_categories}</td>
                                 <td>${row.timestamp}</td>`;
@@ -164,6 +170,46 @@
                 shareModal.style.display = "none";
               };
             
+            function submitPlaylist() {
+                let service_name = document.getElementById("service_name").value;
+                let countries = document.getElementById("countries").value;
+                let reddit_username = document.getElementById("reddit_username").value;
+                let main_categories = document.getElementById("main_categories").value;
+                let epgForm = document.getElementById("epgForm").value;
+                let donation_link = document.getElementById("donation_link").value;
+                let list_password = document.getElementById("list_password").value;
+
+                const postData = {  
+                    service_name: service_name,
+                    countries: countries,
+                    reddit_username: reddit_username,
+                    main_categories: main_categories,
+                    epgForm: epgForm,
+                    donation_link: donation_link,
+                    list_password: list_password
+                };
+                fetch('/upload_playlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(blob => {
+                    document.getElementById("submitPlaylistForm").style.display = "none";
+                    document.getElementById("Successfully_uploaded").style.display = "block";
+                            
+                })
+
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading M3U file');
+                });
+            }
+            }
+
             function submitM3U() {
                 try {
                     let m3uUrlUser = document.getElementById("m3uUrlUser").value;

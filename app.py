@@ -144,7 +144,7 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT id, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM playlists")
+    cursor.execute("SELECT id, service_name, reddit_user, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM playlists WHERE display = 1")
     data = cursor.fetchall()
 
     cursor.close()
