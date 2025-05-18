@@ -321,8 +321,6 @@
                     body: JSON.stringify(postData)
                 })
                 .then(response => {
-                    document.getElementById("spinner3").style.display = "none";
-                    document.getElementById('Wait3').style.display='none';
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.blob();
                 })
@@ -336,10 +334,14 @@
                     link.click();
                     document.body.removeChild(link);
                     window.URL.revokeObjectURL(url);
+                    document.getElementById("spinner3").style.display = "none";
+                    document.getElementById('Wait3').style.display='none';
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Error processing M3U file');
+                    document.getElementById("spinner3").style.display = "none";
+                    document.getElementById('Wait3').style.display='none';
                 });
             });
 
