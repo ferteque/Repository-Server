@@ -307,6 +307,9 @@
             });
 
             document.getElementById("RawDownloadLink").addEventListener("click", function() {
+                document.getElementById("spinner3").style.display = "block";
+                document.getElementById('Wait3').style.display='block';
+                document.getElementById('RawDownloadLink').style.display='none';
                 let selectedID = document.getElementById("selectedID").value.trim();
                 const postData = {
                     id: selectedID,
@@ -318,6 +321,8 @@
                     body: JSON.stringify(postData)
                 })
                 .then(response => {
+                    document.getElementById("spinner3").style.display = "none";
+                    document.getElementById('Wait3').style.display='none';
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.blob();
                 })
