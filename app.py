@@ -108,7 +108,7 @@ def upload_playlist():
 
     try:
         temp_filename = "temp_uploaded.m3u"
-        temp_path = os.path.join(PLAYLISTS_FOLDER, temp_filename)
+        temp_path = os.path.join(UPLOAD_FOLDER, temp_filename)
         file.save(temp_path)
 
         conn = get_connection()
@@ -123,7 +123,7 @@ def upload_playlist():
         process_m3u_file(temp_path, "DNS", reddit_username, list_password)
 
         final_filename = f"{playlist_id}.m3u"
-        final_path = os.path.join(PLAYLISTS_FOLDER, final_filename)
+        final_path = os.path.join(UPLOAD_FOLDER, final_filename)
         os.rename(temp_path, final_path)
 
         m3u_url = f"./playlists/{final_filename}"
