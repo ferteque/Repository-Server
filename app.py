@@ -113,12 +113,13 @@ def upload_playlist():
 
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
+        playlist_id = cursor.lastrowid + 1
         cursor.execute("""
             INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, '')
         """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password))
         conn.commit()
-        playlist_id = cursor.lastrowid
+        temp_playlist_id = cursor.lastrowid
 
         process_m3u_file(temp_path, "DNS")
 
@@ -127,7 +128,8 @@ def upload_playlist():
         os.rename(temp_path, final_path)
 
         m3u_url = f"./playlists/{final_filename}"
-        cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (m3u_url, playlist_id))
+        cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (m3u_url, temp_playlist_id))
+        cursor.execute("UPDATE playlists SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
         conn.commit()
 
         cursor.close()
