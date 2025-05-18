@@ -208,7 +208,6 @@
                     alert('Error uploading M3U file');
                 });
             }
-            }
 
             function submitM3U() {
                 try {
