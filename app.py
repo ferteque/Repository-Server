@@ -114,7 +114,7 @@ def upload_playlist():
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("""
-            INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg, donation_link, list_password, m3u_url)
+            INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, '')
         """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password))
         connection.commit()
