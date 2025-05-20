@@ -93,10 +93,12 @@ def process_m3u_file(filepath, dns):
 
         i += 1
 
-    logging.info("Líneas que se van a guardar: %s", len(new_lines))
-    logging.info("Path: %s", filepath)
-    with open(filepath, 'w', encoding='utf-8') as f:
-        f.writelines(new_lines)
+    try:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.writelines(new_lines)
+        logging.info(f"Archivo guardado correctamente en: {filepath}")
+    except Exception as e:
+        logging.error(f"Error al guardar el archivo: {e}")
 
 
 @app.route('/upload_playlist', methods=['POST'])
