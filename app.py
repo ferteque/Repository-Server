@@ -114,7 +114,8 @@ def upload_playlist():
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT MAX(id) FROM playlists")
-        max_id = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        max_id = result[0] if result and result[0] is not None else 0
 
         return jsonify({"error": max_id}), 400
 
