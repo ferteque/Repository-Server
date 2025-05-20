@@ -143,10 +143,18 @@ def upload_playlist():
         conn.commit()
         temp_playlist_id = cursor.lastrowid
 
+        if not os.path.exists(temp_path):
+            logging.error(f"El archivo temporal no existe: {temp_path}")
+        else:
+            logging.info(f"Archivo temporal encontrado: {temp_path}")
+
         process_m3u_file(temp_path, "DNS")
-        logging.info("Path: %s", temp_path)
+
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
+
+        logging.info(f"Archivo final encontrado: {final_path}")
+
         os.rename(temp_path, final_path)
 
         cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (final_path, temp_playlist_id))
