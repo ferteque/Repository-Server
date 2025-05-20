@@ -21,7 +21,7 @@ CORS(app, resources={r"/process": {"origins": [
 def home():
     return render_template("index.html") 
 
-UPLOAD_FOLDER = '.'
+UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists_test")
 ALLOWED_EXTENSIONS = {'m3u'}
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
