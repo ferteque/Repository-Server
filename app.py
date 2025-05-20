@@ -119,7 +119,7 @@ def upload_playlist():
 
         playlist_id = max_id + 1
         current_path = os.getcwd()
-        print(current_path)
+        return jsonify({"error": current_path}), 400
         cursor.execute("""
             INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, '')
