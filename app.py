@@ -161,6 +161,7 @@ def upload_playlist():
             logging.info(f"No existe archivo final, se creará: {final_path}")
 
         cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (final_path, temp_playlist_id))
+        conn.commit()
         cursor.execute("UPDATE playlists SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
         conn.commit()
 
