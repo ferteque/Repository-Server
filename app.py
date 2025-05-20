@@ -114,7 +114,7 @@ def upload_playlist():
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT MAX(id) FROM playlists")
-        max_id = cursor.fetchone()[0]
+        max_id = cursor.fetchone()
         playlist_id = max_id + 1
         cursor.execute("""
             INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
