@@ -48,7 +48,7 @@ def detect_content_type(filepath):
     return content_type or 'live'  # default
 
 def process_m3u_file(filepath, dns):
-    return jsonify({"error": filepath}), 400
+
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
@@ -128,6 +128,7 @@ def upload_playlist():
         conn.commit()
         temp_playlist_id = cursor.lastrowid
 
+        return jsonify({"error": temp_path}), 400
         process_m3u_file(temp_path, "DNS")
 
         final_filename = f"{playlist_id}.m3u"
