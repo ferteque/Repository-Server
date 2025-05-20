@@ -115,6 +115,9 @@ def upload_playlist():
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT MAX(id) FROM playlists")
         max_id = cursor.fetchone()[0]
+
+        return jsonify({"error": "{max_id}"}), 400
+
         playlist_id = max_id + 1
         cursor.execute("""
             INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
@@ -140,7 +143,7 @@ def upload_playlist():
         return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": m3u_url})
 
     except Exception as e:
-        return jsonify({"error": str(max_id)}), 500
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/playlists")
 def get_playlists():
