@@ -129,7 +129,7 @@ def upload_playlist():
 
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT MAX(id) FROM playlists")
+        cursor.execute("SELECT MAX(id) FROM test_playlists")
         result = cursor.fetchone()
         max_id = result['MAX(id)'] if result and result['MAX(id)'] is not None else 0
 
@@ -137,7 +137,7 @@ def upload_playlist():
         current_path = os.getcwd()
 
         cursor.execute("""
-            INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, timestamp, m3u_url)
+            INSERT INTO test_playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, timestamp, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '')
         """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password, datetime.today().strftime('%d-%m-%Y')))
         conn.commit()
@@ -177,7 +177,7 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT id, service_name, reddit_user, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM playlists WHERE display = 1")
+    cursor.execute("SELECT id, service_name, reddit_user, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM test_playlists WHERE display = 1")
     data = cursor.fetchall()
 
     cursor.close()
