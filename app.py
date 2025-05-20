@@ -85,6 +85,8 @@ def process_m3u_file(filepath, dns):
 
         i += 1
 
+    print("Lineas que se van a guardar: ", len(new_lines))
+    print("Path: ", filepath)
     with open(filepath, 'w', encoding='utf-8') as f:
         f.writelines(new_lines)
 
