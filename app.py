@@ -88,7 +88,6 @@ def process_m3u_file(filepath, dns):
     with open(filepath, 'w', encoding='utf-8') as f:
         f.writelines(new_lines)
 
-    return
 
 @app.route('/upload_playlist', methods=['POST'])
 def upload_playlist():
@@ -133,6 +132,8 @@ def upload_playlist():
         temp_playlist_id = cursor.lastrowid
 
         process_m3u_file(temp_path, "DNS")
+
+        return jsonify({"error": temp_path}), 400
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
