@@ -48,6 +48,7 @@ def detect_content_type(filepath):
     return content_type or 'live'  # default
 
 def process_m3u_file(filepath, dns):
+    return jsonify({"error": filepath}), 400
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
@@ -119,7 +120,7 @@ def upload_playlist():
 
         playlist_id = max_id + 1
         current_path = os.getcwd()
-        return jsonify({"error": current_path}), 400
+
         cursor.execute("""
             INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, '')
