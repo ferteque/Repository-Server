@@ -2,10 +2,12 @@ from flask import Flask, request, send_file, render_template, jsonify
 from flask_cors import CORS
 from flask_compress import Compress
 from db import get_connection
+from datetime import datetime
 import requests
 import re
 import io
 import os
+
 
 app = Flask(__name__)
 Compress(app)  
@@ -86,6 +88,8 @@ def process_m3u_file(filepath, dns):
     with open(filepath, 'w', encoding='utf-8') as f:
         f.writelines(new_lines)
 
+    return
+
 @app.route('/upload_playlist', methods=['POST'])
 def upload_playlist():
     required_fields = ['service_name', 'countries', 'reddit_username', 'main_categories', 'epg', 'donation_link', 'list_password']
@@ -122,9 +126,9 @@ def upload_playlist():
         current_path = os.getcwd()
 
         cursor.execute("""
-            INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
+            INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, timestamp, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, '')
-        """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password))
+        """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password, datetime.today().strftime('%d-%m-%Y')))
         conn.commit()
         temp_playlist_id = cursor.lastrowid
 
