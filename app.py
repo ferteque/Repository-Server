@@ -19,7 +19,7 @@ CORS(app, resources={r"/process": {"origins": [
 def home():
     return render_template("index.html") 
 
-UPLOAD_FOLDER = './playlists'
+UPLOAD_FOLDER = '/playlists'
 ALLOWED_EXTENSIONS = {'m3u'}
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -117,9 +117,9 @@ def upload_playlist():
         result = cursor.fetchone()
         max_id = result['MAX(id)'] if result and result['MAX(id)'] is not None else 0
 
-        
-
         playlist_id = max_id + 1
+        current_path = os.getcwd()
+        print(current_path)
         cursor.execute("""
             INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, '')
