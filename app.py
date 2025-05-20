@@ -153,9 +153,12 @@ def upload_playlist():
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
 
-        logging.info(f"Archivo final encontrado: {final_path}")
-
         os.rename(temp_path, final_path)
+
+        if os.path.exists(final_path):
+            logging.info(f"Archivo final ya existe y será sobrescrito: {final_path}")
+        else:
+            logging.info(f"No existe archivo final, se creará: {final_path}")
 
         cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (final_path, temp_playlist_id))
         cursor.execute("UPDATE playlists SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
