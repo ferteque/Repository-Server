@@ -142,7 +142,7 @@ def upload_playlist():
         temp_playlist_id = cursor.lastrowid
 
         process_m3u_file(temp_path, "DNS")
-
+        logging.info("Path: %s", temp_path)
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
         os.rename(temp_path, final_path)
