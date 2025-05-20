@@ -24,7 +24,7 @@ CORS(app, resources={r"/process": {"origins": [
 def home():
     return render_template("index.html") 
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists_test")
+UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
 ALLOWED_EXTENSIONS = {'m3u'}
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -85,7 +85,7 @@ def process_m3u_file(filepath, dns):
                     placeholder_url = f"http://{dns}/USERNAME/PASSWORD/840009\n"
                     new_lines.append(placeholder_url)
                 else:
-                    placeholder_url = f"http://{dns}/{content_type.upper()}/USERNAME/PASSWORD/840009\n"
+                    placeholder_url = f"http://{dns}/{content_type}/USERNAME/PASSWORD/840009\n"
                     new_lines.append(placeholder_url)
 
                 i += 2  # Saltamos la línea de URL original, porque ya la sustituimos
