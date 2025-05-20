@@ -8,6 +8,8 @@ import re
 import io
 import os
 import logging
+import sys
+
 
 
 app = Flask(__name__)
@@ -26,7 +28,11 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists_test")
 ALLOWED_EXTENSIONS = {'m3u'}
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s',
+    stream=sys.stdout
+)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
