@@ -19,7 +19,7 @@ CORS(app, resources={r"/process": {"origins": [
 def home():
     return render_template("index.html") 
 
-UPLOAD_FOLDER = '/playlists'
+UPLOAD_FOLDER = '/app/playlists'
 ALLOWED_EXTENSIONS = {'m3u'}
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -128,7 +128,6 @@ def upload_playlist():
         conn.commit()
         temp_playlist_id = cursor.lastrowid
 
-        return jsonify({"error": temp_path}), 400
         process_m3u_file(temp_path, "DNS")
 
         final_filename = f"{playlist_id}.m3u"
