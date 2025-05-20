@@ -144,7 +144,7 @@ def upload_playlist():
         cursor.close()
         conn.close()
 
-        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": m3u_url})
+        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
