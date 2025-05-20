@@ -138,8 +138,7 @@ def upload_playlist():
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
         os.rename(temp_path, final_path)
 
-        m3u_url = f"./playlists/{final_filename}"
-        cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (m3u_url, temp_playlist_id))
+        cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (final_path, temp_playlist_id))
         cursor.execute("UPDATE playlists SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
         conn.commit()
 
