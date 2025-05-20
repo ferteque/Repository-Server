@@ -7,6 +7,7 @@ import requests
 import re
 import io
 import os
+import logging
 
 
 app = Flask(__name__)
@@ -25,6 +26,7 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists_test")
 ALLOWED_EXTENSIONS = {'m3u'}
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+logging.basicConfig(level=logging.INFO)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -85,8 +87,8 @@ def process_m3u_file(filepath, dns):
 
         i += 1
 
-    print("Lineas que se van a guardar: ", len(new_lines))
-    print("Path: ", filepath)
+    logging.info("Líneas que se van a guardar: %s", len(new_lines))
+    logging.info("Path: %s", filepath)
     with open(filepath, 'w', encoding='utf-8') as f:
         f.writelines(new_lines)
 
