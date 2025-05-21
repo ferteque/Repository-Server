@@ -196,8 +196,11 @@ def process():
 
     db = get_connection()
     cursor = db.cursor()
+    logging.info(f"Archivo final ya existe y será sobrescrito: {id_selected}")
     cursor.execute("SELECT m3u_url FROM playlists WHERE id = %s", (id_selected,))
     row = cursor.fetchone()
+    logging.info(f"Archivo final ya existe y será sobrescrito: {row}")
+
 
     if not row:
         return "Playlist not found", 404
