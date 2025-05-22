@@ -185,7 +185,7 @@
 
               const modeSelectorModalSelector = document.getElementById("modeSelectorModalUpload");
               const openShareModal = document.getElementById("openShareModal");
-              const closeModalSelectorUpload = document.getElementById("closeModalSelectorUpload");
+              const divcloseModalSelectorUpload = document.getElementById("closeModalSelectorUpload");
 
               const closeShareModal = document.getElementById("closeShareModal");
               const shareModal = document.getElementById("shareModal");
@@ -198,14 +198,14 @@
                 modeSelectorModalUpload.style.display = "block";
               };
 
-              closeModalSelectorUpload.onclick = () => {
+              divcloseModalSelectorUpload.onclick = () => {
                 modeSelectorModalUpload.style.display = "none";
               };
 
               closeShareModal.onclick = () => {
                 shareModal.style.display = "none";
               };
-              
+
               closeShareModalUpdate.onclick = () => {
                 updateShareModal.style.display = "none";
               };
