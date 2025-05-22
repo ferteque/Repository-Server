@@ -193,10 +193,13 @@
               };
 
               closeShareModalSelector.onclick = () => {
+
                 closeShareModalSelector.style.display = "none";
               }
 
               closeShareModal.onclick = () => {
+                document.getElementById('submitPlaylistForm').style.display='none';
+                document.getElementById('updatePlaylistForm').style.display='none';
                 shareModal.style.display = "none";
               };
             
@@ -428,13 +431,15 @@
             });
 
             document.getElementById("NewShare").addEventListener("click", function() {
-                document.getElementById("NewShare").style.display = "none";
+                document.getElementById("modeSelectorModalUpload").style.display = "none";
+                document.getElementById('shareModal').style.display='block';
                 document.getElementById('submitPlaylistForm').style.display='block';
             });
 
             document.getElementById("UpdateList").addEventListener("click", function() {
-                document.getElementById("UpdateList").style.display = "none";
-                document.getElementById('manualInstructions').style.display='block';
+                document.getElementById("modeSelectorModalUpload").style.display = "none";
+                document.getElementById('shareModal').style.display='block';
+                document.getElementById('updatePlaylistForm').style.display='block';
             });
 
             function submitForm() {
