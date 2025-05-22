@@ -15,6 +15,16 @@
                      });
                     submitM3U();  
                 });
+
+           document.getElementById('submitPlaylistForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const form = event.target;
+                    const formData = new FormData(form);
+                    for (let [key, value] of formData.entries()) {
+                        console.log(`${key}:`, value);
+                    }
+                    submitPlaylist(formData);  
+                });
            
             document.getElementById("closeModalSelector").addEventListener("click", closeModalSelector);
             document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
@@ -75,6 +85,7 @@
                             newRow.innerHTML = `
                                 <td>${row.id}</td>
                                 <td>${row.service_name}</td>
+                                <td>${row.reddit_user}</td>
                                 <td>${row.countries}</td>
                                 <td>${row.main_categories}</td>
                                 <td>${row.timestamp}</td>`;
@@ -164,6 +175,28 @@
                 shareModal.style.display = "none";
               };
             
+            function submitPlaylist(formData) {
+
+                fetch('/upload_playlist', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(blob => {
+                    document.getElementById("submitPlaylistForm").style.display = "none";
+                    document.getElementById("Successfully_uploaded").style.display = "block";
+                            
+                })
+
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading M3U file');
+                });
+            }
+
             function submitM3U() {
                 try {
                     let m3uUrlUser = document.getElementById("m3uUrlUser").value;

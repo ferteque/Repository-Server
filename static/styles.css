@@ -368,7 +368,7 @@
             font-family: sans-serif;
         }
 
-        #Kofi, #submitM3U, #submitForm{
+        #Kofi, #submitM3U, #submitForm, #submitPlaylist{
             display: inline-block;
             background-color: #FF5E5B;
             color: white;
