@@ -239,6 +239,8 @@ def get_playlists():
 
     cursor.execute("SELECT id, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM test_playlists WHERE display = 1")
 
+    data = cursor.fetchall()
+
     cursor.close()
     conn.close()
 
