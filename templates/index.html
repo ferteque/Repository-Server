@@ -58,10 +58,9 @@
       ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
       It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
     </div>
-    <ol>
-    <div class="modal2" id="modeSelectorModal" style="display:none;">
+    <div class="modal2" id="modeSelectorModalUpload" style="display:none;">
         <div class="modal-content2">
-        <span class="close" id="closeModalSelector">&times;</span>
+        <span class="close" id="closeModalSelectorUpload">&times;</span>
             <h3>Select one of the next options:</h3>
             <div class="d-grid gap-2">
               <button class="btn btn-primary" id="NewShare" data-bs-dismiss="modal">Share a new Playlist</button>
@@ -70,6 +69,7 @@
           </div>
         </div>
       </div>
+    <ol>
         <form id="submitPlaylistForm" style="display: none">
           <div class="form-group">
             <label>Service Name</label>
@@ -113,7 +113,8 @@
 
           <button type="submit" class="btn btn-primary mt-2" id="submitPlaylist">Submit Playlist</button>
         </form>
-
+    </ol>
+    <ol>
         <form id="updatePlaylistForm" style="display: none">
           <div class="form-group">
             <label>Service Name</label>
@@ -130,9 +131,9 @@
           </div>
           <button type="submit" class="btn btn-primary mt-2" id="updatePlaylist">Update Playlist</button>
         </form>
+    </ol>
         <h3 id="Wait4" style="display: none;">PLEASE WAIT</h3>
             <div class="spinner" id="spinner4" style="display: none;"></div>
-    </ol>
     <p id="Successfully_uploaded" style="display: none">List uploaded successfully! We’ll review and publish it if it meets the quality standards. Thanks for contributing!</p>
   </div>
 </div>

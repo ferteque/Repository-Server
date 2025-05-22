@@ -43,6 +43,7 @@
                 });
            
             document.getElementById("closeModalSelector").addEventListener("click", closeModalSelector);
+            document.getElementById("closeModalSelectorUpload").addEventListener("click", closeModalSelectorUpload);
             document.getElementById("closeModalCredentials").addEventListener("click", closeModalCredentials);
             document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
             document.getElementById("closeModalNextStepsDrive").addEventListener("click", closeModalNextStepsDrive);
@@ -177,6 +178,9 @@
 
             function closeModalSelector() {
                 document.getElementById("modeSelectorModal").style.display = "none";
+            }
+            function closeModalSelectorUpload() {
+                document.getElementById("modeSelectorModalUpload").style.display = "none";
             }
 
               const openShareModal = document.getElementById("openShareModal");

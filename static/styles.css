@@ -51,7 +51,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             font-size: 25px;
        } 
-        #credentials, #Loading, #modeSelectorModal, #manualInstructions {
+        #credentials, #Loading, #modeSelectorModal, #manualInstructions, #modeSelectorModalUpload {
             display: none; 
             position: fixed;
             z-index: 1000;
@@ -295,9 +295,7 @@
             margin: 0;
         }
 
-        #content-container {
-            height: calc(100vh - 157px); 
-  
+        #content-container { 
             padding: 20px;
             box-sizing: border-box;
         }
