@@ -200,7 +200,7 @@ def update_playlist():
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT owner_password_hash FROM playlists WHERE id = %s", (playlist_id))
         DB_list_password = cursor.fetchone()['owner_password_hash']
-        if(DB_list_password != list_password)
+        if(DB_list_password != list_password):
             return jsonify({"error": str(e)}), 500
 
         current_path = os.getcwd()
