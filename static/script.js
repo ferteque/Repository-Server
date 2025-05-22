@@ -32,8 +32,8 @@
            document.getElementById('updatePlaylistForm').addEventListener('submit', function(event) {
                     event.preventDefault();
                     document.getElementById("updatePlaylistForm").style.display = "none";
-                    document.getElementById("spinner4").style.display = "block";
-                    document.getElementById('Wait4').style.display='block';
+                    document.getElementById("spinner5").style.display = "block";
+                    document.getElementById('Wait5').style.display='block';
                     const form = event.target;
                     const formData = new FormData(form);
                     for (let [key, value] of formData.entries()) {
@@ -183,24 +183,31 @@
                 document.getElementById("modeSelectorModalUpload").style.display = "none";
             }
 
+              const modeSelectorModalSelector = document.getElementById("modeSelectorModalUpload");
               const openShareModal = document.getElementById("openShareModal");
+              const closeModalSelectorUpload = document.getElementById("closeModalSelectorUpload");
+
               const closeShareModal = document.getElementById("closeShareModal");
               const shareModal = document.getElementById("shareModal");
-              const closeShareModalSelector = document.getElementById("modeSelectorModalUpload");
+
+              const updateShareModal = document.getElementById("updateModal");
+              const closeShareModalUpdate = document.getElementById("closeShareModalUpdate");
+
 
               openShareModal.onclick = () => {
-                document.getElementById("modeSelectorModalUpload").style.display = "block";
+                modeSelectorModalUpload.style.display = "block";
               };
 
-              closeShareModalSelector.onclick = () => {
-
-                closeShareModalSelector.style.display = "none";
-              }
+              closeModalSelectorUpload.onclick = () => {
+                modeSelectorModalUpload.style.display = "none";
+              };
 
               closeShareModal.onclick = () => {
-                document.getElementById('submitPlaylistForm').style.display='none';
-                document.getElementById('updatePlaylistForm').style.display='none';
                 shareModal.style.display = "none";
+              };
+              
+              closeShareModalUpdate.onclick = () => {
+                updateShareModal.style.display = "none";
               };
             
             function submitPlaylist(formData) {
@@ -237,9 +244,9 @@
                     return response.blob();
                 })
                 .then(blob => {
-                    document.getElementById("spinner4").style.display = "none";
-                    document.getElementById('Wait4').style.display='none';
-                    document.getElementById("Successfully_uploaded").style.display = "block";
+                    document.getElementById("spinner5").style.display = "none";
+                    document.getElementById('Wait5').style.display='none';
+                    document.getElementById("Successfully_updated").style.display = "block";
                             
                 })
 
@@ -433,13 +440,11 @@
             document.getElementById("NewShare").addEventListener("click", function() {
                 document.getElementById("modeSelectorModalUpload").style.display = "none";
                 document.getElementById('shareModal').style.display='block';
-                document.getElementById('submitPlaylistForm').style.display='block';
             });
 
             document.getElementById("UpdateList").addEventListener("click", function() {
                 document.getElementById("modeSelectorModalUpload").style.display = "none";
-                document.getElementById('shareModal').style.display='block';
-                document.getElementById('updatePlaylistForm').style.display='block';
+                document.getElementById('updateModal').style.display='block';
             });
 
             function submitForm() {
