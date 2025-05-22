@@ -186,11 +186,15 @@
               const openShareModal = document.getElementById("openShareModal");
               const closeShareModal = document.getElementById("closeShareModal");
               const shareModal = document.getElementById("shareModal");
+              const closeShareModalSelector = document.getElementById("modeSelectorModalUpload");
 
               openShareModal.onclick = () => {
-                shareModal.style.display = "block";
                 document.getElementById("modeSelectorModalUpload").style.display = "block";
               };
+
+              closeShareModalSelector.onclick = () => {
+                closeShareModalSelector.style.display = "none";
+              }
 
               closeShareModal.onclick = () => {
                 shareModal.style.display = "none";
