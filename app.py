@@ -71,6 +71,8 @@ def process_m3u_file(filepath, dns):
         if line.startswith('#EXTINF'):
             if i + 1 < len(lines):
                 url_line = lines[i + 1].strip()
+                url_split = url_line.split("/")
+                stream_id = url_split[len(url_split) - 1]
 
                 if '/live/' in url_line:
                     content_type = 'live'
@@ -82,13 +84,13 @@ def process_m3u_file(filepath, dns):
                     content_type = ''
 
                 if content_type == '':
-                    placeholder_url = f"http://{dns}/USERNAME/PASSWORD/840009\n"
+                    placeholder_url = f"http://{dns}/USERNAME/PASSWORD/{stream_id}\n"
                     new_lines.append(placeholder_url)
                 else:
-                    placeholder_url = f"http://{dns}/{content_type}/USERNAME/PASSWORD/840009\n"
+                    placeholder_url = f"http://{dns}/{content_type}/USERNAME/PASSWORD/{stream_id}\n"
                     new_lines.append(placeholder_url)
 
-                i += 2  # Saltamos la línea de URL original, porque ya la sustituimos
+                i += 2
                 continue
 
         i += 1
