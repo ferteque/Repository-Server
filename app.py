@@ -237,7 +237,7 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT id, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM test_playlists WHERE display = 1")
+    cursor.execute("SELECT id, reddit_user, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM test_playlists WHERE display = 1")
 
     data = cursor.fetchall()
 
