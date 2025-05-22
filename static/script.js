@@ -18,12 +18,28 @@
 
            document.getElementById('submitPlaylistForm').addEventListener('submit', function(event) {
                     event.preventDefault();
+                    document.getElementById("submitPlaylistForm").style.display = "none";
+                    document.getElementById("spinner4").style.display = "block";
+                    document.getElementById('Wait4').style.display='block';
                     const form = event.target;
                     const formData = new FormData(form);
                     for (let [key, value] of formData.entries()) {
                         console.log(`${key}:`, value);
                     }
                     submitPlaylist(formData);  
+                });
+
+           document.getElementById('updatePlaylistForm').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    document.getElementById("updatePlaylistForm").style.display = "none";
+                    document.getElementById("spinner4").style.display = "block";
+                    document.getElementById('Wait4').style.display='block';
+                    const form = event.target;
+                    const formData = new FormData(form);
+                    for (let [key, value] of formData.entries()) {
+                        console.log(`${key}:`, value);
+                    }
+                    updatePlaylist(formData);  
                 });
            
             document.getElementById("closeModalSelector").addEventListener("click", closeModalSelector);
@@ -186,7 +202,31 @@
                     return response.blob();
                 })
                 .then(blob => {
-                    document.getElementById("submitPlaylistForm").style.display = "none";
+                    document.getElementById("spinner4").style.display = "none";
+                    document.getElementById('Wait4').style.display='none';
+                    document.getElementById("Successfully_uploaded").style.display = "block";
+                            
+                })
+
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading M3U file');
+                });
+            }
+
+            function updatePlaylist(formData) {
+
+                fetch('/update_playlist', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.blob();
+                })
+                .then(blob => {
+                    document.getElementById("spinner4").style.display = "none";
+                    document.getElementById('Wait4').style.display='none';
                     document.getElementById("Successfully_uploaded").style.display = "block";
                             
                 })
@@ -376,6 +416,16 @@
                     document.getElementById("spinner3").style.display = "none";
                     document.getElementById('Wait3').style.display='none';
                 });
+            });
+
+            document.getElementById("NewShare").addEventListener("click", function() {
+                document.getElementById("NewShare").style.display = "none";
+                document.getElementById('submitPlaylistForm').style.display='block';
+            });
+
+            document.getElementById("UpdateList").addEventListener("click", function() {
+                document.getElementById("UpdateList").style.display = "none";
+                document.getElementById('manualInstructions').style.display='block';
             });
 
             function submitForm() {
