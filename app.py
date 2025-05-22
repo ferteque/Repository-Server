@@ -131,7 +131,7 @@ def upload_playlist():
 
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT MAX(id) FROM playlists")
+        cursor.execute("SELECT MAX(id) FROM test_playlists")
         result = cursor.fetchone()
         max_id = result['MAX(id)'] if result and result['MAX(id)'] is not None else 0
 
@@ -139,7 +139,7 @@ def upload_playlist():
         current_path = os.getcwd()
 
         cursor.execute("""
-            INSERT INTO playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, timestamp, m3u_url)
+            INSERT INTO test_playlists (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, timestamp, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '')
         """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password, datetime.today().strftime('%d-%m-%Y')))
         conn.commit()
@@ -162,9 +162,9 @@ def upload_playlist():
         else:
             logging.info(f"No existe archivo final, se creará: {final_path}")
 
-        cursor.execute("UPDATE playlists SET m3u_url = %s WHERE id = %s", (final_path, temp_playlist_id))
+        cursor.execute("UPDATE test_playlists SET m3u_url = %s WHERE id = %s", (final_path, temp_playlist_id))
         conn.commit()
-        cursor.execute("UPDATE playlists SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
+        cursor.execute("UPDATE test_playlists SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
         conn.commit()
 
         cursor.close()
@@ -198,14 +198,14 @@ def update_playlist():
 
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT owner_password_hash FROM playlists WHERE id = %s", (playlist_id))
+        cursor.execute("SELECT owner_password_hash FROM test_playlists WHERE id = %s", (playlist_id))
         DB_list_password = cursor.fetchone()['owner_password_hash']
         if(DB_list_password != list_password):
             return jsonify({"error": str(e)}), 500
 
         current_path = os.getcwd()
 
-        cursor.execute("UPDATE playlists SET timestamp = %s WHERE id = %s", (datetime.today().strftime('%d-%m-%Y'), playlist_id))
+        cursor.execute("UPDATE test_playlists SET timestamp = %s WHERE id = %s", (datetime.today().strftime('%d-%m-%Y'), playlist_id))
         conn.commit()
         cursor.close()
         conn.close()
@@ -237,7 +237,7 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT id, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM playlists WHERE display = 1")
+    cursor.execute("SELECT id, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM test_playlists WHERE display = 1")
 
     cursor.close()
     conn.close()
@@ -251,7 +251,7 @@ def manual():
 
     db = get_connection()
     cursor = db.cursor()
-    cursor.execute("SELECT m3u_url FROM playlists WHERE id = %s", (id_selected,))
+    cursor.execute("SELECT m3u_url FROM test_playlists WHERE id = %s", (id_selected,))
     row = cursor.fetchone()
 
     if not row:
@@ -296,7 +296,7 @@ def process():
     db = get_connection()
     cursor = db.cursor()
     logging.info(f"Archivo final ya existe y será sobrescrito: {id_selected}")
-    cursor.execute("SELECT m3u_url FROM playlists WHERE id = %s", (id_selected,))
+    cursor.execute("SELECT m3u_url FROM test_playlists WHERE id = %s", (id_selected,))
     row = cursor.fetchone()
     logging.info(f"Archivo final ya existe y será sobrescrito: {row}")
 
