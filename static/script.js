@@ -189,6 +189,7 @@
 
               openShareModal.onclick = () => {
                 shareModal.style.display = "block";
+                document.getElementById("modeSelectorModalUpload").style.display = "block";
               };
 
               closeShareModal.onclick = () => {
