@@ -201,7 +201,7 @@ def update_playlist():
         cursor.execute("SELECT owner_password_hash FROM test_playlists WHERE id = %s", (playlist_id))
         DB_list_password = cursor.fetchone()['owner_password_hash']
         if(DB_list_password != list_password):
-            return jsonify({"error": str(e)}), 500
+            return jsonify({"error": "password is not correct"}), 500
 
         current_path = os.getcwd()
 
