@@ -67,8 +67,6 @@
         }
         
         .modal-content2 {
-            display: flex;
-            justify-content: center;
             background-color: white;
             margin: 5% auto; 
             padding: 30px;
@@ -285,6 +283,7 @@
           border-radius: 50%;
           animation: spin 1s linear infinite;
           display: inline-block;
+          margin-left: 45%;
         }
       
         @keyframes spin {
