@@ -199,7 +199,10 @@ def update_playlist():
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT owner_password_hash FROM test_playlists WHERE id = %s", (playlist_id))
+        logging.info(f"Llegamos hasta despues de la llamada SELECT")
         DB_list_password = cursor.fetchone()['owner_password_hash']
+        logging.info(f"Tenemos el password de DB: {DB_list_password}")
+
         if(DB_list_password != list_password):
             return jsonify({"error": "password is not correct"}), 500
 
@@ -209,6 +212,7 @@ def update_playlist():
         conn.commit()
         cursor.close()
         conn.close()
+        logging.info(f"Llegamos hasta despues de la llamada de UPDATE")
 
         if not os.path.exists(temp_path):
             logging.error(f"El archivo temporal no existe: {temp_path}")

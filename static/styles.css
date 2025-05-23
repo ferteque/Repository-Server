@@ -67,6 +67,8 @@
         }
         
         .modal-content2 {
+            display: flex;
+            justify-content: center;
             background-color: white;
             margin: 5% auto; 
             padding: 30px;
