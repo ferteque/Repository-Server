@@ -201,7 +201,7 @@ def update_playlist():
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
         logging.info(f"Llegamos hasta antes de la llamada SELECT")
-        cursor.execute("SELECT owner_password_hash FROM test_playlists WHERE id = %s", (playlist_id))
+        cursor.execute("SELECT owner_password_hash FROM test_playlists WHERE id = %s", (playlist_id,))
         logging.info(f"Llegamos hasta despues de la llamada SELECT")
         DB_list_password = cursor.fetchone()['owner_password_hash']
         logging.info(f"Tenemos el password de DB: {DB_list_password}")
