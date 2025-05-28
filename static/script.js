@@ -209,7 +209,7 @@
 
               closeShareModalUpdate.onclick = () => {
                 updateShareModal.style.display = "none";
-                document.getElementById("Successfully_uploaded").style.display = "none";
+                document.getElementById("Successfully_updated").style.display = "none";
               };
             
             function submitPlaylist(formData) {
@@ -444,11 +444,13 @@
             document.getElementById("NewShare").addEventListener("click", function() {
                 document.getElementById("modeSelectorModalUpload").style.display = "none";
                 document.getElementById('shareModal').style.display='block';
+                document.getElementById('submitPlaylistForm').style.display='block';
             });
 
             document.getElementById("UpdateList").addEventListener("click", function() {
                 document.getElementById("modeSelectorModalUpload").style.display = "none";
                 document.getElementById('updateModal').style.display='block';
+                document.getElementById('updatePlaylistForm').style.display='block';
             });
 
             function submitForm() {
