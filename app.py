@@ -9,6 +9,7 @@ import io
 import os
 import logging
 import sys
+import bcrypt
 
 
 
@@ -123,6 +124,7 @@ def upload_playlist():
     epg = request.form['epg']
     donation_link = request.form['donation_link']
     list_password = request.form['list_password']
+    list_password = bcrypt.hashpw(list_password.encode(), bcrypt.gensalt())
 
     try:
         temp_filename = "temp_uploaded.m3u"
@@ -203,10 +205,9 @@ def update_playlist():
         logging.info(f"Llegamos hasta antes de la llamada SELECT")
         cursor.execute("SELECT owner_password_hash FROM test_playlists WHERE id = %s", (playlist_id,))
         logging.info(f"Llegamos hasta despues de la llamada SELECT")
-        DB_list_password = cursor.fetchone()['owner_password_hash']
-        logging.info(f"Tenemos el password de DB: {DB_list_password}")
+        DB_list_password = result['owner_password_hash'].encode()
 
-        if(DB_list_password != list_password):
+        if not bcrypt.checkpw(list_password.encode(), DB_list_password):
             return jsonify({"error": "password is not correct"}), 500
 
         current_path = os.getcwd()
