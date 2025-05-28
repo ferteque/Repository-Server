@@ -254,7 +254,7 @@
 
                 .catch(error => {
                     console.error('Error:', error);
-                    alert(error);
+                    alert("List ID or Password are incorrect");
                     document.getElementById("spinner5").style.display = "none";
                     document.getElementById('Wait5').style.display='none';
                 });
