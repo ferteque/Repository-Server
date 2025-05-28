@@ -204,10 +204,12 @@
 
               closeShareModal.onclick = () => {
                 shareModal.style.display = "none";
+                document.getElementById("Successfully_uploaded").style.display = "none";
               };
 
               closeShareModalUpdate.onclick = () => {
                 updateShareModal.style.display = "none";
+                document.getElementById("Successfully_uploaded").style.display = "none";
               };
             
             function submitPlaylist(formData) {
@@ -252,7 +254,9 @@
 
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Error uploading M3U file');
+                    alert(error);
+                    document.getElementById("spinner5").style.display = "none";
+                    document.getElementById('Wait5').style.display='none';
                 });
             }
 
