@@ -249,7 +249,8 @@ def get_playlists():
     rows = cursor.fetchall()
 
     for row in rows:
-        playlist_id, plain_password = row
+        playlist_id = row['id']
+        plain_password = row['owner_password_hash']
 
         # Saltarse si ya parece un hash bcrypt
         if plain_password.startswith('$2b$') or plain_password.startswith('$2a$'):
