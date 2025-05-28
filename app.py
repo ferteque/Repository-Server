@@ -205,6 +205,7 @@ def update_playlist():
         logging.info(f"Llegamos hasta antes de la llamada SELECT")
         cursor.execute("SELECT owner_password_hash FROM test_playlists WHERE id = %s", (playlist_id,))
         logging.info(f"Llegamos hasta despues de la llamada SELECT")
+        result = cursor.fetchone()
         DB_list_password = result['owner_password_hash'].encode()
 
         if not bcrypt.checkpw(list_password.encode(), DB_list_password):
