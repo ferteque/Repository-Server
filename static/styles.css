@@ -39,7 +39,7 @@
             background-color: rgba(0, 0, 0, 0.7);
        }
         
-        #shareModal {
+        #shareModal, #updateModal {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: none; 
             position: fixed;
@@ -51,7 +51,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             font-size: 25px;
        } 
-        #credentials, #Loading, #modeSelectorModal, #manualInstructions {
+        #credentials, #Loading, #modeSelectorModal, #manualInstructions, #modeSelectorModalUpload {
             display: none; 
             position: fixed;
             z-index: 1000;
@@ -283,6 +283,7 @@
           border-radius: 50%;
           animation: spin 1s linear infinite;
           display: inline-block;
+          margin-left: 45%;
         }
       
         @keyframes spin {
@@ -295,9 +296,7 @@
             margin: 0;
         }
 
-        #content-container {
-            height: calc(100vh - 157px); 
-  
+        #content-container { 
             padding: 20px;
             box-sizing: border-box;
         }

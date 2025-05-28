@@ -9,6 +9,7 @@ import io
 import os
 import logging
 import sys
+import bcrypt
 
 
 
@@ -123,6 +124,7 @@ def upload_playlist():
     epg = request.form['epg']
     donation_link = request.form['donation_link']
     list_password = request.form['list_password']
+    list_password = bcrypt.hashpw(list_password.encode(), bcrypt.gensalt())
 
     try:
         temp_filename = "temp_uploaded.m3u"
@@ -175,12 +177,78 @@ def upload_playlist():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/update_playlist', methods=['POST'])
+def update_playlist():
+    required_fields = ['id', 'list_password']
+    for field in required_fields:
+        if field not in request.form:
+            return jsonify({"error": f"Missing field {field}"}), 400
+
+    file = request.files.get('m3u_file')
+    if not file:
+        return jsonify({"error": "No file uploaded"}), 400
+    if not file.filename.endswith('.m3u'):
+        return jsonify({"error": "File must be .m3u"}), 400
+
+    playlist_id = request.form['id']
+    list_password = request.form['list_password']
+
+    try:
+        temp_filename = "temp_uploaded.m3u"
+        temp_path = os.path.join(UPLOAD_FOLDER, temp_filename)
+        file.save(temp_path)
+
+        logging.info(f"Llegamos hasta la creacion del fichero temporal?")        
+
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+        logging.info(f"Llegamos hasta antes de la llamada SELECT")
+        cursor.execute("SELECT owner_password_hash FROM playlists WHERE id = %s", (playlist_id,))
+        logging.info(f"Llegamos hasta despues de la llamada SELECT")
+        result = cursor.fetchone()
+        DB_list_password = result['owner_password_hash'].encode()
+
+        if not bcrypt.checkpw(list_password.encode(), DB_list_password):
+            return jsonify({"error": "password is not correct"}), 500
+
+        current_path = os.getcwd()
+
+        cursor.execute("UPDATE playlists SET timestamp = %s WHERE id = %s", (datetime.today().strftime('%d-%m-%Y'), playlist_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        logging.info(f"Llegamos hasta despues de la llamada de UPDATE")
+
+        if not os.path.exists(temp_path):
+            logging.error(f"El archivo temporal no existe: {temp_path}")
+        else:
+            logging.info(f"Archivo temporal encontrado: {temp_path}")
+
+        process_m3u_file(temp_path, "DNS")
+
+        final_filename = f"{playlist_id}.m3u"
+        final_path = os.path.join(UPLOAD_FOLDER, final_filename)
+
+        os.rename(temp_path, final_path)
+
+        if os.path.exists(final_path):
+            logging.info(f"Archivo final ya existe y será sobrescrito: {final_path}")
+        else:
+            logging.info(f"No existe archivo final, se creará: {final_path}")
+
+        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/playlists")
 def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT id, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM playlists WHERE display = 1")
+    cursor.execute("SELECT id, reddit_user, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM playlists WHERE display = 1")
+
+    data = cursor.fetchall()
 
     cursor.close()
     conn.close()
