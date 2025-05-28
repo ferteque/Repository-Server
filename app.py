@@ -246,32 +246,14 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT id, owner_password_hash FROM playlists")
-    rows = cursor.fetchall()
+    cursor.execute("SELECT id, reddit_user, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM test_playlists WHERE display = 1")
 
-    for row in rows:
-        playlist_id = row['id']
-        plain_password = row['owner_password_hash']
+    data = cursor.fetchall()
 
-        # Saltarse si ya parece un hash bcrypt
-        if plain_password.startswith('$2b$') or plain_password.startswith('$2a$'):
-            continue
-
-        # Hashear la contraseña
-        hashed_password = bcrypt.hashpw(plain_password.encode(), bcrypt.gensalt()).decode()
-
-        # Guardar el nuevo hash
-        cursor.execute(
-            "UPDATE playlists SET owner_password_hash = %s WHERE id = %s",
-            (hashed_password, playlist_id)
-        )
-
-    # Guardar cambios
-    conn.commit()
     cursor.close()
     conn.close()
 
-    print("🚀 Contraseñas migradas con éxito.")
+    return jsonify(data)
 
 @app.route('/manual', methods=['POST'])
 def manual():
