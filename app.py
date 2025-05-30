@@ -134,7 +134,7 @@ def upload_playlist():
 
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT MAX(id) FROM playlists")
+        cursor.execute("SELECT MAX(id) FROM test_playlists")
         result = cursor.fetchone()
         max_id = result['MAX(id)'] if result and result['MAX(id)'] is not None else 0
 
