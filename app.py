@@ -173,10 +173,10 @@ def upload_playlist():
         cursor.close()
         conn.close()
 
-        Details = f"""{service_name} 
-        {countries}
-        {reddit_username}
-        {main_categories}"""
+        Details = f"""Servicio: {service_name} 
+        Paises: {countries}
+        Usuario: {reddit_username}
+        Categorias: {main_categories}"""
 
         send_email(Details)
 
