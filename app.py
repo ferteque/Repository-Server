@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_compress import Compress
 from db import get_connection
 from datetime import datetime
+from mailing import send_email
 import requests
 import re
 import io
@@ -171,6 +172,13 @@ def upload_playlist():
 
         cursor.close()
         conn.close()
+
+        Details = f"""{service_name} 
+        {countries}
+        {reddit_username}
+        {main_categories}"""
+
+        send_email(Details)
 
         return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
 
