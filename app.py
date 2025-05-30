@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_compress import Compress
 from db import get_connection
 from datetime import datetime
-from mailing import send_email
+from mailing import newList_email, updatedList_email
 import requests
 import re
 import io
@@ -178,7 +178,7 @@ def upload_playlist():
         Usuario: {reddit_username}
         Categorias: {main_categories}"""
 
-        send_email(Details)
+        newList_email(Details)
 
         return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
 
@@ -243,6 +243,11 @@ def update_playlist():
             logging.info(f"Archivo final ya existe y será sobrescrito: {final_path}")
         else:
             logging.info(f"No existe archivo final, se creará: {final_path}")
+
+        Details = """ {playlist_id}
+         """
+
+        updatedList_email(Details)
 
         return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
 
@@ -314,10 +319,8 @@ def process():
 
     db = get_connection()
     cursor = db.cursor()
-    logging.info(f"Archivo final ya existe y será sobrescrito: {id_selected}")
     cursor.execute("SELECT m3u_url FROM playlists WHERE id = %s", (id_selected,))
     row = cursor.fetchone()
-    logging.info(f"Archivo final ya existe y será sobrescrito: {row}")
 
 
     if not row:
