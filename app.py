@@ -244,7 +244,7 @@ def update_playlist():
         else:
             logging.info(f"No existe archivo final, se creará: {final_path}")
 
-        Details = """ {playlist_id}
+        Details = f"""ID: {playlist_id}
          """
 
         updatedList_email(Details)
