@@ -260,7 +260,7 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute(f"SELECT id, reddit_user, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, donation_info FROM {DB_TABLE}  WHERE display = 1")
+    cursor.execute(f"SELECT id, reddit_user, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, clicks, donation_info FROM {DB_TABLE}  WHERE display = 1")
 
     data = cursor.fetchall()
 
@@ -303,6 +303,12 @@ def manual():
 
     filename = f"raw_playlist_{id_selected}.m3u"
 
+    cursor.execute(f"UPDATE {DB_TABLE} SET clicks = clicks + 1 WHERE id = %s", (id_selected,))
+    
+    db.commit()
+    cursor.close()
+    db.close()
+    
     return send_file(
         output,
         mimetype='audio/x-mpegurl',
@@ -356,6 +362,12 @@ def process():
     output.seek(0)
 
     filename = f"modified_playlist_{id_selected}.m3u"
+
+    cursor.execute(f"UPDATE {DB_TABLE} SET clicks = clicks + 1 WHERE id = %s", (id_selected,))
+    
+    db.commit()
+    cursor.close()
+    db.close()
 
     return send_file(
         output,

@@ -105,7 +105,8 @@
                                 <td>${row.reddit_user}</td>
                                 <td>${row.countries}</td>
                                 <td>${row.main_categories}</td>
-                                <td>${row.timestamp}</td>`;
+                                <td>${row.timestamp}</td>
+                                <td>${row.clicks}</td>`;
 
                             if (isValidUrl(row.donation_info)) {
                                 newRow.innerHTML += `<td><a href="${row.donation_info}" target="_blank" style="display: inline-block;
