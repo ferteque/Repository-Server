@@ -583,8 +583,8 @@
         }
 
         #github_code {
-            color: inherit;
-            text-decoration: none;
-            cursor: default;
+            all: unset;
+            color: inherit; 
+            cursor: pointer;       
         }
         
