@@ -591,5 +591,6 @@
         .FAQandShare {
             display: flex;
             gap: 0px;
+            margin: 30px auto;
         }
         
