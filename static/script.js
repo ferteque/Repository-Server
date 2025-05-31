@@ -199,11 +199,11 @@
 
 
               openShareModal.onclick = () => {
-                modeSelectorModalUpload.style.display = "block";
+                modeSelectorModalSelector.style.display = "block";
               };
 
               divcloseModalSelectorUpload.onclick = () => {
-                modeSelectorModalUpload.style.display = "none";
+                modeSelectorModalSelector.style.display = "none";
               };
 
               closeShareModal.onclick = () => {

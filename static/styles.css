@@ -51,7 +51,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             font-size: 25px;
        } 
-        #credentials, #Loading, #modeSelectorModal, #manualInstructions, #modeSelectorModalUpload {
+        #credentials, #Loading, #modeSelectorModal, #manualInstructions, #modeSelectorModalUpload, #FAQ {
             display: none; 
             position: fixed;
             z-index: 1000;
@@ -586,5 +586,10 @@
             all: unset;
             color: inherit; 
             cursor: pointer;       
+        }
+
+        .FAQandShare {
+            display: flex;
+            gap: 50px;
         }
         
