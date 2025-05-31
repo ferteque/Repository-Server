@@ -28,7 +28,7 @@ def home():
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
 ALLOWED_EXTENSIONS = {'m3u'}
-DB_TABLE = 'playlists'
+DB_TABLE = 'test_playlists'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 logging.basicConfig(
