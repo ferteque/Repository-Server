@@ -65,6 +65,20 @@
             align-items: center;
             text-align: center;
         }
+
+        #FAQ {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
         
         .modal-content2 {
             background-color: white;
@@ -306,7 +320,7 @@
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           background-color: #fff4e6;
           padding: 20px;
-          margin: 30px auto;
+          margin: 30px;
           border-radius: 10px;
           max-width: 600px;
           text-align: center;
@@ -580,5 +594,18 @@
 
         .custom-checkbox-label:hover {
             opacity: 0.9;
+        }
+
+        #github_code {
+            all: unset;
+            color: inherit; 
+            cursor: pointer;       
+        }
+
+        .FAQandShare {
+            display: flex;
+            gap: 0px;
+            margin: 30px auto;
+            justify-content: center;
         }
         

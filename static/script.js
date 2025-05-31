@@ -193,13 +193,17 @@
               const updateShareModal = document.getElementById("updateModal");
               const closeShareModalUpdate = document.getElementById("closeShareModalUpdate");
 
+              const modalFAQ = document.getElementById("FAQ");
+              const openFAQ = document.getElementById("openFAQModal");
+              const closeFAQModal = document.getElementById("closeModalFAQ");
+
 
               openShareModal.onclick = () => {
-                modeSelectorModalUpload.style.display = "block";
+                modeSelectorModalSelector.style.display = "block";
               };
 
               divcloseModalSelectorUpload.onclick = () => {
-                modeSelectorModalUpload.style.display = "none";
+                modeSelectorModalSelector.style.display = "none";
               };
 
               closeShareModal.onclick = () => {
@@ -210,6 +214,14 @@
               closeShareModalUpdate.onclick = () => {
                 updateShareModal.style.display = "none";
                 document.getElementById("Successfully_updated").style.display = "none";
+              };
+
+              openFAQ.onclick = () => {
+                modalFAQ.style.display = "block";
+              };
+
+              closeFAQModal.onclick = () => {
+                modalFAQ.style.display = "none";
               };
             
             function submitPlaylist(formData) {
