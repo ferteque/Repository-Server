@@ -590,6 +590,6 @@
 
         .FAQandShare {
             display: flex;
-            gap: 50px;
+            gap: 0px;
         }
         
