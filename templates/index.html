@@ -150,7 +150,7 @@
     </ol>
     <h3 id="Wait5" style="display: none;">PLEASE WAIT</h3>
         <div class="spinner" id="spinner5" style="display: none;"></div>
-    <p id="Successfully_updated" style="display: none">List uploaded successfully! We’ll review and publish it if it meets the quality standards. Thanks for contributing!</p>
+    <p id="Successfully_updated" style="display: none">List updated successfully! Thanks for contributing!</p>
   </div>
   </div>
 
@@ -250,7 +250,7 @@
             <label>9. When asked for an EPG URL Enter this: </label>  
             <div class="input-wrapper">
                 <input type="text" id="EPG" class="dynamic-input" disabled> <button id="copyButtonEPG" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
-            </div> <br><br><br>
+            </div> <br> <label>(Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show)</label> <br><br><br>
             
             <label>(Optional) 10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
             <div class="input-wrapper">
@@ -295,7 +295,7 @@
             <label>7. When asked for an EPG URL Enter this: </label>  
             <div class="input-wrapper">
                 <input type="text" id="EPGDrive" class="dynamic-input" disabled><button id="copyButtonEPGDrive" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
-            </div> <br><br><br>
+            </div> <br> <label>(Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show)</label> <br><br><br>
             
             <label>(Optional) 8. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
             <div class="input-wrapper">
@@ -367,7 +367,7 @@
   <div class="modal-content2">
     <span class="close" onclick="document.getElementById('manualInstructions').style.display='none'">&times;</span>
     <h3>Manual Process</h3>
-    <p>You have chosen the manual process. Please follow these steps:</p>
+    <p>You have chosen the manual process. This option shall be used only for tech people. Please follow these steps:</p>
       <label>1. Download the original playlist.</label>
       <div class="input-wrapper">
                 <a class="btn btn-primary" id="RawDownloadLink" target="_blank" rel="noopener noreferrer"> Download</a> 
@@ -384,6 +384,76 @@
       Next Steps
     </button>
   </div>
+</div>
+
+<div id="FAQ">
+    <div class="modal-content2">
+        <span class="close" onclick="document.getElementById('manualInstructions').style.display='none'">&times;</span>
+        <h3>Frequently Asked Questions</h3>
+          <section>
+    <h2>❓ What is this service?</h2>
+    <p>It’s a web tool that automatically generates personalized M3U playlists using your credentials (DNS, username/password, or M3U URL), eliminating the need for manual edits.<br>
+    It’s particularly useful for curated lists like those shared by u/GanjaRelease.</p>
+  </section>
+
+  <section>
+    <h2>❓ How does it work?</h2>
+    <ol>
+      <li>Visit: <a href="https://striking-orella-ferteque-e35fe763.koyeb.app/">Service URL</a></li>
+      <li>Browse and select the desired service.</li>
+      <li>Choose either <strong>M3U</strong> or <strong>Xtream</strong> in the modal.</li>
+      <li>Enter your credentials.</li>
+      <li>Click <strong>Generate M3U</strong> or <strong>Generate Xtream</strong>.</li>
+      <li>Your playlist is downloaded and shown with EPG info and GitHub URL.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>❓ New Feature: Google Drive M3U URL</h2>
+    <p>You can now generate a direct M3U URL hosted on Google Drive — no downloads needed.</p>
+    <ol>
+      <li>Select <strong>Google Drive</strong> before generating your playlist.</li>
+      <li>Click <strong>Generate M3U File</strong>.</li>
+      <li>Authorize access to your Google Drive when prompted.</li>
+      <li>You will receive a direct M3U URL for use in any IPTV player.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>❓ Is it safe to enter my credentials?</h2>
+    <p>The tool is hosted on Koyeb and no issues have been reported. Still, use precaution and rotate your credentials regularly.</p>
+  </section>
+
+  <section>
+    <h2>❓ Can I share my customized playlist?</h2>
+    <p>Yes! You can share a new playlist or update an existing one by providing a password. Moderators will review new lists before publishing.</p>
+  </section>
+
+  <section>
+    <h2>❓ Why does the EPG show “No information”?</h2>
+    <p>EPG sync can take up to 30 minutes depending on your channel count. If it still shows nothing after that, try using a VPN — your ISP may be blocking the EPG server.</p>
+  </section>
+
+  <section>
+    <h2>❓ What if the Google Drive feature doesn’t work?</h2>
+    <p>Your browser may be blocking the Google login pop-up or Drive access. Try another browser, ensure pop-ups are allowed, and consider using a secondary Google account without 2FA.</p>
+  </section>
+
+  <section>
+    <h2>❓ What if the service is slow or unresponsive?</h2>
+    <p>The tool runs on a free-tier server and may be slow during busy hours. Please try again later if needed.</p>
+  </section>
+
+  <section>
+    <h2>❓ How is this service funded?</h2>
+    <p>The developer, <strong>Ferteque</strong>, covers the costs through community donations. Consider supporting to keep the service running.</p>
+  </section>
+
+  <section>
+    <h2>❓ Where can I get more information or support?</h2>
+    <p>Join the Discord server mentioned in the original Reddit post for support, feature updates, and feedback.</p>
+  </section>
+    </div>
 </div>
 
 </body>
