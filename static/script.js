@@ -100,7 +100,7 @@
                         data.forEach(row => {
                             let visibleDate = row.timestamp; 
                             let [dd, mm, yyyy] = visibleDate.split('/');
-                            let orderedDate = `${mm.padStart(2, '0')}/${dd.padStart(2, '0')}/${yyyy}`;
+                            let orderedDate = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
 
 
                             let newRow = document.createElement("tr");
@@ -110,7 +110,7 @@
                                 <td>${row.reddit_user}</td>
                                 <td>${row.countries}</td>
                                 <td>${row.main_categories}</td>
-                                <td data-sort="${orderedDate}">${visibleDate}</td>
+                                <td>${orderedDate}</td>
                                 <td>${row.clicks}</td>`;
 
                             if (isValidUrl(row.donation_info)) {
