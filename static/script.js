@@ -110,7 +110,7 @@
                                 <td>${row.reddit_user}</td>
                                 <td>${row.countries}</td>
                                 <td>${row.main_categories}</td>
-                                <td>${orderedDate}</td>
+                                <td sorttable_customkey="${orderedDate}">${visibleDate}</td>
                                 <td>${row.clicks}</td>`;
 
                             if (isValidUrl(row.donation_info)) {
