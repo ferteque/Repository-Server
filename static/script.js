@@ -98,6 +98,11 @@
                         const tableBody = document.getElementById("tableBody");
 
                         data.forEach(row => {
+                            let visibleDate = row.timestamp; 
+                            let [dd, mm, yyyy] = fechaVisible.split('/');
+                            let orderedDate = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+
+
                             let newRow = document.createElement("tr");
                             newRow.innerHTML = `
                                 <td>${row.id}</td>
@@ -105,7 +110,7 @@
                                 <td>${row.reddit_user}</td>
                                 <td>${row.countries}</td>
                                 <td>${row.main_categories}</td>
-                                <td>${row.timestamp}</td>
+                                <td data-sort="${orderedDate}">${visibleDate}</td>
                                 <td>${row.clicks}</td>`;
 
                             if (isValidUrl(row.donation_info)) {
