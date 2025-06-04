@@ -145,7 +145,7 @@ def upload_playlist():
         cursor.execute(f"""
             INSERT INTO {DB_TABLE}  (service_name, countries, reddit_user, main_categories, epg_url, donation_info, owner_password_hash, timestamp, m3u_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, '')
-        """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password, datetime.today().strftime('%d-%m-%Y')))
+        """, (service_name, countries, reddit_username, main_categories, epg, donation_link, list_password, datetime.today().strftime('%d/%m/%Y')))
         conn.commit()
         temp_playlist_id = cursor.lastrowid
 
