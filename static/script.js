@@ -99,7 +99,7 @@
 
                         data.forEach(row => {
                             let visibleDate = row.timestamp; 
-                            let [dd, mm, yyyy] = fechaVisible.split('/');
+                            let [dd, mm, yyyy] = visibleDate.split('/');
                             let orderedDate = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
 
 
