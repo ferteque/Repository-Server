@@ -349,9 +349,7 @@ def process():
         return f"File read error: {str(e)}", 500
 
     
-    content = re.sub(r'(?<!http://)(DNS)', r'http://\1', content)
-    content = re.sub(r'(?<!http://)(dns)', r'http://\1', content)
-
+    content = re.sub(r'(?i)(?<!http://)(dns)', r'http://\1', content)
     
     content = re.sub(r'\bDNS\b', dns, content, flags=re.IGNORECASE)
     content = re.sub(r'\bUSERNAME\b', username, content, flags=re.IGNORECASE)
