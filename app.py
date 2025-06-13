@@ -199,6 +199,14 @@ def update_playlist():
     if not file.filename.endswith('.m3u'):
         return jsonify({"error": "File must be .m3u"}), 400
 
+
+    form_data = request.form.to_dict()
+
+    valid_fields = {
+        k: v.strip() for k, v in form_data.items()
+        if k not in required_fields and v.strip()
+    }
+
     playlist_id = request.form['id']
     list_password = request.form['list_password']
 
@@ -224,6 +232,16 @@ def update_playlist():
 
         cursor.execute(f"UPDATE {DB_TABLE}  SET timestamp = %s WHERE id = %s", (datetime.today().strftime('%d/%m/%Y'), playlist_id))
         conn.commit()
+
+        set_clause = ', '.join(f"{k} = %s" for k in valid_fields)
+        values = list(valid_fields.values())
+
+        sql = f"UPDATE {DB_TABLE} SET {set_clause} WHERE id = %s"
+        values.append(playlist_id)
+
+        cursor.execute(sql, values)
+        conn.commit()
+
         cursor.close()
         conn.close()
         logging.info(f"Llegamos hasta despues de la llamada de UPDATE")
