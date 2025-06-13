@@ -230,7 +230,7 @@ def update_playlist():
 
         current_path = os.getcwd()
 
-        cursor.execute(f"UPDATE {DB_TABLE}  SET timestamp = %s WHERE id = %s", (datetime.today().strftime('%d-%m-%Y'), playlist_id))
+        cursor.execute(f"UPDATE {DB_TABLE}  SET timestamp = %s WHERE id = %s", (datetime.today().strftime('%d/%m/%Y'), playlist_id))
         conn.commit()
 
         set_clause = ', '.join(f"{k} = %s" for k in valid_fields)
