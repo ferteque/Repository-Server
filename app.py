@@ -240,7 +240,7 @@ def update_playlist():
         values.append(playlist_id)
 
         cursor.execute(sql, values)
-        db.commit()
+        conn.commit()
 
         cursor.close()
         conn.close()
