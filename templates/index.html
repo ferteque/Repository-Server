@@ -362,10 +362,10 @@
                 <input type="text" id="GitHub_EPG" class="dynamic-input" disabled><button id="copyButtonEPG_GitHub" class="copyButton1">📋 Copy GitHub EPG URL to Clipboard</button>
             </div>
             <br><br><br>
-            <label>(Optional) 11. If you want your list to update the PPV channels automatically, follow this guide: </label> 
+            <label>(Optional) 11. If you want your list to update the PPV channels automatically, follow this guide from @GanjaRelease: </label> 
             <div class="input-wrapper">
                 <video width="640" height="360" controls>
-                  <source src="GanjaPPV.mp4" type="video/mp4">
+                  <source src="{{ url_for('static', filename='GanjaPPV.mp4') }}" type="video/mp4">
                   Tu navegador no soporta el video HTML5.
                 </video>
             </div>
