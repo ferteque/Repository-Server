@@ -608,7 +608,7 @@
             opacity: 0.9;
         }
 
-        #github_code, #discord_url {
+        #github_code, #discord_url, #DiscordButton1 {
             all: unset;
             color: inherit; 
             cursor: pointer;       
