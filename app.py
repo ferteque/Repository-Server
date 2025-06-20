@@ -362,35 +362,16 @@ def save_file_record():
         cursor = conn.cursor(dictionary=True)
 
         cursor.execute(
-            f"SELECT id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s",
-            (list_id,)
+            f"""
+            INSERT INTO {DRIVE_FILES_TABLE}
+                (list_id, drive_file_id, uploaded_at)
+            VALUES
+                (%s,      %s,            %s)
+            """,
+            (list_id, drive_file_id, datetime.now())
         )
-        existing = cursor.fetchone()
-
-        if existing:
-            cursor.execute(
-                f"""
-                UPDATE {DRIVE_FILES_TABLE}
-                   SET drive_file_id = %s,
-                       uploaded_at    = %s
-                 WHERE list_id       = %s
-                """,
-                (drive_file_id, datetime.now(), list_id)
-            )
-            record_id = existing['id']
-            action = 'updated'
-        else:
-            cursor.execute(
-                f"""
-                INSERT INTO {DRIVE_FILES_TABLE}
-                    (list_id, drive_file_id, uploaded_at)
-                VALUES
-                    (%s,      %s,            %s)
-                """,
-                (list_id, drive_file_id, datetime.now())
-            )
-            record_id = cursor.lastrowid
-            action = 'created'
+        record_id = cursor.lastrowid
+        action = 'created'
 
         conn.commit()
         cursor.close()
