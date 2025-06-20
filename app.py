@@ -278,16 +278,18 @@ def update_playlist():
 @app.route('/api/files', methods=['POST'])
 def save_file_record():
 
-    required_fields = ['list_id', 'drive_file_id']
-    for field in required_fields:
-        if field not in request.form:
-            return jsonify({"error": f"Missing field {field}"}), 400
+    data = request.get_json(force=True, silent=True)
+    if not data:
+        return jsonify({"error": "JSON body required"}), 400
 
-    list_id = request.form['list_id'].strip()
-    drive_file_id = request.form['drive_file_id'].strip()
+    list_id        = data.get('list_ID') or data.get('list_id')
+    drive_file_id  = data.get('drive_file_id')
+    filename       = data.get('filename')  # opcional
 
-    if not list_id or not drive_file_id:
-        return jsonify({"error": "list_id and drive_file_id must be non-empty"}), 400
+    if not list_id:
+        return jsonify({"error": "Missing field list_ID/list_id"}), 400
+    if not drive_file_id:
+        return jsonify({"error": "Missing field drive_file_id"}), 400
 
     try:
         conn = get_connection()
