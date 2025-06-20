@@ -4,6 +4,9 @@ from flask_compress import Compress
 from db import get_connection
 from datetime import datetime
 from mailing import newList_email, updatedList_email
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
 import requests
 import re
 import io
@@ -30,6 +33,14 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
 ALLOWED_EXTENSIONS = {'m3u'}
 DB_TABLE = 'playlists'
 DRIVE_FILES_TABLE = 'drive_files'
+
+SERVICE_ACCOUNT_FILE = os.path.join(os.getcwd(), "service-account.json")
+SCOPES = ['https://www.googleapis.com/auth/drive']
+
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES
+)
+drive_service = build('drive', 'v3', credentials=credentials)
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 logging.basicConfig(
@@ -61,7 +72,7 @@ def detect_content_type(filepath):
                     break
     return content_type or 'live' 
 
-def process_m3u_file(filepath, dns):
+def process_m3u_file(filepath, dns, username, password):
 
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
@@ -88,10 +99,10 @@ def process_m3u_file(filepath, dns):
                     content_type = ''
 
                 if content_type == '':
-                    placeholder_url = f"http://{dns}/USERNAME/PASSWORD/{stream_id}\n"
+                    placeholder_url = f"http://{dns}/{username}/{password}/{stream_id}\n"
                     new_lines.append(placeholder_url)
                 else:
-                    placeholder_url = f"http://{dns}/{content_type}/USERNAME/PASSWORD/{stream_id}\n"
+                    placeholder_url = f"http://{dns}/{content_type}/{username}/{password}/{stream_id}\n"
                     new_lines.append(placeholder_url)
 
                 i += 2
@@ -155,7 +166,7 @@ def upload_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS")
+        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
@@ -237,11 +248,12 @@ def update_playlist():
         set_clause = ', '.join(f"{k} = %s" for k in valid_fields)
         values = list(valid_fields.values())
 
-        sql = f"UPDATE {DB_TABLE} SET {set_clause} WHERE id = %s"
-        values.append(playlist_id)
+        if valid_fields:
+            sql = f"UPDATE {DB_TABLE} SET {set_clause} WHERE id = %s"
+            values.append(playlist_id)
 
-        cursor.execute(sql, values)
-        conn.commit()
+            cursor.execute(sql, values)
+            conn.commit()
 
         cursor.close()
         conn.close()
@@ -252,7 +264,7 @@ def update_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS")
+        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
@@ -267,6 +279,8 @@ def update_playlist():
         Details = f"""ID: {playlist_id}
          """
 
+        update_AssociatedLists(playlist_id)
+
         updatedList_email(Details)
 
         return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
@@ -274,6 +288,58 @@ def update_playlist():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+def update_AssociatedLists(playlist_id: str) -> None:
+    """
+    Recupera todos los drive_file_id que correspondan a playlist_id y
+    actualiza su contenido en Drive con el .m3u final que tienes en UPLOAD_FOLDER.
+    """
+    # 1) Path del .m3u que acabas de generar en update_playlist()
+    final_filename = f"{playlist_id}.m3u"
+    file_path = os.path.join(UPLOAD_FOLDER, final_filename)
+
+    if not os.path.exists(file_path):
+        logging.error("No existe el fichero local a subir: %s", file_path)
+        return
+
+    # 2) Recuperar todos los drive_file_id asociados
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        f"SELECT drive_file_id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s",
+        (playlist_id,)
+    )
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    if not rows:
+        logging.info("No hay ficheros en drive asociados a la lista %s", playlist_id)
+        return
+
+    # 3) Prepara el media upload para el .m3u
+    media = MediaFileUpload(
+        file_path,
+        mimetype='application/octet-stream',  # o 'application/x-mpegURL'
+        resumable=False
+    )
+
+    # 4) Itera y actualiza
+    for (drive_file_id,) in rows:
+        try:
+            updated = drive_service.files().update(
+                fileId=drive_file_id,
+                media_body=media
+            ).execute()
+            logging.info(
+                "Actualizado en Drive: playlist_id=%s → fileId=%s, mimeType=%s",
+                playlist_id, updated.get('id'), updated.get('mimeType')
+            )
+        except Exception as e:
+            logging.exception(
+                "Error actualizando en Drive fileId=%s para playlist_id=%s",
+                drive_file_id, playlist_id
+            )
 
 @app.route('/api/files', methods=['POST'])
 def save_file_record():
