@@ -31,8 +31,13 @@ ALLOWED_EXTENSIONS = {'m3u'}
 DB_TABLE = 'playlists'
 DRIVE_FILES_TABLE = 'drive_files'
 
-CLIENT_ID = '385455010248-stgruhhb6geh32kontlgi7g929tmfgqa.apps.googleusercontent.com';
+SERVICE_ACCOUNT_FILE = os.path.join(os.getcwd(), "")
 SCOPES = ['https://www.googleapis.com/auth/drive']
+
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES
+)
+drive_service = build('drive', 'v3', credentials=credentials)
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 logging.basicConfig(
