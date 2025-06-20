@@ -31,6 +31,9 @@ ALLOWED_EXTENSIONS = {'m3u'}
 DB_TABLE = 'playlists'
 DRIVE_FILES_TABLE = 'drive_files'
 
+CLIENT_ID = '385455010248-stgruhhb6geh32kontlgi7g929tmfgqa.apps.googleusercontent.com';
+SCOPES = ['https://www.googleapis.com/auth/drive']
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
@@ -268,6 +271,8 @@ def update_playlist():
         Details = f"""ID: {playlist_id}
          """
 
+        update_AssociatedLists(playlist_id)
+
         updatedList_email(Details)
 
         return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
@@ -275,6 +280,58 @@ def update_playlist():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+def update_AssociatedLists(playlist_id: str) -> None:
+    """
+    Recupera todos los drive_file_id que correspondan a playlist_id y
+    actualiza su contenido en Drive con el .m3u final que tienes en UPLOAD_FOLDER.
+    """
+    # 1) Path del .m3u que acabas de generar en update_playlist()
+    final_filename = f"{playlist_id}.m3u"
+    file_path = os.path.join(UPLOAD_FOLDER, final_filename)
+
+    if not os.path.exists(file_path):
+        logging.error("No existe el fichero local a subir: %s", file_path)
+        return
+
+    # 2) Recuperar todos los drive_file_id asociados
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        f"SELECT drive_file_id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s",
+        (playlist_id,)
+    )
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    if not rows:
+        logging.info("No hay ficheros en drive asociados a la lista %s", playlist_id)
+        return
+
+    # 3) Prepara el media upload para el .m3u
+    media = MediaFileUpload(
+        file_path,
+        mimetype='application/octet-stream',  # o 'application/x-mpegURL'
+        resumable=False
+    )
+
+    # 4) Itera y actualiza
+    for (drive_file_id,) in rows:
+        try:
+            updated = drive_service.files().update(
+                fileId=drive_file_id,
+                media_body=media
+            ).execute()
+            logging.info(
+                "Actualizado en Drive: playlist_id=%s → fileId=%s, mimeType=%s",
+                playlist_id, updated.get('id'), updated.get('mimeType')
+            )
+        except Exception as e:
+            logging.exception(
+                "Error actualizando en Drive fileId=%s para playlist_id=%s",
+                drive_file_id, playlist_id
+            )
 
 @app.route('/api/files', methods=['POST'])
 def save_file_record():
