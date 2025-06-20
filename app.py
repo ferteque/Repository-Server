@@ -8,6 +8,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 from urllib.parse import urlparse
+from threading import Thread
 import shutil
 import requests
 import re
@@ -281,7 +282,12 @@ def update_playlist():
         Details = f"""ID: {playlist_id}
          """
 
-        update_AssociatedLists(playlist_id)
+        thread = Thread(
+        target=update_AssociatedLists,
+        args=(playlist_id,),
+        daemon=True        
+        )
+        thread.start()
 
         updatedList_email(Details)
 
