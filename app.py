@@ -34,7 +34,7 @@ ALLOWED_EXTENSIONS = {'m3u'}
 DB_TABLE = 'playlists'
 DRIVE_FILES_TABLE = 'drive_files'
 
-SERVICE_ACCOUNT_FILE = os.path.join(os.getcwd(), "")
+SERVICE_ACCOUNT_FILE = os.path.join(os.getcwd(), "service_account.json")
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 credentials = service_account.Credentials.from_service_account_file(
