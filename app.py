@@ -237,11 +237,12 @@ def update_playlist():
         set_clause = ', '.join(f"{k} = %s" for k in valid_fields)
         values = list(valid_fields.values())
 
-        sql = f"UPDATE {DB_TABLE} SET {set_clause} WHERE id = %s"
-        values.append(playlist_id)
+        if valid_fields:
+            sql = f"UPDATE {DB_TABLE} SET {set_clause} WHERE id = %s"
+            values.append(playlist_id)
 
-        cursor.execute(sql, values)
-        conn.commit()
+            cursor.execute(sql, values)
+            conn.commit()
 
         cursor.close()
         conn.close()
