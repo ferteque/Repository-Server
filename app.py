@@ -29,6 +29,7 @@ def home():
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
 ALLOWED_EXTENSIONS = {'m3u'}
 DB_TABLE = 'playlists'
+DRIVE_FILES_TABLE = 'drive_files'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 logging.basicConfig(
@@ -271,6 +272,73 @@ def update_playlist():
         return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
 
     except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/files', methods=['POST'])
+def save_file_record():
+
+    required_fields = ['list_id', 'drive_file_id']
+    for field in required_fields:
+        if field not in request.form:
+            return jsonify({"error": f"Missing field {field}"}), 400
+
+    list_id = request.form['list_id'].strip()
+    drive_file_id = request.form['drive_file_id'].strip()
+
+    if not list_id or not drive_file_id:
+        return jsonify({"error": "list_id and drive_file_id must be non-empty"}), 400
+
+    try:
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute(
+            f"SELECT id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s",
+            (list_id,)
+        )
+        existing = cursor.fetchone()
+
+        if existing:
+            cursor.execute(
+                f"""
+                UPDATE {DRIVE_FILES_TABLE}
+                   SET drive_file_id = %s,
+                       uploaded_at    = %s
+                 WHERE list_id       = %s
+                """,
+                (drive_file_id, datetime.now(), list_id)
+            )
+            record_id = existing['id']
+            action = 'updated'
+        else:
+            cursor.execute(
+                f"""
+                INSERT INTO {DRIVE_FILES_TABLE}
+                    (list_id, drive_file_id, uploaded_at)
+                VALUES
+                    (%s,      %s,            %s,         %s)
+                """,
+                (list_id, drive_file_id, datetime.now())
+            )
+            record_id = cursor.lastrowid
+            action = 'created'
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        logging.info(f"Drive‐record {action}: list_id={list_id}, drive_file_id={drive_file_id}")
+
+        return jsonify({
+            "success"      : True,
+            "action"       : action,
+            "record_id"    : record_id,
+            "list_id"      : list_id
+        }), 201
+
+    except Exception as e:
+        logging.exception("Error saving drive_file record")
         return jsonify({"error": str(e)}), 500
 
 @app.route("/playlists")
