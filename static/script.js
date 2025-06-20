@@ -521,7 +521,7 @@
                         document.getElementById('log-in').addEventListener("click", function() {
                             document.getElementById('Wait1').style.display = 'block';
                             document.getElementById('spinner').style.display = 'inline-block';
-                            uploadToGoogleDrive(blob, filename).then(driveLink => {
+                            uploadToGoogleDrive(blob, filename, selectedID).then(driveLink => {
                                 closeModalDrive();
                             }).catch(err => {
                                 console.error('Google Drive upload failed', err);
@@ -554,11 +554,11 @@
 const CLIENT_ID = '385455010248-stgruhhb6geh32kontlgi7g929tmfgqa.apps.googleusercontent.com';
 const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
-function uploadToGoogleDrive(blob, filename) {
+async function uploadToGoogleDrive(blob, filename, list_ID) {
   return new Promise((resolve, reject) => {
     gapi.load('client', async () => {
       try {
-        await gapi.client.init({});
+        await gapi.client.init({ /* … */ });
 
         const tokenClient = google.accounts.oauth2.initTokenClient({
           client_id: CLIENT_ID,
@@ -566,43 +566,51 @@ function uploadToGoogleDrive(blob, filename) {
           callback: async (tokenResponse) => {
             const accessToken = tokenResponse.access_token;
 
-            const metadata = {
-              name: filename,
-              mimeType: 'application/octet-stream'
-            };
-
+            const metadata = { name: filename, mimeType: 'application/octet-stream' };
             const form = new FormData();
             form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
             form.append('file', blob);
 
-            const uploadRes = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
-              method: 'POST',
-              headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
-              body: form
-            });
-
+            const uploadRes = await fetch(
+              'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
+              {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + accessToken },
+                body: form
+              }
+            );
             const file = await uploadRes.json();
 
-            // Set file to be publicly accessible
-            await fetch(`https://www.googleapis.com/drive/v3/files/${file.id}/permissions`, {
-              method: 'POST',
-              headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                role: 'reader',
-                type: 'anyone'
-              })
-            });
+            await fetch(
+              `https://www.googleapis.com/drive/v3/files/${file.id}/permissions`,
+              {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${accessToken}`,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ role: 'reader', type: 'anyone' })
+              }
+            );
 
             const link = `https://drive.google.com/uc?export=download&id=${file.id}&confirm=true`;
             document.getElementById('DriveDownloadLink').value = link;
+            
+            
+            await fetch('/api/files', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                list_id: list_ID,
+                drive_file_id: file.id,
+                filename: filename
+              })
+            });
+
             resolve(link);
           }
         });
 
-        // Launch the auth flow
         tokenClient.requestAccessToken();
       } catch (err) {
         reject(err);
@@ -610,6 +618,7 @@ function uploadToGoogleDrive(blob, filename) {
     });
   });
 }
+
 
 
 let lastScroll = 0;
