@@ -281,7 +281,12 @@ def update_playlist():
         Details = f"""ID: {playlist_id}
          """
 
-        update_AssociatedLists(playlist_id)
+        thread = Thread(
+        target=update_AssociatedLists,
+        args=(playlist_id,),
+        daemon=True        
+        )
+        thread.start()
 
         updatedList_email(Details)
 
