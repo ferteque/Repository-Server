@@ -61,7 +61,7 @@ def detect_content_type(filepath):
                     break
     return content_type or 'live' 
 
-def process_m3u_file(filepath, dns):
+def process_m3u_file(filepath, dns, username, password):
 
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
@@ -88,10 +88,10 @@ def process_m3u_file(filepath, dns):
                     content_type = ''
 
                 if content_type == '':
-                    placeholder_url = f"http://{dns}/USERNAME/PASSWORD/{stream_id}\n"
+                    placeholder_url = f"http://{dns}/{username}/{password}/{stream_id}\n"
                     new_lines.append(placeholder_url)
                 else:
-                    placeholder_url = f"http://{dns}/{content_type}/USERNAME/PASSWORD/{stream_id}\n"
+                    placeholder_url = f"http://{dns}/{content_type}/{username}/{password}/{stream_id}\n"
                     new_lines.append(placeholder_url)
 
                 i += 2
@@ -155,7 +155,7 @@ def upload_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS")
+        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
