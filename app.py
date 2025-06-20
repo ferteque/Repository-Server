@@ -4,6 +4,9 @@ from flask_compress import Compress
 from db import get_connection
 from datetime import datetime
 from mailing import newList_email, updatedList_email
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
 import requests
 import re
 import io
