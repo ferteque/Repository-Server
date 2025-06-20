@@ -6,7 +6,7 @@ from datetime import datetime
 from mailing import newList_email, updatedList_email
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
+from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 from urllib.parse import urlparse
 import shutil
 import requests
