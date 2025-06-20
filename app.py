@@ -252,7 +252,7 @@ def update_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS")
+        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
