@@ -8,6 +8,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 from urllib.parse import urlparse
+from threading import Thread
 import shutil
 import requests
 import re
