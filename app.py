@@ -7,6 +7,8 @@ from mailing import newList_email, updatedList_email
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
+from urllib.parse import urlparse
+import shutil
 import requests
 import re
 import io
@@ -295,15 +297,7 @@ def update_AssociatedLists(playlist_id: str) -> None:
     actualiza su contenido en Drive con el .m3u final que tienes en UPLOAD_FOLDER.
     """
     # 1) Path del .m3u que acabas de generar en update_playlist()
-    final_filename = f"{playlist_id}.m3u"
-    file_path = os.path.join(UPLOAD_FOLDER, final_filename)
-
-    if not os.path.exists(file_path):
-        logging.error("No existe el fichero local a subir: %s", file_path)
-        return
-
-    # 2) Recuperar todos los drive_file_id asociados
-    conn = get_connection()
+    conn   = get_connection()
     cursor = conn.cursor()
     cursor.execute(
         f"SELECT drive_file_id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s",
@@ -314,30 +308,79 @@ def update_AssociatedLists(playlist_id: str) -> None:
     conn.close()
 
     if not rows:
-        logging.info("No hay ficheros en drive asociados a la lista %s", playlist_id)
+        logging.info("No hay ficheros Drive para playlist %s", playlist_id)
         return
 
-    # 3) Prepara el media upload para el .m3u
-    media = MediaFileUpload(
-        file_path,
-        mimetype='application/octet-stream',  # o 'application/x-mpegURL'
-        resumable=False
-    )
+    # 2) Ruta de tu fichero local ya actualizado
+    local_updated = os.path.join(UPLOAD_FOLDER, f"{playlist_id}.m3u")
+    if not os.path.exists(local_updated):
+        logging.error("Fichero local actualizado no existe: %s", local_updated)
+        return
 
-    # 4) Itera y actualiza
     for (drive_file_id,) in rows:
         try:
-            updated = drive_service.files().update(
-                fileId=drive_file_id,
-                media_body=media
-            ).execute()
-            logging.info(
-                "Actualizado en Drive: playlist_id=%s → fileId=%s, mimeType=%s",
-                playlist_id, updated.get('id'), updated.get('mimeType')
+            # ----- 3) Descarga remota solo para extraer credenciales -----
+            req = drive_service.files().get_media(fileId=drive_file_id)
+            buf = io.BytesIO()
+            downloader = MediaIoBaseDownload(buf, req)
+            done = False
+            while not done:
+                _, done = downloader.next_chunk()
+            buf.seek(0)
+
+            # vuelca a lista de líneas
+            remote_lines = buf.read().decode('utf-8', errors='ignore').splitlines()
+            if len(remote_lines) < 3:
+                logging.error("El remoto no tiene 3 líneas: %s", drive_file_id)
+                continue
+
+            raw_url = remote_lines[2].strip()
+            p = urlparse(raw_url)
+            dns = p.netloc
+            segs = p.path.strip('/').split('/')
+
+            if len(segs) >= 4:
+                user, pwd = segs[1], segs[2]
+            elif len(segs) >= 3:
+                user, pwd = segs[0], segs[1]
+            else:
+                logging.error("URL remota no válida: %s", raw_url)
+                continue
+
+            logging.info("Creds extraídas de %s → dns=%s, user=%s", drive_file_id, dns, user)
+
+            # ----- 4) Duplica local_updated a temp y procesa -----
+            temp_path = os.path.join(
+                UPLOAD_FOLDER,
+                f"{playlist_id}_{drive_file_id}_to_upload.m3u"
             )
-        except Exception as e:
+            shutil.copy(local_updated, temp_path)
+
+            # Aquí tu función sustituye DNS/user/pwd en todas las URLs
+            process_m3u_file(temp_path, dns, user, pwd)
+
+            # ----- 5) Sube temp manteniendo el mismo fileId -----
+            media = MediaFileUpload(
+                temp_path,
+                mimetype='application/octet-stream',
+                resumable=False
+            )
+            updated = drive_service.files().update(
+                fileId     = drive_file_id,
+                media_body = media
+            ).execute()
+
+            logging.info(
+                "Actualizado en Drive: playlist=%s fileId=%s",
+                playlist_id, updated.get('id')
+            )
+
+            # (Opcional) borra el temp
+            os.remove(temp_path)
+
+        except Exception:
             logging.exception(
-                "Error actualizando en Drive fileId=%s para playlist_id=%s",
+                "Error actualizando Drive fileId=%s para playlist=%s",
                 drive_file_id, playlist_id
             )
 
