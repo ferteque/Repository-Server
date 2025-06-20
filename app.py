@@ -317,7 +317,7 @@ def save_file_record():
                 INSERT INTO {DRIVE_FILES_TABLE}
                     (list_id, drive_file_id, uploaded_at)
                 VALUES
-                    (%s,      %s,            %s,         %s)
+                    (%s,      %s,            %s)
                 """,
                 (list_id, drive_file_id, datetime.now())
             )
