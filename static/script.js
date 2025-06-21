@@ -605,7 +605,23 @@ async function uploadToGoogleDrive(blob, filename, list_ID) {
               }
             );
 
-            // 6) Guardar en tu backend la relación list_id ↔ drive_file_id
+            // 6) Hacemos público el archivo (acceso de solo lectura para cualquiera con el enlace)
+            await fetch(
+              `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`,
+              {
+                method: 'POST',
+                headers: {
+                  'Authorization': 'Bearer ' + accessToken,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  role: 'reader',
+                  type: 'anyone'
+                })
+              }
+            );
+
+            // 7) Guardar en tu backend la relación list_id ↔ drive_file_id
             await fetch('/api/files', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -616,7 +632,7 @@ async function uploadToGoogleDrive(blob, filename, list_ID) {
               })
             });
 
-            // 7) Devolver link (opcionalmente lo metes en un input)
+            // 8) Devolver link (opcionalmente lo metes en un input)
             const downloadLink = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=true`;
             document.getElementById('DriveDownloadLink').value = downloadLink;
 
@@ -624,7 +640,7 @@ async function uploadToGoogleDrive(blob, filename, list_ID) {
           }
         });
 
-        // 8) Lanzar el flujo de autorización
+        // 9) Lanzar el flujo de autorización
         tokenClient.requestAccessToken();
       } catch (err) {
         reject(err);
