@@ -31,7 +31,13 @@ CORS(app, resources={r"/process": {"origins": [
 @app.route('/')
 def index():
     response = make_response(render_template('index.html'))
-    response.headers['Content-Security-Policy'] = "script-src 'self';"
+    response.headers['Content-Security-Policy'] = (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "font-src 'self' data:; "
+        "media-src 'self'; "
+    )
     return response
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
