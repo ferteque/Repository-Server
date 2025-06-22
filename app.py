@@ -36,7 +36,7 @@ def index():
 def set_csp(response):
     response.headers['Content-Security-Policy-Report-Only'] = (
         "default-src 'self'; "
-        "script-src 'self' https://apis.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com; "
+        "script-src 'self' http://157.180.95.85:8081 https://apis.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com; "
         "style-src 'self' 'unsafe-inline'; "
         "font-src 'self' https://fonts.gstatic.com; "
         "media-src 'self'; "
