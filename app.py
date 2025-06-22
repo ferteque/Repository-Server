@@ -29,8 +29,10 @@ CORS(app, resources={r"/process": {"origins": [
 ]}})
 
 @app.route('/')
-def home():
-    return render_template("index.html") 
+def index():
+    response = make_response(render_template('index.html'))
+    response.headers['Content-Security-Policy'] = "script-src 'self';"
+    return response
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
 ALLOWED_EXTENSIONS = {'m3u'}
