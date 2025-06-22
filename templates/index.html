@@ -1,512 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ91QQZKJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-ZGZ91QQZKJ');
-    </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZGZ91QQZKJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-ZGZ91QQZKJ');
+  </script>
 
-<script src="https://apis.google.com/js/api.js"></script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Curated M3U Lists Repository</title>
-   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
-       <!--  <link rel="stylesheet" href="../static/styles.css">-->
+  <title>Curated M3U Lists Repository</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+     <!--  <link rel="stylesheet" href="../static/styles.css">-->
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
+    <script src="{{ url_for('static', filename='driveUpload.js') }}"></script>
+    <script src="{{ url_for('static', filename='events.js') }}"></script>
+    <script src="{{ url_for('static', filename='modal.js') }}"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='sorttable.js') }}"></script>
     <!--<script src="../static/script.js"></script>-->
     <script src="https://apis.google.com/js/api.js"></script>
 <body>
-    <div id="content-container">
-        <h1 class="page-title">Welcome to Ferteque's Curated Lists Repository</h1>
-       <div id="Disclaimer">
-  <h3 style="color: #c0392b;">📜 Disclaimer</h3>
-  <p>
-    This tool is intended for personal use only. The M3U files provided are pre-configured templates that do <strong>not contain any active credentials or direct access to content</strong>.
-  </p>
-  <p>
-    To use any list, the user must enter their own access details obtained through a <strong>legitimate IPTV provider</strong>. Without such information, the lists are non-functional and do not enable access to any streams.
-  </p>
-  <p>
-    We do not store, provide, or promote access to copyrighted content. The responsibility for the use of the generated files lies entirely with the user.
-  </p>
-  <p style="font-weight: bold; background-color: #fff4e6; padding: 10px; border-left: 4px solid #f39c12;">
-    ✅ By using this service, you confirm that you are authorized to access the content and services associated with the credentials you provide.
-  </p>
-</div>
 
-    <div class="FAQandShare">
+  <div id="content-container">
+      <h1 class="page-title">Welcome to Ferteque's Curated Lists Repository</h1>
+    
+    {% include 'disclaimer.html' %}
 
-      <div id="DiscordSection" class="share-box">
-          <h2>🎉Official Discord🎉</h2>
-          <p>The official community Discord is now open:</p>
-          <div class="input-wrapper">
-                <button><a class="btn btn-primary" href="https://discord.gg/AYnzecYvwd" id="DiscordButton1" target="_blank" rel="noopener noreferrer"> Discord Link </a></button>
-            </div>
-        </div>
+    {% include 'faqAndShare.html' %}
 
-        <div id="FAQSection" class="share-box">
-          <h2>FAQ</h2>
-          <p>Before asking for support, please read the FAQ section carefully:</p>
-          <button id="openFAQModal">FAQ</button>
-        </div>
+    {% include 'moadlSelectorUpload.html' %}
+           
+    {% include 'shareModal.html' %}
 
-        <div id="shareSection" class="share-box">
-          <h2>Want to share your own customized IPTV list?</h2>
-          <p>If you’ve created a custom playlist and want to share it with the community, follow a few simple steps.</p>
-          <button id="openShareModal">Share my own customized list</button>
-        </div>
+    {% include 'updateModal.html' %}
 
-    <div id="FAQ" class="modal2" style="display: none;">
-            <div class="modal-content2">
-                <span class="close" id="closeModalFAQ">&times;</span>
-                <h3>Frequently Asked Questions</h3>
-            <section>
-            <h2>❓ What is this service?</h2>
-            <p>It’s a web tool that automatically generates personalized M3U playlists using your credentials (DNS, username/password, or M3U URL), eliminating the need for manual edits.</p>
-          </section>
-
-          <section>
-            <h2>❓ How does it work?</h2>
-            <ol>
-              <li>Browse and select the desired service. Remember you need to already have credentials for the service given by a provider.</li>
-              <li>Choose either <strong>Automatic process</strong> (recommended) or <strong>Manual process</strong> (if you have knowledge about this) in the modal.</li>
-              <li>Choose either <strong>M3U</strong> or <strong>Xtream</strong> in the modal.</li>
-              <li>Enter your credentials.</li>
-              <li>Click <strong>Generate M3U</strong> or <strong>Generate Xtream</strong>.</li>
-              <li>Your playlist is downloaded and shown with EPG info and GitHub URL.</li>
-            </ol>
-          </section>
-
-          <section>
-            <h2>❓ New Feature: Google Drive M3U URL</h2>
-            <p>You can now generate a direct M3U URL hosted on Google Drive — no downloads needed.</p>
-            <ol>
-              <li>Select <strong>Google Drive</strong> before generating your playlist.</li>
-              <li>Click <strong>Generate M3U File</strong>.</li>
-              <li>Authorize access to your Google Drive when prompted.</li>
-              <li>You will receive a direct M3U URL for use in any IPTV player.</li>
-            </ol>
-          </section>
-
-            <section>
-            <h2>❓ What if the Google Drive feature doesn’t work?</h2>
-            <p>Your browser may be blocking the Google login pop-up or Drive access. Try another browser, ensure pop-ups are allowed, and consider using a secondary Google account without 2FA, since it has been reported to break the login process in the repository.</p>
-          </section>
-
-          <section>
-            <h2>❓ Is it safe to enter my credentials?</h2>
-            <p>The tool is hosted on Hetzner and no issues have been reported. The tool doesn't store any credentials, and it is open-sourced, so you can review the code <a href="https://github.com/ferteque/Repository-Server/tree/main" id="github_code" target="_blank" rel="noopener noreferrer">here.</a></p>
-          </section>
-
-          <section>
-            <h2>❓ Can I share my customized playlist?</h2>
-            <p>Yes! You can share a new playlist or update an existing one by providing a password. Moderators will review new lists before publishing.</p>
-          </section>
-
-          <section>
-            <h2>❓ Why does the EPG show “No information”?</h2>
-            <p>EPG sync can take up to 30 minutes depending on your channel count. If it still shows nothing after that, try using a VPN — your ISP may be blocking the EPG server.</p>
-          </section>
-
-          <section>
-            <h2>❓ What if the service is slow or unresponsive?</h2>
-            <p>The tool runs on a low-tier server and may be slow during busy hours. Please try again later if needed.</p>
-          </section>
-
-          <section>
-            <h2>❓ How is this service funded?</h2>
-            <p>The developer, <strong>Ferteque</strong>, covers the costs through community donations. Consider supporting to keep the service running.</p>
-          </section>
-
-          <section>
-            <h2>❓ Where can I get more information or support?</h2>
-            <p>In the repository community discord</p>
-            <div class="input-wrapper">
-                <a class="btn btn-primary" href="https://discord.gg/AYnzecYvwd" id="DiscordButton2" target="_blank" rel="noopener noreferrer"> Discord Link </a>
-            </div>
-          </section>
-            </div>
-        </div>
-    </div>
-
-
-           <div class="modal2" id="modeSelectorModalUpload" style="display:none;">
-                <div class="modal-content2">
-                <span class="close" id="closeModalSelectorUpload">&times;</span>
-                    <h3>Select one of the next options:</h3>
-                    <div class="d-grid gap-2">
-                      <button class="btn btn-primary" id="NewShare" data-bs-dismiss="modal">Share a new Playlist</button>
-                      <button class="btn btn-secondary" id="UpdateList" data-bs-dismiss="modal">Update my already shared Playlist</button>
-                    </div>
-                  </div>
-                </div>
-
-           <div class="modal2" id="modeSelectorModalUpload" style="display:none;">
-                <div class="modal-content2">
-                <span class="close" id="closeModalSelectorUpload">&times;</span>
-                    <h3>Select one of the next options:</h3>
-                    <div class="d-grid gap-2">
-                      <button class="btn btn-primary" id="NewShare" data-bs-dismiss="modal">Share a new Playlist</button>
-                      <button class="btn btn-secondary" id="UpdateList" data-bs-dismiss="modal">Update my already shared Playlist</button>
-                    </div>
-                  </div>
-                </div>
-
-
-
-        <div id="shareModal" class="modal2" style="display:none;">
-          <div class="modal-content2">
-            <span class="close" id="closeShareModal">&times;</span>
-            <div class="modal-warning">
-              ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
-              It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
-            </div>
-              
-            <ol>
-                <form id="submitPlaylistForm">
-                  <div class="form-group">
-                    <label>Service Name</label>
-                    <input type="text" id="service_name" name="service_name"  class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Countries</label>
-                    <input type="text" id="countries" name="countries" class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Discord Username</label>
-                    <input type="text" id="reddit_username" name="reddit_username" class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Main Categories</label>
-                    <input type="text" id="main_categories" name="main_categories" class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>EPG URL</label>
-                    <input type="url" id="epgForm" name="epg" class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Donation Link</label>
-                    <input type="url" id="donation_link" name="donation_link" class="dynamic-input">
-                  </div>
-
-                  <div class="form-group">
-                    <label>List Password</label>
-                    <input type="password" id="list_password" name="list_password" class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Upload M3U File</label>
-                    <input type="file" id="m3u_fileForm" name="m3u_file" class="dynamic-input" accept=".m3u" required>
-                  </div>
-
-                  <button type="submit" class="btn btn-primary mt-2" id="submitPlaylist">Submit Playlist</button>
-                </form>
-            </ol>
-            
-                <h3 id="Wait4" style="display: none;">PLEASE WAIT</h3>
-                    <div class="spinner" id="spinner4" style="display: none;"></div>
-            <p id="Successfully_uploaded" style="display: none">List uploaded successfully! We’ll review and publish it if it meets the quality standards. Thanks for contributing!</p>
-          </div>
-          </div>
-
-        <div id="updateModal" class="modal2" style="display:none;">
-          <div class="modal-content2">
-            <span class="close" id="closeShareModalUpdate">&times;</span>
-            <div class="modal-warning">
-              ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
-              It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
-            </div>
-              <ol>
-                <form id="updatePlaylistForm">
-                  <div class="form-group">
-                    <label>Playlist ID *</label>
-                    <input type="text" id="playlist_id" name="id"  class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>List Password *</label>
-                    <input type="password" id="list_password" name="list_password" class="dynamic-input" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>New Countries (Old ones will be overwritten. Leave blank if there are no new countries)</label>
-                    <input type="text" id="new_countries" name="countries" class="dynamic-input">
-                  </div>
-
-                  <div class="form-group">
-                    <label>New Categories (Old ones will be overwritten. Leave blank if there are no new categories)</label>
-                    <input type="text" id="new_categories" name="main_categories" class="dynamic-input">
-                  </div>
-
-                  <div class="form-group">
-                    <label>New EPG URL (Old one will be overwritten. Leave blank if there is no new EPG)</label> 
-                    <input type="url" id="new_epgForm" name="epg_url" class="dynamic-input">
-                  </div>
-
-                  <div class="form-group">
-                    <label>New Donation Link (Old one will be overwritten. Leave blank if there is no new link)</label> 
-                    <input type="url" id="new_donation_link" name="donation_info" class="dynamic-input">
-                  </div>
-
-                  <div class="form-group">
-                    <label>Upload new M3U File *</label>
-                    <input type="file" id="Update_m3u_fileForm" name="m3u_file" class="dynamic-input" accept=".m3u" required>
-                  </div>
-
-                  <button type="submit" class="btn btn-primary mt-2" id="updatePlaylist">Update Playlist</button>
-                </form>
-            </ol>
-            <h3 id="Wait5" style="display: none;">PLEASE WAIT</h3>
-                <div class="spinner" id="spinner5" style="display: none;"></div>
-            <p id="Successfully_updated" style="display: none">List updated successfully! Thanks for contributing!</p>
-          </div>
-          </div>
-
-<br>
-<div class="share-box table-style">
- <h2 style="text-align:center; font-family: sans-serif;">Pick the list that feels right for you – just click on a row:</h2>
- <br>
-  <table class="styled-table sortable">
-    <thead>
-      <tr>
-        <th class="sorttable_numeric">ID</th>
-        <th>Service</th>
-        <th>Discord Username</th>
-        <th>Countries</th>
-        <th>Main Categories</th>
-        <th>Last Updated</th>
-        <th class="sorttable_numeric">Downloads</th>
-        <th>List Owner Donations</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
-</div>
-
-<div id="credentials" class="modal2">
-    <div class="modal-content2">
-        <span class="close" id="closeModalCredentials">&times;</span>
-            <div class="tab">
-                <div id="tab-m3u" class="active">M3U</div>
-                <div id="tab-xtream">Xtream</div>
-                <div id="tab-next-steps">Next Steps</div>
-            </div>
+    {% include 'table.html' %}
         
+    {% include 'credentials.html' %}
 
-            <div id="m3u-content" class="tab-content active">
-                <h3>Enter M3U URL</h3>
-               <form id="m3uForm">
-                <label>M3U URL: <input type="text" id="m3uUrlUser" class="dynamic-input" placeholder="i.e. http://dns.com/get.php?username=xxxxxx&password=yyyyyy&type=m3u_plus" required=""></label><br><br>
-                  <div class="custom-checkbox-container">
-                    <label for="uploadToDriveM3U" class="custom-checkbox-label">
-                        <input type="checkbox" id="uploadToDriveM3U" class="custom-checkbox">
-                        <span class="checkbox-text">Upload modified M3U directly to my Google Drive (This will save some manual steps later)</span>
-                    </label>
-                </div> <br><br>
+    {% include 'nextSteps.html' %}  
 
-                <button id="submitM3U">Generate M3U</button>
-               </form>
-            </div>
-
-            <div id="xtream-content" class="tab-content">
-                <h3>Enter Xtream Credentials</h3>
-               <form id="xtreamForm">
-                <label>DNS or Server or URL: <input type="text" id="dnsX" class="dynamic-input"></label><br>
-                <label>Username: <input type="text" id="usernameX" class="dynamic-input"></label><br>
-                <label>Password: <input type="password" id="passwordX" class="dynamic-input"></label><br>
-                  <div class="custom-checkbox-container">
-                    <label for="uploadToDriveXtream" class="custom-checkbox-label">
-                        <input type="checkbox" id="uploadToDriveXtream" class="custom-checkbox">
-                        <span class="checkbox-text">Upload modified M3U directly to my Google Drive (This will save some manual steps later)</span>
-                    </label>
-                </div> <br><br>
-
-                <button id="submitForm">Generate Xtream</button>
-               </form>
-            </div>
-    </div>
-</div>
-
-     <div id="NextSteps" class="modal2">
-        <div class="modal-content2">
-            <span class="close" id="closeModalNextSteps">&times;</span>
-            <h3>Next Steps</h3>
-           
-            <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label> <br>
-
-            <label>2. Insert the USB with the edited M3U file in the streaming device. </label> <br>
-
-            <label>3. Open TiviMate and go to "Settings". </label> <br>
-
-            <label>4. Select "Playlists". </label> <br>
- 
-            <label>5. Select "Add Playlist'. </label> <br>
-
-            <label>6. Select "M3U playlist". </label> <br>
-
-            <label>7. Click "Select Local Playlist". </label> <br>
-
-            <label>8. Click the USB Drive and select the modified .M3U file. </label> <br>
-
-            <label>9. When asked for an EPG URL Enter this: </label>  
-            <div class="input-wrapper">
-                <input type="text" id="EPG" class="dynamic-input" disabled> <button id="copyButtonEPG" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
-            </div> <br> <label>(Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show)</label> <br><br><br>
-            
-            <label>(Optional) 10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
-            <div class="input-wrapper">
-                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled><button id="copyButtonEPG_GitHub" class="copyButton1">📋 Copy GitHub EPG URL to Clipboard</button>
-            </div>
-            <br><br><br>
-            <label>(Optional) 11. If you want your list to update the PPV channels automatically, follow this guide from @GanjaRelease: </label> 
-            <div class="input-wrapper">
-                <video width="640" height="360" controls>
-                  <source src="{{ url_for('static', filename='GanjaPPV.mp4') }}" type="video/mp4">
-                  Tu navegador no soporta el video HTML5.
-                </video>
-            </div>
-            <br><br><br>
-            <label>(Optional) 12. All feedback is welcome, you can add a comment with your ideas in our discord: </label> 
-            <div class="input-wrapper">
-                <a class="btn btn-primary" href="https://discord.gg/AYnzecYvwd" id="FeedbackButton" target="_blank" rel="noopener noreferrer"> Discord Link </a>
-            </div>             <br>
-        </div>
-    </div>
-
-     <div id="NextStepsDrive" class="modal2">
-        <div class="modal-content2">
-            <span class="close" id="closeModalNextStepsDrive">&times;</span>
-            <h3>Next Steps</h3>
-           
-            <label>1. Open your IPTV Player and go to "Settings". </label> <br>
-
-            <label>2. Select "Playlists". </label> <br>
- 
-            <label>3. Select "Add Playlist'. </label> <br>
-
-            <label>4. Select "M3U playlist". </label> <br>
-
-            <label>5. Click "M3U URL". </label> <br>
-
-            <label>6. Enter this URL: </label>
-
-            <div class="input-wrapper">
-                <input type="text" id="DriveDownloadLink" class="dynamic-input" disabled> <button id="copyButton" class="copyButton1">📋 Copy Drive URL to Clipboard</button>
-
-            </div> <br><br><br>
-
-            <label>7. When asked for an EPG URL Enter this: </label>  
-            <div class="input-wrapper">
-                <input type="text" id="EPGDrive" class="dynamic-input" disabled><button id="copyButtonEPGDrive" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
-            </div> <br> <label>(Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show)</label> <br><br><br>
-            
-            <label>(Optional) 8. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
-            <div class="input-wrapper">
-                <input type="text" id="GitHub_EPGDrive" class="dynamic-input" disabled><button id="copyButtonEPG_GitHubDrive" class="copyButton1">📋 Copy GitHub EPG URL to Clipboard</button>
-            </div>
-            <br><br><br>
-            <label>(Optional) 9. If you want your list to update the PPV channels automatically, follow this guide from @GanjaRelease: </label> 
-            <div class="input-wrapper">
-                <video width="640" height="360" controls>
-                  <source src="{{ url_for('static', filename='GanjaPPV.mp4') }}" type="video/mp4">
-                  Tu navegador no soporta el video HTML5.
-                </video>
-            </div>
-            <br><br><br>
-             <label>(Optional) 10. All feedback is welcome, you can add a comment with your ideas in our discord: </label> 
-            <div class="input-wrapper">
-                <a class="btn btn-primary" href="https://discord.gg/AYnzecYvwd" id="FeedbackButton2" target="_blank" rel="noopener noreferrer"> Discord Link </a>
-            </div>
-            <br>
-        </div>
-    </div>
-
-   <div id="Loading" class="modal2">
-    <div class="modal-content2">
-        <span class="close" id="closeModalLoading">&times;</span>
-           <h3 id="Wait1">PLEASE WAIT</h3>
-            <p id="Wait2">Your M3U file is processing, please wait...</p>
-            <div class="spinner2" id="spinner"></div>
-                
-                <button id="log-in" class="copyButton1" style="display: none;"> Upload to Google Drive </button>
-                <h2 class="donation-call2">
-              <span class="donation-icon2">❤️</span>
-              Help this project grow! Your donations support better servers, new features, better performance, and a smoother experience for everyone. 
-              <br>
-              <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer">Support me on Ko-fi</a>
-            </h2>
-            </div>
-            
-
-   </div>
+    {% include 'loading.html' %} 
 
     <input type="hidden" id="selectedID">
     <input type="hidden" id="dns">
     <input type="hidden" id="username">
     <input type="hidden" id="password">
-</div>
-
-<div class="fixed-bottom" id="donations">   
-<h2 class="donation-call">
-  <span class="donation-icon">❤️</span>
-  Help this project grow! Your donations support better servers, new features, better performance, and a smoother experience for everyone. 
-  <br>
-  <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer">Support me on Ko-fi</a>
-</h2>
-
-</div>
-</div>
-
-<div class="modal2" id="modeSelectorModal" style="display:none;">
-    <div class="modal-content2">
-    <span class="close" id="closeModalSelector">&times;</span>
-        <h3>Please choose how you want to configure your M3U list:</h3>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" id="AutomaticProcess" data-bs-dismiss="modal">Automatic</button>
-          <button class="btn btn-secondary" id="ManualSteps" data-bs-dismiss="modal">Manual</button>
-        </div>
-      </div>
-    </div>
   </div>
 
+  {% include 'footer.html' %}
 
-<div id="manualInstructions" class="modal2" style="display:none;">
-  <div class="modal-content2">
-    <span class="close" onclick="document.getElementById('manualInstructions').style.display='none'">&times;</span>
-    <h3>Manual Process</h3>
-    <p>You have chosen the manual process. This option shall be used only for tech people. Please follow these steps:</p>
-      <label>1. Download the original playlist.</label>
-      <div class="input-wrapper">
-                <a class="btn btn-primary" id="RawDownloadLink" target="_blank" rel="noopener noreferrer"> Download</a> 
-            <h3 id="Wait3" style="display: none;">PLEASE WAIT</h3>
-            <div class="spinner" id="spinner3" style="display: none;"></div>
+  {% include 'selectorAutoMan.html' %}
 
-            </div> <br><br><br>
-      <label>2. Open it with Windows Notepad (or any other text editor).</label><br>
-      <label>3. Use the "Search and Replace" function to find <code>http://DNS/USERNAME/PASSWORD</code> and replace it with your credentials (e.g., <code>http://xxxxx.xxxx-xxx/12345678/12345678</code>).</label><br>
-      <label>4. Repeat the process for Movies and TV Shows by searching for <code>http://DNS/movie/USERNAME/PASSWORD</code> and replacing it with your credentials (e.g., <code>http://xxxx.xxx-xxx/movie/12345678/12345678</code>).</label><br>
-      <label>5. Upload the modified M3U file to your IPTV player, or use it in your IPTV editor as a starting point.</label><br>
-
-    <button id="openNextSteps">
-      Next Steps
-    </button>
-  </div>
-</div>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>
