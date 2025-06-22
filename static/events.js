@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     submitForm();
   });
 
-  // Copiado simplificado
   ["copyButton", "copyButtonEPG", "copyButtonEPGDrive", "copyButtonEPG_GitHub", "copyButtonEPG_GitHubDrive"].forEach(id => {
     document.getElementById(id).addEventListener("click", () => {
       const input = document.getElementById(id.replace("copyButton", ""));
