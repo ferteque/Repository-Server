@@ -35,13 +35,15 @@ def index():
 @app.after_request
 def set_csp(response):
     csp_policy = (
-        "default-src 'self'; "
-        "script-src 'self' https://apis.google.com https://www.googletagmanager.com; "
-        "font-src 'self' data:; "
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-        "img-src 'self' data:; "
-        "connect-src 'self'; "
-        "object-src 'none'; "
+        "default-src 'self';"
+        "script-src 'self' https://www.googletagmanager.com https://apis.google.com https://cdn.jsdelivr.net 'unsafe-inline';"
+        "script-src-elem 'self' https://www.googletagmanager.com https://apis.google.com https://cdn.jsdelivr.net 'unsafe-inline';"
+        "style-src 'self' https://fonts.googleapis.com 'unsafe-inline';"
+        "font-src 'self' data:;"
+        "img-src 'self' data:;"
+        "media-src 'self';"
+        "connect-src 'self';"
+        "object-src 'none';"
         "report-uri /csp-report"
     )
     response.headers['Content-Security-Policy-Report-Only'] = csp_policy
