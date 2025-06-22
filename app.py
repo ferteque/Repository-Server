@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, render_template, jsonify
+from flask import Flask, request, send_file, render_template, jsonify, make_response
 from flask_cors import CORS
 from flask_compress import Compress
 from db import get_connection
