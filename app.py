@@ -30,13 +30,18 @@ CORS(app, resources={r"/process": {"origins": [
 
 @app.route('/')
 def index():
-    response = make_response(render_template('index.html'))
+    return render_template('index.html')
+
+@app.after_request
+def set_csp(response):
     response.headers['Content-Security-Policy'] = (
         "default-src 'self'; "
-        "script-src 'self'; "
-        "style-src 'self' 'unsafe-inline'; "
+        "script-src 'self' https://cdn.jsdelivr.net https://apis.google.com 'nonce-XYZ'; "
+        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
         "font-src 'self' data:; "
         "media-src 'self'; "
+        "connect-src 'self'; "
+        "img-src 'self' data:;"
     )
     return response
 
