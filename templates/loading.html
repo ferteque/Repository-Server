@@ -1,18 +1,23 @@
-<div id="Loading" class="modal2">
-    <div class="modal-content2">
-        <span class="close" id="closeModalLoading">&times;</span>
-           <h3 id="Wait1">PLEASE WAIT</h3>
-            <p id="Wait2">Your M3U file is processing, please wait...</p>
-            <div class="spinner2" id="spinner"></div>
-                
-                <button id="log-in" class="copyButton1" style="display: none;"> Upload to Google Drive </button>
-                <h2 class="donation-call2">
-              <span class="donation-icon2">❤️</span>
-              Help this project grow! Your donations support better servers, new features, better performance, and a smoother experience for everyone. 
-              <br>
-              <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer">Support me on Ko-fi</a>
-            </h2>
-            </div>
-            
-
-   </div>
+<div id="Loading" class="modal fade" tabindex="-1" aria-labelledby="LoadingLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <button type="button" class="btn-close" id="closeModalLoading" data-bs-dismiss="modal" aria-label="Close"></button>
+      <h3 id="Wait1" class="modal-title text-center mb-3">PLEASE WAIT</h3>
+      <p id="Wait2" class="text-center mb-4">Your M3U file is processing, please wait...</p>
+      <div id="spinner" class="d-flex justify-content-center mb-4">
+        <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+      </div>
+      <div class="d-flex justify-content-center mb-4">
+        <button id="log-in" class="btn btn-outline-primary" style="display: none;">Upload to Google Drive</button>
+      </div>
+      <h2 class="donation-call2 text-center fs-6 text-muted">
+        <span class="donation-icon2 text-danger">❤️</span>
+        Help this project grow! Your donations support better servers, new features, better performance, and a smoother experience for everyone.
+        <br>
+        <a href="https://ko-fi.com/ferteque" target="_blank" rel="noopener noreferrer" class="link-primary fw-bold">
+          Support me on Ko-fi
+        </a>
+      </h2>
+    </div>
+  </div>
+</div>

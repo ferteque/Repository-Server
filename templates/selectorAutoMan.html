@@ -1,7 +1,12 @@
-<div class="modal2" id="modeSelectorModal" style="display:none;">
-    <div class="modal-content2">
-    <span class="close" id="closeModalSelector">&times;</span>
-        <h3>Please choose how you want to configure your M3U list:</h3>
+<!-- Modal modeSelectorModal -->
+<div class="modal fade" id="modeSelectorModal" tabindex="-1" aria-labelledby="modeSelectorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modeSelectorModalLabel">Please choose how you want to configure your M3U list:</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalSelector"></button>
+      </div>
+      <div class="modal-body">
         <div class="d-grid gap-2">
           <button class="btn btn-primary" id="AutomaticProcess" data-bs-dismiss="modal">Automatic</button>
           <button class="btn btn-secondary" id="ManualSteps" data-bs-dismiss="modal">Manual</button>
@@ -9,27 +14,38 @@
       </div>
     </div>
   </div>
+</div>
 
+<!-- Modal manualInstructions -->
+<div class="modal fade" id="manualInstructions" tabindex="-1" aria-labelledby="manualInstructionsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="manualInstructionsLabel">Manual Process</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>You have chosen the manual process. This option shall be used only for tech people. Please follow these steps:</p>
+        
+        <ol>
+          <li>
+            Download the original playlist. 
+            <div class="mt-2 mb-3">
+              <a class="btn btn-primary" id="RawDownloadLink" target="_blank" rel="noopener noreferrer">Download</a> 
+              <h3 id="Wait3" class="d-none">PLEASE WAIT</h3>
+              <div class="spinner-border text-primary d-none" id="spinner3" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </li>
+          <li>Open it with Windows Notepad (or any other text editor).</li>
+          <li>Use the "Search and Replace" function to find <code>http://DNS/USERNAME/PASSWORD</code> and replace it with your credentials (e.g., <code>http://xxxxx.xxxx-xxx/12345678/12345678</code>).</li>
+          <li>Repeat the process for Movies and TV Shows by searching for <code>http://DNS/movie/USERNAME/PASSWORD</code> and replacing it with your credentials (e.g., <code>http://xxxx.xxx-xxx/movie/12345678/12345678</code>).</li>
+          <li>Upload the modified M3U file to your IPTV player, or use it in your IPTV editor as a starting point.</li>
+        </ol>
 
-<div id="manualInstructions" class="modal2" style="display:none;">
-  <div class="modal-content2">
-    <span class="close" onclick="document.getElementById('manualInstructions').style.display='none'">&times;</span>
-    <h3>Manual Process</h3>
-    <p>You have chosen the manual process. This option shall be used only for tech people. Please follow these steps:</p>
-      <label>1. Download the original playlist.</label>
-      <div class="input-wrapper">
-                <a class="btn btn-primary" id="RawDownloadLink" target="_blank" rel="noopener noreferrer"> Download</a> 
-            <h3 id="Wait3" style="display: none;">PLEASE WAIT</h3>
-            <div class="spinner" id="spinner3" style="display: none;"></div>
-
-            </div> <br><br><br>
-      <label>2. Open it with Windows Notepad (or any other text editor).</label><br>
-      <label>3. Use the "Search and Replace" function to find <code>http://DNS/USERNAME/PASSWORD</code> and replace it with your credentials (e.g., <code>http://xxxxx.xxxx-xxx/12345678/12345678</code>).</label><br>
-      <label>4. Repeat the process for Movies and TV Shows by searching for <code>http://DNS/movie/USERNAME/PASSWORD</code> and replacing it with your credentials (e.g., <code>http://xxxx.xxx-xxx/movie/12345678/12345678</code>).</label><br>
-      <label>5. Upload the modified M3U file to your IPTV player, or use it in your IPTV editor as a starting point.</label><br>
-
-    <button id="openNextSteps">
-      Next Steps
-    </button>
+        <button type="button" class="btn btn-primary mt-3" id="openNextSteps">Next Steps</button>
+      </div>
+    </div>
   </div>
 </div>
