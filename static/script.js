@@ -209,19 +209,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 }
 
-let lastScroll = 0;
-const banner = document.getElementById('donations');
+  let lastScroll = 0;
+  const banner = document.getElementById('donations');
 
-window.addEventListener('scroll', () => {
-  const currentScroll = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
 
-  if (currentScroll > lastScroll) {
-    banner.style.transform = 'translateY(100%)';
-  } else {
-    banner.style.transform = 'translateY(0)';
-  }
+    if (currentScroll > lastScroll) {
+      banner.style.transform = 'translateY(100%)';
+    } else {
+      banner.style.transform = 'translateY(0)';
+    }
 
-  lastScroll = currentScroll;
-});
+    lastScroll = currentScroll;
+  });
 
 });

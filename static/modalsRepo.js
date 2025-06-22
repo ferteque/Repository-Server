@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+
   function selectRow(row, id, service, epg, gitHubEPG) {
     document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
     row.classList.add("selected");
@@ -36,4 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
-});
+

@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
   document.getElementById("m3uForm").addEventListener("submit", e => {
     e.preventDefault();
     gtag('event', 'M3U_selected', {
@@ -230,4 +229,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-});

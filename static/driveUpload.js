@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
   const CLIENT_ID = '385455010248-stgruhhb6geh32kontlgi7g929tmfgqa.apps.googleusercontent.com';
   const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
@@ -96,4 +95,3 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-});
