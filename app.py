@@ -34,19 +34,14 @@ def index():
 
 @app.after_request
 def set_csp(response):
-    csp_policy = (
-        "default-src 'self';"
-        "script-src 'self' https://www.googletagmanager.com https://apis.google.com https://cdn.jsdelivr.net 'unsafe-inline';"
-        "script-src-elem 'self' https://www.googletagmanager.com https://apis.google.com https://cdn.jsdelivr.net 'unsafe-inline';"
-        "style-src 'self' https://fonts.googleapis.com 'unsafe-inline';"
-        "font-src 'self' data:;"
+    response.headers['Content-Security-Policy-Report-Only'] = (
+        "default-src 'self'; "
+        "script-src 'self' https://apis.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com; "
+        "style-src 'self' 'unsafe-inline'; "
+        "font-src 'self' https://fonts.gstatic.com; "
+        "media-src 'self'; "
         "img-src 'self' data:;"
-        "media-src 'self';"
-        "connect-src 'self';"
-        "object-src 'none';"
-        "report-uri /csp-report"
     )
-    response.headers['Content-Security-Policy-Report-Only'] = csp_policy
     return response
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
