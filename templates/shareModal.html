@@ -1,71 +1,59 @@
-<!-- Modal Share Playlist -->
-<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="shareModalLabel">Share Your Curated Playlist</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeShareModal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-warning" role="alert">
-          ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
-          It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
-        </div>
+<div id="shareModal" class="modal2" style="display:none;">
+          <div class="modal-content2">
+            <span class="close" id="closeShareModal">&times;</span>
+            <div class="modal-warning">
+              ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
+              It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
+            </div>
+              
+            <ol>
+                <form id="submitPlaylistForm">
+                  <div class="form-group">
+                    <label>Service Name</label>
+                    <input type="text" id="service_name" name="service_name"  class="dynamic-input" required>
+                  </div>
 
-        <form id="submitPlaylistForm" novalidate>
-          <div class="mb-3">
-            <label for="service_name" class="form-label">Service Name</label>
-            <input type="text" id="service_name" name="service_name" class="form-control" required>
+                  <div class="form-group">
+                    <label>Countries</label>
+                    <input type="text" id="countries" name="countries" class="dynamic-input" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Discord Username</label>
+                    <input type="text" id="reddit_username" name="reddit_username" class="dynamic-input" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Main Categories</label>
+                    <input type="text" id="main_categories" name="main_categories" class="dynamic-input" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>EPG URL</label>
+                    <input type="url" id="epgForm" name="epg" class="dynamic-input" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Donation Link</label>
+                    <input type="url" id="donation_link" name="donation_link" class="dynamic-input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>List Password</label>
+                    <input type="password" id="list_password" name="list_password" class="dynamic-input" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Upload M3U File</label>
+                    <input type="file" id="m3u_fileForm" name="m3u_file" class="dynamic-input" accept=".m3u" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary mt-2" id="submitPlaylist">Submit Playlist</button>
+                </form>
+            </ol>
+            
+                <h3 id="Wait4" style="display: none;">PLEASE WAIT</h3>
+                    <div class="spinner" id="spinner4" style="display: none;"></div>
+            <p id="Successfully_uploaded" style="display: none">List uploaded successfully! We’ll review and publish it if it meets the quality standards. Thanks for contributing!</p>
           </div>
-
-          <div class="mb-3">
-            <label for="countries" class="form-label">Countries</label>
-            <input type="text" id="countries" name="countries" class="form-control" required>
           </div>
-
-          <div class="mb-3">
-            <label for="reddit_username" class="form-label">Discord Username</label>
-            <input type="text" id="reddit_username" name="reddit_username" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="main_categories" class="form-label">Main Categories</label>
-            <input type="text" id="main_categories" name="main_categories" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="epgForm" class="form-label">EPG URL</label>
-            <input type="url" id="epgForm" name="epg" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="donation_link" class="form-label">Donation Link</label>
-            <input type="url" id="donation_link" name="donation_link" class="form-control">
-          </div>
-
-          <div class="mb-3">
-            <label for="list_password" class="form-label">List Password</label>
-            <input type="password" id="list_password" name="list_password" class="form-control" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="m3u_fileForm" class="form-label">Upload M3U File</label>
-            <input type="file" id="m3u_fileForm" name="m3u_file" class="form-control" accept=".m3u" required>
-          </div>
-
-          <button type="submit" class="btn btn-primary" id="submitPlaylist">Submit Playlist</button>
-        </form>
-
-        <div class="text-center mt-3">
-          <h3 id="Wait4" class="d-none">PLEASE WAIT</h3>
-          <div class="spinner-border text-primary d-none" role="status" id="spinner4">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <p id="Successfully_uploaded" class="text-success mt-3 d-none">
-            List uploaded successfully! We’ll review and publish it if it meets the quality standards. Thanks for contributing!
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

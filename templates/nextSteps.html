@@ -1,106 +1,93 @@
-<!-- Modal NextSteps -->
-<div class="modal fade" id="NextSteps" tabindex="-1" aria-labelledby="NextStepsLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="NextStepsLabel">Next Steps</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalNextSteps"></button>
-      </div>
-      <div class="modal-body">
-        <p>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example).</p>
-        <p>2. Insert the USB with the edited M3U file in the streaming device.</p>
-        <p>3. Open TiviMate and go to "Settings".</p>
-        <p>4. Select "Playlists".</p>
-        <p>5. Select "Add Playlist".</p>
-        <p>6. Select "M3U playlist".</p>
-        <p>7. Click "Select Local Playlist".</p>
-        <p>8. Click the USB Drive and select the modified .M3U file.</p>
-        <p>9. When asked for an EPG URL Enter this:</p>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="EPG" disabled>
-          <button class="btn btn-outline-secondary" type="button" id="copyButtonEPG">📋 Copy EPG URL to Clipboard</button>
+    <div id="NextSteps" class="modal2">
+        <div class="modal-content2">
+            <span class="close" id="closeModalNextSteps">&times;</span>
+            <h3>Next Steps</h3>
+           
+            <label>1. Use a USB (or buy an OTG Cable for firestick users) and move the edited M3U file from the USB to the device you want to use (Nvidia Shield for example). </label> <br>
+
+            <label>2. Insert the USB with the edited M3U file in the streaming device. </label> <br>
+
+            <label>3. Open TiviMate and go to "Settings". </label> <br>
+
+            <label>4. Select "Playlists". </label> <br>
+ 
+            <label>5. Select "Add Playlist'. </label> <br>
+
+            <label>6. Select "M3U playlist". </label> <br>
+
+            <label>7. Click "Select Local Playlist". </label> <br>
+
+            <label>8. Click the USB Drive and select the modified .M3U file. </label> <br>
+
+            <label>9. When asked for an EPG URL Enter this: </label>  
+            <div class="input-wrapper">
+                <input type="text" id="EPG" class="dynamic-input" disabled> <button id="copyButtonEPG" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
+            </div> <br> <label>(Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show)</label> <br><br><br>
+            
+            <label>(Optional) 10. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
+            <div class="input-wrapper">
+                <input type="text" id="GitHub_EPG" class="dynamic-input" disabled><button id="copyButtonEPG_GitHub" class="copyButton1">📋 Copy GitHub EPG URL to Clipboard</button>
+            </div>
+            <br><br><br>
+            <label>(Optional) 11. If you want your list to update the PPV channels automatically, follow this guide from @GanjaRelease: </label> 
+            <div class="input-wrapper">
+                <video width="640" height="360" controls>
+                  <source src="{{ url_for('static', filename='GanjaPPV.mp4') }}" type="video/mp4">
+                  Tu navegador no soporta el video HTML5.
+                </video>
+            </div>
+            <br><br><br>
+            <label>(Optional) 12. All feedback is welcome, you can add a comment with your ideas in our discord: </label> 
+            <div class="input-wrapper">
+                <a class="btn btn-primary" href="https://discord.gg/AYnzecYvwd" id="FeedbackButton" target="_blank" rel="noopener noreferrer"> Discord Link </a>
+            </div>             <br>
         </div>
-        <small class="text-muted">Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show</small>
-
-        <hr>
-
-        <p><strong>(Optional) 10.</strong> If you want to enter the EPG in your own IPTV Editor, use this as an external EPG:</p>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="GitHub_EPG" disabled>
-          <button class="btn btn-outline-secondary" type="button" id="copyButtonEPG_GitHub">📋 Copy GitHub EPG URL to Clipboard</button>
-        </div>
-
-        <hr>
-
-        <p><strong>(Optional) 11.</strong> If you want your list to update the PPV channels automatically, follow this guide from @GanjaRelease:</p>
-        <div class="ratio ratio-16x9 mb-3">
-          <video controls>
-            <source src="{{ url_for('static', filename='GanjaPPV.mp4') }}" type="video/mp4">
-            Tu navegador no soporta el video HTML5.
-          </video>
-        </div>
-
-        <hr>
-
-        <p><strong>(Optional) 12.</strong> All feedback is welcome, you can add a comment with your ideas in our discord:</p>
-        <a href="https://discord.gg/AYnzecYvwd" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="FeedbackButton">Discord Link</a>
-      </div>
     </div>
-  </div>
-</div>
 
-<!-- Modal NextStepsDrive -->
-<div class="modal fade" id="NextStepsDrive" tabindex="-1" aria-labelledby="NextStepsDriveLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="NextStepsDriveLabel">Next Steps</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalNextStepsDrive"></button>
-      </div>
-      <div class="modal-body">
-        <p>1. Open your IPTV Player and go to "Settings".</p>
-        <p>2. Select "Playlists".</p>
-        <p>3. Select "Add Playlist".</p>
-        <p>4. Select "M3U playlist".</p>
-        <p>5. Click "M3U URL".</p>
-        <p>6. Enter this URL:</p>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="DriveDownloadLink" disabled>
-          <button class="btn btn-outline-secondary" type="button" id="copyButton">📋 Copy Drive URL to Clipboard</button>
+     <div id="NextStepsDrive" class="modal2">
+        <div class="modal-content2">
+            <span class="close" id="closeModalNextStepsDrive">&times;</span>
+            <h3>Next Steps</h3>
+           
+            <label>1. Open your IPTV Player and go to "Settings". </label> <br>
+
+            <label>2. Select "Playlists". </label> <br>
+ 
+            <label>3. Select "Add Playlist'. </label> <br>
+
+            <label>4. Select "M3U playlist". </label> <br>
+
+            <label>5. Click "M3U URL". </label> <br>
+
+            <label>6. Enter this URL: </label>
+
+            <div class="input-wrapper">
+                <input type="text" id="DriveDownloadLink" class="dynamic-input" disabled> <button id="copyButton" class="copyButton1">📋 Copy Drive URL to Clipboard</button>
+
+            </div> <br><br><br>
+
+            <label>7. When asked for an EPG URL Enter this: </label>  
+            <div class="input-wrapper">
+                <input type="text" id="EPGDrive" class="dynamic-input" disabled><button id="copyButtonEPGDrive" class="copyButton1">📋 Copy EPG URL to Clipboard</button>
+            </div> <br> <label>(Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show)</label> <br><br><br>
+            
+            <label>(Optional) 8. If you want to enter the EPG in your own IPTV Editor, use this as an external EPG: </label> 
+            <div class="input-wrapper">
+                <input type="text" id="GitHub_EPGDrive" class="dynamic-input" disabled><button id="copyButtonEPG_GitHubDrive" class="copyButton1">📋 Copy GitHub EPG URL to Clipboard</button>
+            </div>
+            <br><br><br>
+            <label>(Optional) 9. If you want your list to update the PPV channels automatically, follow this guide from @GanjaRelease: </label> 
+            <div class="input-wrapper">
+                <video width="640" height="360" controls>
+                  <source src="{{ url_for('static', filename='GanjaPPV.mp4') }}" type="video/mp4">
+                  Tu navegador no soporta el video HTML5.
+                </video>
+            </div>
+            <br><br><br>
+             <label>(Optional) 10. All feedback is welcome, you can add a comment with your ideas in our discord: </label> 
+            <div class="input-wrapper">
+                <a class="btn btn-primary" href="https://discord.gg/AYnzecYvwd" id="FeedbackButton2" target="_blank" rel="noopener noreferrer"> Discord Link </a>
+            </div>
+            <br>
         </div>
-
-        <hr>
-
-        <p>7. When asked for an EPG URL Enter this:</p>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="EPGDrive" disabled>
-          <button class="btn btn-outline-secondary" type="button" id="copyButtonEPGDrive">📋 Copy EPG URL to Clipboard</button>
-        </div>
-        <small class="text-muted">Remember once the list is created, the TV Guide (EPG) can take up to 30 minutes to show</small>
-
-        <hr>
-
-        <p><strong>(Optional) 8.</strong> If you want to enter the EPG in your own IPTV Editor, use this as an external EPG:</p>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id="GitHub_EPGDrive" disabled>
-          <button class="btn btn-outline-secondary" type="button" id="copyButtonEPG_GitHubDrive">📋 Copy GitHub EPG URL to Clipboard</button>
-        </div>
-
-        <hr>
-
-        <p><strong>(Optional) 9.</strong> If you want your list to update the PPV channels automatically, follow this guide from @GanjaRelease:</p>
-        <div class="ratio ratio-16x9 mb-3">
-          <video controls>
-            <source src="{{ url_for('static', filename='GanjaPPV.mp4') }}" type="video/mp4">
-            Tu navegador no soporta el video HTML5.
-          </video>
-        </div>
-
-        <hr>
-
-        <p><strong>(Optional) 10.</strong> All feedback is welcome, you can add a comment with your ideas in our discord:</p>
-        <a href="https://discord.gg/AYnzecYvwd" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="FeedbackButton2">Discord Link</a>
-      </div>
     </div>
-  </div>
-</div>

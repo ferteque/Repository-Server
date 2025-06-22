@@ -1,64 +1,53 @@
-<div id="updateModal" class="modal fade" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Your Playlist</h5>
-        <button type="button" class="btn-close" id="closeShareModalUpdate" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-warning">
-          ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
-          It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
-        </div>
+<div id="updateModal" class="modal2" style="display:none;">
+          <div class="modal-content2">
+            <span class="close" id="closeShareModalUpdate">&times;</span>
+            <div class="modal-warning">
+              ⚠️ <strong>Heads up:</strong> This section is <u>not</u> for getting your M3U file.
+              It's meant for users who have <strong>curated their own playlist</strong> and wish to share it with the community.
+            </div>
+              <ol>
+                <form id="updatePlaylistForm">
+                  <div class="form-group">
+                    <label>Playlist ID *</label>
+                    <input type="text" id="playlist_id" name="id"  class="dynamic-input" required>
+                  </div>
 
-        <form id="updatePlaylistForm" class="needs-validation" novalidate>
-          <div class="mb-3">
-            <label for="playlist_id" class="form-label">Playlist ID *</label>
-            <input type="text" id="playlist_id" name="id" class="form-control" required>
-            <div class="invalid-feedback">Please enter your Playlist ID.</div>
+                  <div class="form-group">
+                    <label>List Password *</label>
+                    <input type="password" id="list_password" name="list_password" class="dynamic-input" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>New Countries (Old ones will be overwritten. Leave blank if there are no new countries)</label>
+                    <input type="text" id="new_countries" name="countries" class="dynamic-input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>New Categories (Old ones will be overwritten. Leave blank if there are no new categories)</label>
+                    <input type="text" id="new_categories" name="main_categories" class="dynamic-input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>New EPG URL (Old one will be overwritten. Leave blank if there is no new EPG)</label> 
+                    <input type="url" id="new_epgForm" name="epg_url" class="dynamic-input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>New Donation Link (Old one will be overwritten. Leave blank if there is no new link)</label> 
+                    <input type="url" id="new_donation_link" name="donation_info" class="dynamic-input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Upload new M3U File *</label>
+                    <input type="file" id="Update_m3u_fileForm" name="m3u_file" class="dynamic-input" accept=".m3u" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary mt-2" id="updatePlaylist">Update Playlist</button>
+                </form>
+            </ol>
+            <h3 id="Wait5" style="display: none;">PLEASE WAIT</h3>
+                <div class="spinner" id="spinner5" style="display: none;"></div>
+            <p id="Successfully_updated" style="display: none">List updated successfully! Thanks for contributing!</p>
           </div>
-
-          <div class="mb-3">
-            <label for="list_password" class="form-label">List Password *</label>
-            <input type="password" id="list_password" name="list_password" class="form-control" required>
-            <div class="invalid-feedback">Please enter the list password.</div>
           </div>
-
-          <div class="mb-3">
-            <label for="new_countries" class="form-label">New Countries (Old ones will be overwritten. Leave blank if no changes)</label>
-            <input type="text" id="new_countries" name="countries" class="form-control">
-          </div>
-
-          <div class="mb-3">
-            <label for="new_categories" class="form-label">New Categories (Old ones will be overwritten. Leave blank if no changes)</label>
-            <input type="text" id="new_categories" name="main_categories" class="form-control">
-          </div>
-
-          <div class="mb-3">
-            <label for="new_epgForm" class="form-label">New EPG URL (Old one will be overwritten. Leave blank if no changes)</label>
-            <input type="url" id="new_epgForm" name="epg_url" class="form-control">
-          </div>
-
-          <div class="mb-3">
-            <label for="new_donation_link" class="form-label">New Donation Link (Old one will be overwritten. Leave blank if no changes)</label>
-            <input type="url" id="new_donation_link" name="donation_info" class="form-control">
-          </div>
-
-          <div class="mb-3">
-            <label for="Update_m3u_fileForm" class="form-label">Upload new M3U File *</label>
-            <input type="file" id="Update_m3u_fileForm" name="m3u_file" class="form-control" accept=".m3u" required>
-            <div class="invalid-feedback">Please upload a new M3U file.</div>
-          </div>
-
-          <button type="submit" class="btn btn-primary mt-3" id="updatePlaylist">Update Playlist</button>
-        </form>
-
-        <div id="Wait5" class="mt-3" style="display: none;">PLEASE WAIT</div>
-        <div class="spinner-border text-primary" role="status" id="spinner5" style="display: none;">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p id="Successfully_updated" class="text-success mt-3" style="display: none;">List updated successfully! Thanks for contributing!</p>
-      </div>
-    </div>
-  </div>
-</div>
+<br>
