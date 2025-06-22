@@ -533,6 +533,18 @@
           background-color: #e14c4a;
         }
 
+        .donate-btn{
+            display: inline-block;
+            background-color: #FF5E5B; 
+            color: white; 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            transition: background-color 0.3s;
+        }
+
         /* Animaciones */
         @keyframes pulseIcon {
           0% { transform: scale(1); }
