@@ -319,7 +319,7 @@ def update_AssociatedLists(playlist_id: str) -> None:
     conn   = get_connection()
     cursor = conn.cursor()
     cursor.execute(
-        f"SELECT drive_file_id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s",
+        f"SELECT drive_file_id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s and valid=1",
         (playlist_id,)
     )
     rows = cursor.fetchall()
@@ -484,8 +484,7 @@ def manual():
     if not os.path.exists(m3u_path):
         current_path = os.getcwd()
         return jsonify({
-            "error": "File not found on server",
-            "path": m3u_path
+            "error": "File not found on server"
         }), 404
 
     try:
