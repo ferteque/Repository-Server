@@ -191,7 +191,7 @@ def upload_playlist():
 
         newList_email(Details)
 
-        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path, 'groups': group_titles})
+        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path, 'groups': list(group_titles)})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
