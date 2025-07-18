@@ -78,24 +78,28 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
         const container = document.getElementById('group-list');
         container.innerHTML = ''; 
 
-        data.groups.forEach(group => {
-            const wrapper = document.createElement('div');
-            wrapper.style.display = "flex";
-            wrapper.style.alignItems = "center";
-            wrapper.style.marginBottom = "5px"; 
+        const table = document.createElement('table');
 
+        data.groups.forEach(group => {
+            const row = document.createElement('tr');
+
+            const checkboxCell = document.createElement('td');
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.value = group.id;
+            checkboxCell.appendChild(checkbox);
 
-            const label = document.createElement('label');
-            label.textContent = " " + group.name;
-            label.style.marginLeft = "8px";
+            const labelCell = document.createElement('td');
+            labelCell.textContent = group.name;
 
-            wrapper.appendChild(checkbox);
-            wrapper.appendChild(label);
-            container.appendChild(wrapper);
+            row.appendChild(checkboxCell);
+            row.appendChild(labelCell);
+            table.appendChild(row);
         });
+
+        container.appendChild(table);
+
+        document.getElementById("submitSelectedGroups").style.display = "block";
 
         document.getElementById('Select_categories').style.display = 'block';
         container.style.display = "block";
