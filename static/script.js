@@ -61,46 +61,42 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
       .catch(err => console.error("Error loading data:", err));
   }
 
-  export async function submitPlaylist(formData) {
+  export function submitPlaylist(formData) {
     fetch('/upload_playlist', {
         method: 'POST',
         body: formData
     })
-    .then(response => {
+    .then(async response => {
         if (!response.ok) throw new Error('Network response was not ok');
-        return response.blob();
-    })
-    .then(blob => {
-        document.getElementById("spinner4").style.display = "none";
-        document.getElementById('Wait4').style.display='none';
-        
+        const data = await response.json();  
 
-        const data = await res.json();
+        document.getElementById("spinner4").style.display = "none";
+        document.getElementById('Wait4').style.display = 'none';
+
         if (data.error) return alert(data.error);
+
         const container = document.getElementById('group-list');
         container.innerHTML = ''; 
 
         data.groups.forEach(group => {
-          const label = document.createElement('label');
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.value = group;
-          label.appendChild(checkbox);
-          label.append(" " + group);
-          container.appendChild(label);
-          container.appendChild(document.createElement('br'));
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = group;
+            label.appendChild(checkbox);
+            label.append(" " + group);
+            container.appendChild(label);
+            container.appendChild(document.createElement('br'));
         });
-        container.style.display = "block";
-        
-        document.getElementById("Successfully_uploaded").style.display = "block";
-                
-    })
 
+        container.style.display = "block";
+        document.getElementById("Successfully_uploaded").style.display = "block";
+    })
     .catch(error => {
         console.error('Error:', error);
         alert('Error uploading M3U file');
     });
-  }
+}
 
   export function updatePlaylist(formData) {
 
