@@ -29,11 +29,26 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    ["closeModalSelector", "closeModalSelectorUpload", "closeModalCredentials", "closeModalNextSteps", "closeModalNextStepsDrive", "closeModalLoading"].forEach(id => {
-      document.getElementById(id).addEventListener("click", () => {
-        document.getElementById(id.replace("close", "")).style.display = "none";
+  const closeButtons = [
+  { btn: "closeModalSelector", modal: "ModalSelector" },
+  { btn: "closeModalSelectorUpload", modal: "ModalSelectorUpload" },
+  { btn: "closeModalCredentials", modal: "ModalCredentials" },
+  { btn: "closeModalNextSteps", modal: "ModalNextSteps" },
+  { btn: "closeModalNextStepsDrive", modal: "ModalNextStepsDrive" },
+  { btn: "closeModalLoading", modal: "ModalLoading" }
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+  closeButtons.forEach(({ btn, modal }) => {
+    const closeBtn = document.getElementById(btn);
+    const modalEl = document.getElementById(modal);
+    if (closeBtn && modalEl) {
+      closeBtn.addEventListener("click", () => {
+        modalEl.style.display = "none";
       });
-    });
+    } else {
+      console.warn(`Missing element: ${btn} or ${modal}`);
+    }
   });
+});
 
