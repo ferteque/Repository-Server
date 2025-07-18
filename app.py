@@ -65,41 +65,22 @@ logging.basicConfig(
     stream=sys.stdout
 )
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def detect_content_type(filepath):
-    content_type = None
-    with open(filepath, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
-
-    for i, line in enumerate(lines):
-        if line.startswith('#EXTINF'):
-            if i + 1 < len(lines):
-                url_line = lines[i + 1].strip()
-                if '/live/' in url_line:
-                    content_type = 'live'
-                    break
-                elif '/movie/' in url_line:
-                    content_type = 'movie'
-                    break
-                elif '/series/' in url_line:
-                    content_type = 'series'
-                    break
-    return content_type or 'live' 
-
 def process_m3u_file(filepath, dns, username, password):
-
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-
+    
+    group_titles = set()
     new_lines = []
     i = 0
+    
     while i < len(lines):
         line = lines[i]
         new_lines.append(line)
 
         if line.startswith('#EXTINF'):
+            match = re.search(r'group-title="(.*?)"', line)
+            if match:
+                group_titles.add(match.group(1).strip())  
             if i + 1 < len(lines):
                 url_line = lines[i + 1].strip()
                 url_split = url_line.split("/")
@@ -130,6 +111,7 @@ def process_m3u_file(filepath, dns, username, password):
         with open(filepath, 'w', encoding='utf-8') as f:
             f.writelines(new_lines)
         logging.info(f"Archivo guardado correctamente en: {filepath}")
+        return group_titles
     except Exception as e:
         logging.error(f"Error al guardar el archivo: {e}")
 
@@ -182,7 +164,7 @@ def upload_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
@@ -209,7 +191,7 @@ def upload_playlist():
 
         newList_email(Details)
 
-        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
+        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path, 'groups': group_titles})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

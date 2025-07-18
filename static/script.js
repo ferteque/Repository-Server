@@ -73,6 +73,22 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     .then(blob => {
         document.getElementById("spinner4").style.display = "none";
         document.getElementById('Wait4').style.display='none';
+        
+        const container = document.getElementById('group-list');
+        container.innerHTML = ''; 
+
+        data.groups.forEach(group => {
+          const label = document.createElement('label');
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.value = group;
+          label.appendChild(checkbox);
+          label.append(" " + group);
+          container.appendChild(label);
+          container.appendChild(document.createElement('br'));
+        });
+        container.style.display = "block";
+        
         document.getElementById("Successfully_uploaded").style.display = "block";
                 
     })
