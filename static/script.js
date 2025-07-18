@@ -133,6 +133,10 @@ export function submitSelectedGroups() {
             group_ids: selectedGroupIds
         })
     })
+    .then(response => {
+        if (!response.ok) throw new Error('Network error');
+        return response.json();
+    })
     .then(data => {
         document.getElementById("submitSelectedGroups").style.display = "none";
         document.getElementById('group-list').style.display = "none";
@@ -151,10 +155,6 @@ export function submitSelectedGroups() {
     fetch('/update_playlist', {
         method: 'POST',
         body: formData
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.blob();
     })
     .then(async response => {
         if (!response.ok) throw new Error('Network response was not ok');
