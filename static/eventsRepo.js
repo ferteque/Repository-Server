@@ -1,3 +1,9 @@
+  import {submitM3U} from './script.js';
+  import {submitForm} from './script.js';
+  import {submitPlaylist} from './script.js';
+  import {updatePlaylist} from './script.js';
+  import {switchTab} from './modalsRepo.js';
+
   document.getElementById("m3uForm").addEventListener("submit", e => {
     e.preventDefault();
     gtag('event', 'M3U_selected', {

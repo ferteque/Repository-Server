@@ -1,3 +1,7 @@
+  import {showLoading} from './eventsRepo.js';
+  import {closeModalDrive} from './eventsRepo.js';
+  import {closeModal} from './eventsRepo.js';
+
 document.getElementById("AutomaticProcess").addEventListener("click", () => {
     gtag('event', 'automatic_selected', {
       'event_category': 'interaction',
@@ -102,7 +106,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     });
   }
 
-  function submitM3U() {
+  export function submitM3U() {
     try {
         let m3uUrlUser = document.getElementById("m3uUrlUser").value;
         let url = new URL(m3uUrlUser);
