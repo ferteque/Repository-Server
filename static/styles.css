@@ -632,4 +632,10 @@
             margin: 30px auto;
             justify-content: center;
         }
-        
+
+        #submitSelectedGroups {
+            position: sticky;
+            bottom: 10px;
+            z-index: 10;
+        }
+                
