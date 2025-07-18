@@ -212,7 +212,7 @@ def upload_playlist():
         })
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "str(e)"}), 500
 
 @app.route('/save_selected_groups', methods=['POST'])
 def save_selected_groups():
