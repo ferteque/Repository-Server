@@ -1,7 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  loadCSV();
-
-  document.getElementById("AutomaticProcess").addEventListener("click", () => {
+document.getElementById("AutomaticProcess").addEventListener("click", () => {
     gtag('event', 'automatic_selected', {
       'event_category': 'interaction',
       'event_label': `User selected Automatic Process`
@@ -224,4 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
     lastScroll = currentScroll;
   });
 
+document.addEventListener('DOMContentLoaded', () => {
+  loadCSV();
 });
+
+  
+
