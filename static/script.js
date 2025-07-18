@@ -74,6 +74,9 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
         document.getElementById("spinner4").style.display = "none";
         document.getElementById('Wait4').style.display='none';
         
+
+        const data = await res.json();
+        if (data.error) return alert(data.error);
         const container = document.getElementById('group-list');
         container.innerHTML = ''; 
 
