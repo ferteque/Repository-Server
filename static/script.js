@@ -133,10 +133,6 @@ export function submitSelectedGroups() {
             group_ids: selectedGroupIds
         })
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Network error');
-        return response.json();
-    })
     .then(data => {
         document.getElementById("submitSelectedGroups").style.display = "none";
         document.getElementById('group-list').style.display = "none";
