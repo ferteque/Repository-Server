@@ -39,7 +39,7 @@
             background-color: rgba(0, 0, 0, 0.7);
        }
         
-        #shareModal, #updateModal {
+        #shareModal, #updateModal, #categoriesModal {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: none; 
             position: fixed;
@@ -51,7 +51,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             font-size: 25px;
        } 
-        #credentials, #Loading, #modeSelectorModal, #manualInstructions, #modeSelectorModalUpload, #categoriesModal {
+        #credentials, #Loading, #modeSelectorModal, #manualInstructions, #modeSelectorModalUpload {
             display: none; 
             position: fixed;
             z-index: 1000;
