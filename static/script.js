@@ -142,6 +142,7 @@ export function submitSelectedGroups() {
         document.getElementById('group-list').style.display = "none";
         document.getElementById('Select_categories').style.display = 'none';
         document.getElementById("shareModal").style.display = 'none';
+        document.getElementById("updateModal").style.display = 'none';
         document.getElementById("Successfully_uploaded").style.display = "block";
     })
     .catch(error => {
@@ -201,9 +202,6 @@ export function submitSelectedGroups() {
 
         document.getElementById('Select_categories').style.display = 'block';
         container.style.display = "block";
-        
-        
-        document.getElementById("Successfully_updated").style.display = "block";
                 
     })
 
