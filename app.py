@@ -234,7 +234,7 @@ def save_selected_groups():
 
     try:
         conn = get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(dictionary=True)
 
         cursor.execute(
             "UPDATE categories SET auto_update = 1 WHERE id = %s",
