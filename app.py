@@ -320,8 +320,7 @@ def update_playlist():
             try:
                 logging.info(f"Group name: {group_name}")
                 cursor.execute(
-                    "DELETE FROM categories WHERE list_id = %s", (playlist_id),
-                    (playlist_id, group_name, 0)
+                    "DELETE FROM categories WHERE list_id = %s", (playlist_id,)
                 )
                 cursor.execute(
                     "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
