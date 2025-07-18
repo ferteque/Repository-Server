@@ -182,6 +182,7 @@ def upload_playlist():
         conn.commit()
 
         for group_name in group_titles:
+            logging.info(f"Group name: {group_name}")
             cursor.execute(
                 "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
                 (playlist_id, group_name, 0)
