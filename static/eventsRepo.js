@@ -35,7 +35,7 @@
 
 
 
-  document.getElementById('submitPlaylistForm').addEventListener('submit', export function(event) {
+  document.getElementById('submitPlaylistForm').addEventListener('submit', function(event) {
     event.preventDefault();
     document.getElementById("submitPlaylistForm").style.display = "none";
     document.getElementById("spinner4").style.display = "block";
@@ -48,7 +48,7 @@
     submitPlaylist(formData);  
   });
 
-  document.getElementById('updatePlaylistForm').addEventListener('submit', export function(event) {
+  document.getElementById('updatePlaylistForm').addEventListener('submit', function(event) {
     event.preventDefault();
     document.getElementById("updatePlaylistForm").style.display = "none";
     document.getElementById("spinner5").style.display = "block";
