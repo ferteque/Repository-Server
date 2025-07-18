@@ -183,12 +183,12 @@ def upload_playlist():
 
         for group_name in group_titles:
             cursor.execute(
-                "INSERT INTO groups (list_id, name, auto_update) VALUES (%s, %s, %s)",
+                "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
                 (playlist_id, group_name, 0)
             )
             conn.commit()
 
-        cursor.execute("SELECT id, name FROM groups WHERE list_id = %s", (playlist_id,))
+        cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
         groups = cursor.fetchall()
 
 
@@ -228,7 +228,7 @@ def save_selected_groups():
         cursor = conn.cursor()
 
         cursor.execute(
-            "UPDATE playlist_groups SET auto_update = 1 WHERE id = %s AND list_id = %s",
+            "UPDATE categories SET auto_update = 1 WHERE id = %s AND list_id = %s",
             (group_id, playlist_id)
         )
 
