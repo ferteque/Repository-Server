@@ -1,7 +1,7 @@
   const CLIENT_ID = '385455010248-stgruhhb6geh32kontlgi7g929tmfgqa.apps.googleusercontent.com';
   const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
-  async export function uploadToGoogleDrive(blob, filename, list_ID) {
+  export async function uploadToGoogleDrive(blob, filename, list_ID) {
     return new Promise((resolve, reject) => {
       gapi.load('client', async () => {
         try {
