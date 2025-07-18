@@ -1,5 +1,5 @@
 
-  function selectRow(row, id, service, epg, gitHubEPG) {
+  export function selectRow(row, id, service, epg, gitHubEPG) {
     document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
     row.classList.add("selected");
 
@@ -16,7 +16,7 @@
     document.getElementById("modeSelectorModal").style.display = "block";
   }
 
-  function switchTab(tab) {
+  export function switchTab(tab) {
     ["m3u", "xtream"].forEach(id => {
       document.getElementById(`tab-${id}`).classList.remove("active");
       document.getElementById(`${id}-content`).classList.remove("active");

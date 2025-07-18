@@ -35,7 +35,7 @@
 
 
 
-  document.getElementById('submitPlaylistForm').addEventListener('submit', function(event) {
+  document.getElementById('submitPlaylistForm').addEventListener('submit', export function(event) {
     event.preventDefault();
     document.getElementById("submitPlaylistForm").style.display = "none";
     document.getElementById("spinner4").style.display = "block";
@@ -48,7 +48,7 @@
     submitPlaylist(formData);  
   });
 
-  document.getElementById('updatePlaylistForm').addEventListener('submit', function(event) {
+  document.getElementById('updatePlaylistForm').addEventListener('submit', export function(event) {
     event.preventDefault();
     document.getElementById("updatePlaylistForm").style.display = "none";
     document.getElementById("spinner5").style.display = "block";
@@ -70,52 +70,52 @@
   document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
 
 
-  document.getElementById("tab-m3u").addEventListener("click", function() {
+  document.getElementById("tab-m3u").addEventListener("click", export function() {
       switchTab('m3u');
   });
-  document.getElementById("tab-xtream").addEventListener("click", function() {
+  document.getElementById("tab-xtream").addEventListener("click", export function() {
       switchTab('xtream');
   });
-  document.getElementById("tab-next-steps").addEventListener("click", function() {
+  document.getElementById("tab-next-steps").addEventListener("click", export function() {
       closeModal();
   });
 
-  function showLoading() {
+  export export function showLoading() {
     document.getElementById("credentials").style.display = "none";
     document.getElementById("Loading").style.display = "block";
   }
  
-  function closeModal() {
+  export function closeModal() {
       document.getElementById("Loading").style.display = "none";
       document.getElementById("NextSteps").style.display = "block";
   }
 
-  function closeModalDrive() {
+  export function closeModalDrive() {
       document.getElementById("Loading").style.display = "none";
       document.getElementById("NextStepsDrive").style.display = "block";
   }
 
-  function closeModalCredentials() {
+  export function closeModalCredentials() {
       document.getElementById("credentials").style.display = "none";
   }
 
-  function closeModalNextSteps() {
+  export function closeModalNextSteps() {
       document.getElementById("NextSteps").style.display = "none";
   }
 
-  function closeModalNextStepsDrive() {
+  export function closeModalNextStepsDrive() {
       document.getElementById("NextStepsDrive").style.display = "none";
   }
 
-  function closeModalLoading() {
+  export function closeModalLoading() {
       document.getElementById("Loading").style.display = "none";
   }
 
-  function closeModalSelector() {
+  export function closeModalSelector() {
       document.getElementById("modeSelectorModal").style.display = "none";
   }
 
-  function closeModalSelectorUpload() {
+  export function closeModalSelectorUpload() {
       document.getElementById("modeSelectorModalUpload").style.display = "none";
   }
 
@@ -160,13 +160,13 @@
     modalFAQ.style.display = "none";
   };
 
-  document.getElementById("openNextSteps").addEventListener("click", function() {
+  document.getElementById("openNextSteps").addEventListener("click", export function() {
 
     document.getElementById('manualInstructions').style.display='none'; 
     document.getElementById('NextSteps').style.display='block';
   });
 
-  document.getElementById("AutomaticProcess").addEventListener("click", function() {
+  document.getElementById("AutomaticProcess").addEventListener("click", export function() {
       gtag('event', 'automatic_selected', {
                  'event_category': 'interaction',
                  'event_label': `User selected Automatic Process`
@@ -175,7 +175,7 @@
       document.getElementById('credentials').style.display='block';
   });
 
-  document.getElementById("ManualSteps").addEventListener("click", function() {
+  document.getElementById("ManualSteps").addEventListener("click", export function() {
       gtag('event', 'manual_selected', {
                  'event_category': 'interaction',
                  'event_label': `User selected Manual Steps`
@@ -184,7 +184,7 @@
       document.getElementById('manualInstructions').style.display='block';
   });
 
-  document.getElementById("RawDownloadLink").addEventListener("click", function() {
+  document.getElementById("RawDownloadLink").addEventListener("click", export function() {
       document.getElementById("spinner3").style.display = "block";
       document.getElementById('Wait3').style.display='block';
       document.getElementById('RawDownloadLink').style.display='none';
@@ -222,13 +222,13 @@
       });
   });
 
-  document.getElementById("NewShare").addEventListener("click", function() {
+  document.getElementById("NewShare").addEventListener("click", export function() {
       document.getElementById("modeSelectorModalUpload").style.display = "none";
       document.getElementById('shareModal').style.display='block';
       document.getElementById('submitPlaylistForm').style.display='block';
   });
 
-  document.getElementById("UpdateList").addEventListener("click", function() {
+  document.getElementById("UpdateList").addEventListener("click", export function() {
       document.getElementById("modeSelectorModalUpload").style.display = "none";
       document.getElementById('updateModal').style.display='block';
       document.getElementById('updatePlaylistForm').style.display='block';

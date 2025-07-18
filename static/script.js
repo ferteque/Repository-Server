@@ -22,7 +22,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
   });
 
 
-  function isValidUrl(url) {
+  export function isValidUrl(url) {
     try {
       new URL(url);
       return true;
@@ -31,7 +31,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     }
   }
 
-  function loadCSV() {
+  export function loadCSV() {
     fetch("/playlists")
       .then(res => res.json())
       .then(data => {
@@ -60,7 +60,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
       .catch(err => console.error("Error loading data:", err));
   }
 
-  function submitPlaylist(formData) {
+  export function submitPlaylist(formData) {
     fetch('/upload_playlist', {
         method: 'POST',
         body: formData
@@ -82,7 +82,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     });
   }
 
-  function updatePlaylist(formData) {
+  export function updatePlaylist(formData) {
 
     fetch('/update_playlist', {
         method: 'POST',
@@ -107,7 +107,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     });
   }
 
-  export function submitM3U() {
+  export export function submitM3U() {
     try {
         let m3uUrlUser = document.getElementById("m3uUrlUser").value;
         let url = new URL(m3uUrlUser);
@@ -134,7 +134,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     }
   }
 
-  function submitForm() {               
+  export function submitForm() {               
   let dns = document.getElementById("dnsX").value.trim();
   let username = document.getElementById("usernameX").value.trim();
   let password = document.getElementById("passwordX").value.trim();
@@ -180,7 +180,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
           document.getElementById('Wait2').style.display = 'none';
           document.getElementById('spinner').style.display = 'none';
           document.getElementById('log-in').style.display = 'block';
-          document.getElementById('log-in').addEventListener("click", function() {
+          document.getElementById('log-in').addEventListener("click", export function() {
               document.getElementById('Wait1').style.display = 'block';
               document.getElementById('spinner').style.display = 'inline-block';
               uploadToGoogleDrive(blob, filename, selectedID).then(driveLink => {
