@@ -141,6 +141,7 @@ export function submitSelectedGroups() {
         document.getElementById("submitSelectedGroups").style.display = "none";
         document.getElementById('group-list').style.display = "none";
         document.getElementById('Select_categories').style.display = 'none';
+        document.getElementById("closeShareModal").style.display = 'none';
         document.getElementById("Successfully_uploaded").style.display = "block";
     })
     .catch(error => {
