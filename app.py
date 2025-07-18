@@ -193,11 +193,12 @@ def upload_playlist():
 
         conn.commit()
         
-        logging.info(f"Llegamos hasta despues del commit?")
+
         
         cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
         groups = cursor.fetchall()
 
+        logging.info(f"Llegamos hasta despues del fetchall?")
 
         cursor.close()
         conn.close()
