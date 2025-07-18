@@ -217,7 +217,7 @@ def upload_playlist():
                 "message": "Playlist uploaded successfully",
                 "playlist_id": playlist_id,
                 "m3u_url": final_path,
-                "groups": [{'id': row[0], 'name': row[1]} for row in groups]
+                "groups": [{'id': row['id'], 'name': row['name']} for row in groups]
             })
         except Exception as e:
             logging.exception("Error serializing response for groups")
