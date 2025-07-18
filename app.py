@@ -192,7 +192,9 @@ def upload_playlist():
                 logging.error(f"Error inserting group '{group_name}': {e}")
 
         conn.commit()
-
+        
+        logging.info(f"Llegamos hasta despues del commit?")
+        
         cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
         groups = cursor.fetchall()
 
