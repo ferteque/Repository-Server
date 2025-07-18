@@ -232,16 +232,13 @@ def save_selected_groups():
 
     group_ids = data.get('group_ids', [])
 
-    if not playlist_id or not isinstance(group_ids, list):
-        return jsonify({'error': 'Dades incorrectes'}), 400
-
     try:
         conn = get_connection()
         cursor = conn.cursor()
 
         cursor.execute(
-            "UPDATE categories SET auto_update = 1 WHERE id = %s AND list_id = %s",
-            (group_id, playlist_id)
+            "UPDATE categories SET auto_update = 1 WHERE id = %s",
+            (group_id,)
         )
 
         conn.commit()
