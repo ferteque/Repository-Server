@@ -69,6 +69,8 @@
   document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
   document.getElementById("closeModalNextStepsDrive").addEventListener("click", closeModalNextStepsDrive);
   document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
+  document.getElementById("closeCategoriesModal").addEventListener("click", closeCategoriesModal);
+
   document.getElementById("submitSelectedGroups").addEventListener("click", submitSelectedGroups);
 
 
@@ -121,6 +123,14 @@
       document.getElementById("modeSelectorModalUpload").style.display = "none";
   }
 
+export function closeModalSelectorUpload() {
+      document.getElementById("categoriesModal").style.display = "none";
+      document.getElementById("Select_categories").style.display = "none";
+      document.getElementById("group-list").style.display = "none";
+      document.getElementById("submitSelectedGroups").style.display = "none";
+      document.getElementById("Successfully_uploaded").style.display = "none";
+  }
+
   const modeSelectorModalSelector = document.getElementById("modeSelectorModalUpload");
   const openShareModal = document.getElementById("openShareModal");
   const divcloseModalSelectorUpload = document.getElementById("closeModalSelectorUpload");
@@ -146,10 +156,7 @@
 
   closeShareModal.onclick = () => {
     shareModal.style.display = "none";
-    document.getElementById("Successfully_uploaded").style.display = "none";
-    document.getElementById('Select_categories').style.display = 'block';
-    const container = document.getElementById('group-list');
-    container.style.display = "block";
+    
   };
 
   closeShareModalUpdate.onclick = () => {

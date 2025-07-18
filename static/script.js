@@ -106,6 +106,8 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 
         container.appendChild(table);
 
+        document.getElementById("categoriesModal").style.display = "block";
+
         document.getElementById("submitSelectedGroups").style.display = "block";
 
         document.getElementById('Select_categories').style.display = 'block';
@@ -157,9 +159,53 @@ export function submitSelectedGroups() {
         if (!response.ok) throw new Error('Network response was not ok');
         return response.blob();
     })
-    .then(blob => {
+    .then(async response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();  
+
         document.getElementById("spinner5").style.display = "none";
         document.getElementById('Wait5').style.display='none';
+        
+        if (data.error) return alert(data.error);
+
+        const container = document.getElementById('group-list');
+        container.innerHTML = ''; 
+
+        const table = document.createElement('table');
+
+        data.groups.forEach(group => {
+            const row = document.createElement('tr');
+            row.style.cursor = 'pointer';
+
+            const checkboxCell = document.createElement('td');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = group.id;
+            checkboxCell.appendChild(checkbox);
+
+            const labelCell = document.createElement('td');
+            labelCell.textContent = group.name;
+
+            row.appendChild(checkboxCell);
+            row.appendChild(labelCell);
+            table.appendChild(row);
+            row.addEventListener('click', function (e) {
+
+            if (e.target !== checkbox) {
+                checkbox.checked = !checkbox.checked;
+             }
+          });
+        });
+
+        container.appendChild(table);
+        
+        document.getElementById("categoriesModal").style.display = "block";
+        document.getElementById("submitSelectedGroups").style.display = "block";
+
+        document.getElementById('Select_categories').style.display = 'block';
+        container.style.display = "block";
+        
+        
         document.getElementById("Successfully_updated").style.display = "block";
                 
     })
