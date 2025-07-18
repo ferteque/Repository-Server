@@ -180,7 +180,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
           document.getElementById('Wait2').style.display = 'none';
           document.getElementById('spinner').style.display = 'none';
           document.getElementById('log-in').style.display = 'block';
-          document.getElementById('log-in').addEventListener("click", export function() {
+          document.getElementById('log-in').addEventListener("click", function() {
               document.getElementById('Wait1').style.display = 'block';
               document.getElementById('spinner').style.display = 'inline-block';
               uploadToGoogleDrive(blob, filename, selectedID).then(driveLink => {

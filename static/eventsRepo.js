@@ -70,13 +70,13 @@
   document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
 
 
-  document.getElementById("tab-m3u").addEventListener("click", export function() {
+  document.getElementById("tab-m3u").addEventListener("click", function() {
       switchTab('m3u');
   });
-  document.getElementById("tab-xtream").addEventListener("click", export function() {
+  document.getElementById("tab-xtream").addEventListener("click", function() {
       switchTab('xtream');
   });
-  document.getElementById("tab-next-steps").addEventListener("click", export function() {
+  document.getElementById("tab-next-steps").addEventListener("click", function() {
       closeModal();
   });
 
@@ -160,13 +160,13 @@
     modalFAQ.style.display = "none";
   };
 
-  document.getElementById("openNextSteps").addEventListener("click", export function() {
+  document.getElementById("openNextSteps").addEventListener("click", function() {
 
     document.getElementById('manualInstructions').style.display='none'; 
     document.getElementById('NextSteps').style.display='block';
   });
 
-  document.getElementById("AutomaticProcess").addEventListener("click", export function() {
+  document.getElementById("AutomaticProcess").addEventListener("click", function() {
       gtag('event', 'automatic_selected', {
                  'event_category': 'interaction',
                  'event_label': `User selected Automatic Process`
@@ -175,7 +175,7 @@
       document.getElementById('credentials').style.display='block';
   });
 
-  document.getElementById("ManualSteps").addEventListener("click", export function() {
+  document.getElementById("ManualSteps").addEventListener("click", function() {
       gtag('event', 'manual_selected', {
                  'event_category': 'interaction',
                  'event_label': `User selected Manual Steps`
@@ -184,7 +184,7 @@
       document.getElementById('manualInstructions').style.display='block';
   });
 
-  document.getElementById("RawDownloadLink").addEventListener("click", export function() {
+  document.getElementById("RawDownloadLink").addEventListener("click", function() {
       document.getElementById("spinner3").style.display = "block";
       document.getElementById('Wait3').style.display='block';
       document.getElementById('RawDownloadLink').style.display='none';
@@ -222,13 +222,13 @@
       });
   });
 
-  document.getElementById("NewShare").addEventListener("click", export function() {
+  document.getElementById("NewShare").addEventListener("click", function() {
       document.getElementById("modeSelectorModalUpload").style.display = "none";
       document.getElementById('shareModal').style.display='block';
       document.getElementById('submitPlaylistForm').style.display='block';
   });
 
-  document.getElementById("UpdateList").addEventListener("click", export function() {
+  document.getElementById("UpdateList").addEventListener("click", function() {
       document.getElementById("modeSelectorModalUpload").style.display = "none";
       document.getElementById('updateModal').style.display='block';
       document.getElementById('updatePlaylistForm').style.display='block';
