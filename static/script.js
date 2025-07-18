@@ -72,24 +72,24 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 
         document.getElementById("spinner4").style.display = "none";
         document.getElementById('Wait4').style.display = 'none';
-
+        
         if (data.error) return alert(data.error);
 
         const container = document.getElementById('group-list');
         container.innerHTML = ''; 
 
         data.groups.forEach(group => {
-            const wrapper = document.createElement('div'); // ⬅️ Per agrupar-ho tot a una línia
+            const wrapper = document.createElement('div');
             wrapper.style.display = "flex";
             wrapper.style.alignItems = "center";
-            wrapper.style.marginBottom = "5px"; // opcional
+            wrapper.style.marginBottom = "5px"; 
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.value = group;
+            checkbox.value = group.id;
 
             const label = document.createElement('label');
-            label.textContent = " " + group;
+            label.textContent = " " + group.name;
             label.style.marginLeft = "8px";
 
             wrapper.appendChild(checkbox);
@@ -97,12 +97,39 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
             container.appendChild(wrapper);
         });
 
+        document.getElementById('Select_categories').style.display = 'block';
         container.style.display = "block";
-        document.getElementById("Successfully_uploaded").style.display = "block";
+        
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Error uploading M3U file');
+    });
+}
+
+export function submitSelectedGroups() {
+    const checkboxes = document.querySelectorAll('#group-list input[type="checkbox"]:checked');
+    const selectedGroupIds = Array.from(checkboxes).map(cb => parseInt(cb.value));
+
+    fetch('/save_selected_groups', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            group_ids: selectedGroupIds
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network error');
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById("Successfully_uploaded").style.display = "block";
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error saving groups");
     });
 }
 

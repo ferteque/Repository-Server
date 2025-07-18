@@ -181,6 +181,17 @@ def upload_playlist():
         cursor.execute(f"UPDATE {DB_TABLE}  SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
         conn.commit()
 
+        for group_name in group_titles:
+        cursor.execute(
+            "INSERT INTO groups (list_id, name, auto_update) VALUES (%s, %s, %s)",
+            (playlist_id, group_name, 0)
+        )
+        conn.commit()
+
+        cursor.execute("SELECT id, name FROM groups WHERE list_id = %s", (playlist_id,))
+        groups = cursor.fetchall()
+
+
         cursor.close()
         conn.close()
 
@@ -191,10 +202,46 @@ def upload_playlist():
 
         newList_email(Details)
 
-        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path, 'groups': list(group_titles)})
+
+
+        return jsonify({
+            "message": "Playlist uploaded successfully",
+            "playlist_id": playlist_id,
+            "m3u_url": final_path,
+            "groups": [{'id': row[0], 'name': row[1]} for row in groups]
+        })
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/save_selected_groups', methods=['POST'])
+def save_selected_groups():
+    data = request.get_json()
+
+    group_ids = data.get('group_ids', [])
+
+    if not playlist_id or not isinstance(group_ids, list):
+        return jsonify({'error': 'Dades incorrectes'}), 400
+
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "UPDATE playlist_groups SET auto_update = 1 WHERE id = %s AND list_id = %s",
+            (group_id, playlist_id)
+        )
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        return jsonify({'message': 'Categories successfully created'})
+
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({'error': 'Error when saving categories'}), 500
+
 
 @app.route('/update_playlist', methods=['POST'])
 def update_playlist():
@@ -262,7 +309,7 @@ def update_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)

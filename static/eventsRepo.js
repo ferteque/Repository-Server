@@ -3,6 +3,7 @@
   import {submitPlaylist} from './script.js';
   import {updatePlaylist} from './script.js';
   import {switchTab} from './modalsRepo.js';
+  import {submitSelectedGroups} from './script.js';
 
   document.getElementById("m3uForm").addEventListener("submit", e => {
     e.preventDefault();
@@ -68,6 +69,7 @@
   document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
   document.getElementById("closeModalNextStepsDrive").addEventListener("click", closeModalNextStepsDrive);
   document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
+  document.getElementById("closeModalSelector").addEventListener("click", submitSelectedGroups);
 
 
   document.getElementById("tab-m3u").addEventListener("click", function() {
@@ -145,6 +147,9 @@
   closeShareModal.onclick = () => {
     shareModal.style.display = "none";
     document.getElementById("Successfully_uploaded").style.display = "none";
+    document.getElementById('Select_categories').style.display = 'block';
+    const container = document.getElementById('group-list');
+    container.style.display = "block";
   };
 
   closeShareModalUpdate.onclick = () => {
