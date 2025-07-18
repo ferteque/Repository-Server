@@ -82,6 +82,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 
         data.groups.forEach(group => {
             const row = document.createElement('tr');
+            row.style.cursor = 'pointer';
 
             const checkboxCell = document.createElement('td');
             const checkbox = document.createElement('input');
@@ -95,6 +96,12 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
             row.appendChild(checkboxCell);
             row.appendChild(labelCell);
             table.appendChild(row);
+            row.addEventListener('click', function (e) {
+
+            if (e.target !== checkbox) {
+                checkbox.checked = !checkbox.checked;
+             }
+    });
         });
 
         container.appendChild(table);
