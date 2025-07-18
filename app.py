@@ -315,13 +315,13 @@ def update_playlist():
             conn.commit()
         
         group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        cursor.execute(
+                    "DELETE FROM categories WHERE list_id = %s", (playlist_id,)
+                )
         
         for group_name in group_titles:
             try:
                 logging.info(f"Group name: {group_name}")
-                cursor.execute(
-                    "DELETE FROM categories WHERE list_id = %s", (playlist_id,)
-                )
                 cursor.execute(
                     "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
                     (playlist_id, group_name, 0)
