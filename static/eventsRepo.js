@@ -123,7 +123,7 @@
       document.getElementById("modeSelectorModalUpload").style.display = "none";
   }
 
-export function closeModalSelectorUpload() {
+export function closeCategoriesModal() {
       document.getElementById("categoriesModal").style.display = "none";
       document.getElementById("Select_categories").style.display = "none";
       document.getElementById("group-list").style.display = "none";
