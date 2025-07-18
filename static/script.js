@@ -79,14 +79,22 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
         container.innerHTML = ''; 
 
         data.groups.forEach(group => {
-            const label = document.createElement('label');
+            const wrapper = document.createElement('div'); // ⬅️ Per agrupar-ho tot a una línia
+            wrapper.style.display = "flex";
+            wrapper.style.alignItems = "center";
+            wrapper.style.marginBottom = "5px"; // opcional
+
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.value = group;
-            label.appendChild(checkbox);
-            label.append(" " + group);
-            container.appendChild(label);
-            container.appendChild(document.createElement('br'));
+
+            const label = document.createElement('label');
+            label.textContent = " " + group;
+            label.style.marginLeft = "8px";
+
+            wrapper.appendChild(checkbox);
+            wrapper.appendChild(label);
+            container.appendChild(wrapper);
         });
 
         container.style.display = "block";
