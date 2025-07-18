@@ -2,6 +2,7 @@
   import {closeModalDrive} from './eventsRepo.js';
   import {closeModal} from './eventsRepo.js';
   import {selectRow} from './modalsRepo.js';
+  import {uploadToGoogleDrive} from './driveUpload.js';
 
 document.getElementById("AutomaticProcess").addEventListener("click", () => {
     gtag('event', 'automatic_selected', {
