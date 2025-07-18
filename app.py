@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, render_template, jsonify
+from flask import Flask, request, send_file, render_template, jsonify, make_response
 from flask_cors import CORS
 from flask_compress import Compress
 from db import get_connection
@@ -29,8 +29,21 @@ CORS(app, resources={r"/process": {"origins": [
 ]}})
 
 @app.route('/')
-def home():
-    return render_template("index.html") 
+def index():
+    return render_template('index.html')
+
+@app.after_request
+def set_csp(response):
+    response.headers['Content-Security-Policy-Report-Only'] = (
+        "default-src 'self'; "
+        "script-src 'self' https://apis.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://accounts.google.com; "
+        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
+        "font-src 'self' https://fonts.gstatic.com; "
+        "media-src 'self'; "
+        "img-src 'self' data:; "
+        "connect-src 'self' https://region1.google-analytics.com; "
+    )
+    return response
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "playlists")
 ALLOWED_EXTENSIONS = {'m3u'}
@@ -306,7 +319,7 @@ def update_AssociatedLists(playlist_id: str) -> None:
     conn   = get_connection()
     cursor = conn.cursor()
     cursor.execute(
-        f"SELECT drive_file_id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s",
+        f"SELECT drive_file_id FROM {DRIVE_FILES_TABLE} WHERE list_id = %s and valid=1",
         (playlist_id,)
     )
     rows = cursor.fetchall()
@@ -471,8 +484,7 @@ def manual():
     if not os.path.exists(m3u_path):
         current_path = os.getcwd()
         return jsonify({
-            "error": "File not found on server",
-            "path": m3u_path
+            "error": "File not found on server"
         }), 404
 
     try:
