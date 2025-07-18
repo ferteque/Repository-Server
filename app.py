@@ -182,11 +182,11 @@ def upload_playlist():
         conn.commit()
 
         for group_name in group_titles:
-        cursor.execute(
-            "INSERT INTO groups (list_id, name, auto_update) VALUES (%s, %s, %s)",
-            (playlist_id, group_name, 0)
-        )
-        conn.commit()
+            cursor.execute(
+                "INSERT INTO groups (list_id, name, auto_update) VALUES (%s, %s, %s)",
+                (playlist_id, group_name, 0)
+            )
+            conn.commit()
 
         cursor.execute("SELECT id, name FROM groups WHERE list_id = %s", (playlist_id,))
         groups = cursor.fetchall()
