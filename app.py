@@ -212,12 +212,16 @@ def upload_playlist():
 
 
 
-        return jsonify({
-            "message": "Playlist uploaded successfully",
-            "playlist_id": playlist_id,
-            "m3u_url": final_path,
-            "groups": [{'id': row[0], 'name': row[1]} for row in groups]
-        })
+        try:
+            return jsonify({
+                "message": "Playlist uploaded successfully",
+                "playlist_id": playlist_id,
+                "m3u_url": final_path,
+                "groups": [{'id': row[0], 'name': row[1]} for row in groups]
+            })
+        except Exception as e:
+            logging.exception("Error serializing response for groups")
+            return jsonify({"error": "Error processing response", "details": str(e)}), 500
 
     except Exception as e:
         return jsonify({"error": "str(e)"}), 500
