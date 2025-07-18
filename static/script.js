@@ -107,7 +107,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     });
   }
 
-  export export function submitM3U() {
+  export function submitM3U() {
     try {
         let m3uUrlUser = document.getElementById("m3uUrlUser").value;
         let url = new URL(m3uUrlUser);

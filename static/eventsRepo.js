@@ -80,7 +80,7 @@
       closeModal();
   });
 
-  export export function showLoading() {
+  export function showLoading() {
     document.getElementById("credentials").style.display = "none";
     document.getElementById("Loading").style.display = "block";
   }
