@@ -61,7 +61,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
       .catch(err => console.error("Error loading data:", err));
   }
 
-  export function submitPlaylist(formData) {
+  export async function submitPlaylist(formData) {
     fetch('/upload_playlist', {
         method: 'POST',
         body: formData
