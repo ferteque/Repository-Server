@@ -1,6 +1,7 @@
   import {showLoading} from './eventsRepo.js';
   import {closeModalDrive} from './eventsRepo.js';
   import {closeModal} from './eventsRepo.js';
+  import {selectRow} from './modalsRepo.js';
 
 document.getElementById("AutomaticProcess").addEventListener("click", () => {
     gtag('event', 'automatic_selected', {
