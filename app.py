@@ -313,6 +313,25 @@ def update_playlist():
 
             cursor.execute(sql, values)
             conn.commit()
+        
+        group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        
+        for group_name in group_titles:
+            try:
+                logging.info(f"Group name: {group_name}")
+                cursor.execute(
+                    "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
+                    (playlist_id, group_name, 0)
+                )
+            except mysql.connector.Error as e:
+                logging.error(f"Error inserting group '{group_name}': {e}")
+
+        conn.commit()
+        
+
+        
+        cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
+        groups = cursor.fetchall()
 
         cursor.close()
         conn.close()
@@ -323,7 +342,7 @@ def update_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
@@ -347,7 +366,16 @@ def update_playlist():
 
         updatedList_email(Details)
 
-        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
+        try:
+            return jsonify({
+                "message": "Playlist updated successfully",
+                "playlist_id": playlist_id,
+                "m3u_url": final_path,
+                "groups": [{'id': row['id'], 'name': row['name']} for row in groups]
+            })
+        except Exception as e:
+            logging.exception("Error serializing response for groups")
+            return jsonify({"error": "Error processing response", "details": str(e)}), 500
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
