@@ -69,7 +69,7 @@
   document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
   document.getElementById("closeModalNextStepsDrive").addEventListener("click", closeModalNextStepsDrive);
   document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
-  document.getElementById("closeModalSelector").addEventListener("click", submitSelectedGroups);
+  document.getElementById("submitSelectedGroups").addEventListener("click", submitSelectedGroups);
 
 
   document.getElementById("tab-m3u").addEventListener("click", function() {
