@@ -241,7 +241,11 @@ def save_selected_groups():
             (group_id,)
         )
 
+        logging.info(f"Llegamos hasta despues del execute?")
+
         conn.commit()
+
+        logging.info(f"Llegamos hasta despues del commit?")
         cursor.close()
         conn.close()
 
