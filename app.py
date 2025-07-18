@@ -236,10 +236,11 @@ def save_selected_groups():
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
 
-        cursor.execute(
-            "UPDATE categories SET auto_update = 1 WHERE id = %s",
-            (group_id,)
-        )
+        for group_id in group_ids:
+            cursor.execute(
+                "UPDATE categories SET auto_update = 1 WHERE id = %s",
+                (group_id,)
+            )
 
         logging.info(f"Llegamos hasta despues del execute?")
 
