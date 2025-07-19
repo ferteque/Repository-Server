@@ -23,7 +23,8 @@
     submitForm();
   });
 
-  ["copyButtonDriveDownloadLink", "copyButtonEPG", "copyButtonEPGDrive", "copyButtonGitHub_EPG", "copyButtonGitHub_EPGDrive"].forEach(id => {
+
+["copyButtonDriveDownloadLink", "copyButtonEPG", "copyButtonEPGDrive", "copyButtonGitHub_EPG", "copyButtonGitHub_EPGDrive"].forEach(id => {
     document.getElementById(id).addEventListener("click", () => {
       const input = document.getElementById(id.replace("copyButton", ""));
       const btn = document.getElementById(id);
