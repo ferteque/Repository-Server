@@ -66,22 +66,90 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
         method: 'POST',
         body: formData
     })
-    .then(response => {
+    .then(async response => {
         if (!response.ok) throw new Error('Network response was not ok');
-        return response.blob();
-    })
-    .then(blob => {
-        document.getElementById("spinner4").style.display = "none";
-        document.getElementById('Wait4').style.display='none';
-        document.getElementById("Successfully_uploaded").style.display = "block";
-                
-    })
+        const data = await response.json();  
 
+        document.getElementById("spinner4").style.display = "none";
+        document.getElementById('Wait4').style.display = 'none';
+        
+        if (data.error) return alert(data.error);
+
+        const container = document.getElementById('group-list');
+        container.innerHTML = ''; 
+
+        const table = document.createElement('table');
+
+        data.groups.forEach(group => {
+            const row = document.createElement('tr');
+            row.style.cursor = 'pointer';
+
+            const checkboxCell = document.createElement('td');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = group.id;
+            checkboxCell.appendChild(checkbox);
+
+            const labelCell = document.createElement('td');
+            labelCell.textContent = group.name;
+
+            row.appendChild(checkboxCell);
+            row.appendChild(labelCell);
+            table.appendChild(row);
+            row.addEventListener('click', function (e) {
+
+            if (e.target !== checkbox) {
+                checkbox.checked = !checkbox.checked;
+             }
+    });
+        });
+
+        container.appendChild(table);
+
+        document.getElementById("categoriesModal").style.display = "block";
+
+        document.getElementById("submitSelectedGroups").style.display = "block";
+
+        document.getElementById('Select_categories').style.display = 'block';
+        container.style.display = "block";
+        
+    })
     .catch(error => {
         console.error('Error:', error);
         alert('Error uploading M3U file');
     });
-  }
+}
+
+export function submitSelectedGroups() {
+    const checkboxes = document.querySelectorAll('#group-list input[type="checkbox"]:checked');
+    const selectedGroupIds = Array.from(checkboxes).map(cb => parseInt(cb.value));
+
+    fetch('/save_selected_groups', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            group_ids: selectedGroupIds
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network error');
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById("submitSelectedGroups").style.display = "none";
+        document.getElementById('group-list').style.display = "none";
+        document.getElementById('Select_categories').style.display = 'none';
+        document.getElementById("shareModal").style.display = 'none';
+        document.getElementById("updateModal").style.display = 'none';
+        document.getElementById("Successfully_uploaded").style.display = "block";
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error saving groups");
+    });
+}
 
   export function updatePlaylist(formData) {
 
@@ -89,14 +157,51 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
         method: 'POST',
         body: formData
     })
-    .then(response => {
+    .then(async response => {
         if (!response.ok) throw new Error('Network response was not ok');
-        return response.blob();
-    })
-    .then(blob => {
+        const data = await response.json();  
+
         document.getElementById("spinner5").style.display = "none";
         document.getElementById('Wait5').style.display='none';
-        document.getElementById("Successfully_updated").style.display = "block";
+        
+        if (data.error) return alert(data.error);
+
+        const container = document.getElementById('group-list');
+        container.innerHTML = ''; 
+
+        const table = document.createElement('table');
+
+        data.groups.forEach(group => {
+            const row = document.createElement('tr');
+            row.style.cursor = 'pointer';
+
+            const checkboxCell = document.createElement('td');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = group.id;
+            checkboxCell.appendChild(checkbox);
+
+            const labelCell = document.createElement('td');
+            labelCell.textContent = group.name;
+
+            row.appendChild(checkboxCell);
+            row.appendChild(labelCell);
+            table.appendChild(row);
+            row.addEventListener('click', function (e) {
+
+            if (e.target !== checkbox) {
+                checkbox.checked = !checkbox.checked;
+             }
+          });
+        });
+
+        container.appendChild(table);
+        
+        document.getElementById("categoriesModal").style.display = "block";
+        document.getElementById("submitSelectedGroups").style.display = "block";
+
+        document.getElementById('Select_categories').style.display = 'block';
+        container.style.display = "block";
                 
     })
 

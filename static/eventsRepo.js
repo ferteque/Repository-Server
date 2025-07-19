@@ -3,6 +3,7 @@
   import {submitPlaylist} from './script.js';
   import {updatePlaylist} from './script.js';
   import {switchTab} from './modalsRepo.js';
+  import {submitSelectedGroups} from './script.js';
 
   document.getElementById("m3uForm").addEventListener("submit", e => {
     e.preventDefault();
@@ -21,6 +22,7 @@
     });
     submitForm();
   });
+
 
 ["copyButtonDriveDownloadLink", "copyButtonEPG", "copyButtonEPGDrive", "copyButtonGitHub_EPG", "copyButtonGitHub_EPGDrive"].forEach(id => {
     document.getElementById(id).addEventListener("click", () => {
@@ -68,6 +70,9 @@
   document.getElementById("closeModalNextSteps").addEventListener("click", closeModalNextSteps);
   document.getElementById("closeModalNextStepsDrive").addEventListener("click", closeModalNextStepsDrive);
   document.getElementById("closeModalLoading").addEventListener("click", closeModalLoading);
+  document.getElementById("closeCategoriesModal").addEventListener("click", closeCategoriesModal);
+
+  document.getElementById("submitSelectedGroups").addEventListener("click", submitSelectedGroups);
 
 
   document.getElementById("tab-m3u").addEventListener("click", function() {
@@ -119,6 +124,14 @@
       document.getElementById("modeSelectorModalUpload").style.display = "none";
   }
 
+export function closeCategoriesModal() {
+      document.getElementById("categoriesModal").style.display = "none";
+      document.getElementById("Select_categories").style.display = "none";
+      document.getElementById("group-list").style.display = "none";
+      document.getElementById("submitSelectedGroups").style.display = "none";
+      document.getElementById("Successfully_uploaded").style.display = "none";
+  }
+
   const modeSelectorModalSelector = document.getElementById("modeSelectorModalUpload");
   const openShareModal = document.getElementById("openShareModal");
   const divcloseModalSelectorUpload = document.getElementById("closeModalSelectorUpload");
@@ -144,7 +157,7 @@
 
   closeShareModal.onclick = () => {
     shareModal.style.display = "none";
-    document.getElementById("Successfully_uploaded").style.display = "none";
+    
   };
 
   closeShareModalUpdate.onclick = () => {

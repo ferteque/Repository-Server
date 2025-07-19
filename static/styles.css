@@ -39,7 +39,7 @@
             background-color: rgba(0, 0, 0, 0.7);
        }
         
-        #shareModal, #updateModal {
+        #shareModal, #updateModal, #categoriesModal {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: none; 
             position: fixed;
@@ -632,4 +632,10 @@
             margin: 30px auto;
             justify-content: center;
         }
-        
+
+        #submitSelectedGroups {
+            position: sticky;
+            bottom: 10px;
+            z-index: 10;
+        }
+                

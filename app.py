@@ -65,41 +65,22 @@ logging.basicConfig(
     stream=sys.stdout
 )
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def detect_content_type(filepath):
-    content_type = None
-    with open(filepath, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
-
-    for i, line in enumerate(lines):
-        if line.startswith('#EXTINF'):
-            if i + 1 < len(lines):
-                url_line = lines[i + 1].strip()
-                if '/live/' in url_line:
-                    content_type = 'live'
-                    break
-                elif '/movie/' in url_line:
-                    content_type = 'movie'
-                    break
-                elif '/series/' in url_line:
-                    content_type = 'series'
-                    break
-    return content_type or 'live' 
-
 def process_m3u_file(filepath, dns, username, password):
-
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-
+    
+    group_titles = set()
     new_lines = []
     i = 0
+    
     while i < len(lines):
         line = lines[i]
         new_lines.append(line)
 
         if line.startswith('#EXTINF'):
+            match = re.search(r'group-title="(.*?)"', line)
+            if match:
+                group_titles.add(match.group(1).strip())  
             if i + 1 < len(lines):
                 url_line = lines[i + 1].strip()
                 url_split = url_line.split("/")
@@ -130,6 +111,7 @@ def process_m3u_file(filepath, dns, username, password):
         with open(filepath, 'w', encoding='utf-8') as f:
             f.writelines(new_lines)
         logging.info(f"Archivo guardado correctamente en: {filepath}")
+        return group_titles
     except Exception as e:
         logging.error(f"Error al guardar el archivo: {e}")
 
@@ -182,7 +164,7 @@ def upload_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
@@ -199,6 +181,25 @@ def upload_playlist():
         cursor.execute(f"UPDATE {DB_TABLE}  SET id = %s WHERE id = %s", (playlist_id, temp_playlist_id))
         conn.commit()
 
+        for group_name in group_titles:
+            try:
+                logging.info(f"Group name: {group_name}")
+                cursor.execute(
+                    "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
+                    (playlist_id, group_name, 0)
+                )
+            except mysql.connector.Error as e:
+                logging.error(f"Error inserting group '{group_name}': {e}")
+
+        conn.commit()
+        
+
+        
+        cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
+        groups = cursor.fetchall()
+
+        logging.info(f"Llegamos hasta despues del fetchall?")
+
         cursor.close()
         conn.close()
 
@@ -209,10 +210,52 @@ def upload_playlist():
 
         newList_email(Details)
 
-        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
+
+
+        try:
+            return jsonify({
+                "message": "Playlist uploaded successfully",
+                "playlist_id": playlist_id,
+                "m3u_url": final_path,
+                "groups": [{'id': row['id'], 'name': row['name']} for row in groups]
+            })
+        except Exception as e:
+            logging.exception("Error serializing response for groups")
+            return jsonify({"error": "Error processing response", "details": str(e)}), 500
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "str(e)"}), 500
+
+@app.route('/save_selected_groups', methods=['POST'])
+def save_selected_groups():
+    data = request.get_json()
+
+    group_ids = data.get('group_ids', [])
+
+    try:
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        for group_id in group_ids:
+            cursor.execute(
+                "UPDATE categories SET auto_update = 1 WHERE id = %s",
+                (group_id,)
+            )
+
+        logging.info(f"Llegamos hasta despues del execute?")
+
+        conn.commit()
+
+        logging.info(f"Llegamos hasta despues del commit?")
+        cursor.close()
+        conn.close()
+
+        return jsonify({'message': 'Categories successfully created'})
+
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({'error': 'Error when saving categories'}), 500
+
 
 @app.route('/update_playlist', methods=['POST'])
 def update_playlist():
@@ -270,6 +313,28 @@ def update_playlist():
 
             cursor.execute(sql, values)
             conn.commit()
+        
+        group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        cursor.execute(
+                    "DELETE FROM categories WHERE list_id = %s", (playlist_id,)
+                )
+        
+        for group_name in group_titles:
+            try:
+                logging.info(f"Group name: {group_name}")
+                cursor.execute(
+                    "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
+                    (playlist_id, group_name, 0)
+                )
+            except mysql.connector.Error as e:
+                logging.error(f"Error inserting group '{group_name}': {e}")
+
+        conn.commit()
+        
+
+        
+        cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
+        groups = cursor.fetchall()
 
         cursor.close()
         conn.close()
@@ -280,7 +345,7 @@ def update_playlist():
         else:
             logging.info(f"Archivo temporal encontrado: {temp_path}")
 
-        process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
+        
 
         final_filename = f"{playlist_id}.m3u"
         final_path = os.path.join(UPLOAD_FOLDER, final_filename)
@@ -304,7 +369,16 @@ def update_playlist():
 
         updatedList_email(Details)
 
-        return jsonify({"message": "Playlist uploaded successfully", "playlist_id": playlist_id, "m3u_url": final_path})
+        try:
+            return jsonify({
+                "message": "Playlist updated successfully",
+                "playlist_id": playlist_id,
+                "m3u_url": final_path,
+                "groups": [{'id': row['id'], 'name': row['name']} for row in groups]
+            })
+        except Exception as e:
+            logging.exception("Error serializing response for groups")
+            return jsonify({"error": "Error processing response", "details": str(e)}), 500
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
