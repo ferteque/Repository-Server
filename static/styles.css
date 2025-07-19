@@ -627,7 +627,7 @@
         }
 
         .FAQandShare {
-            display: flex;
+            display: grid;
             gap: 0px;
             margin: 30px auto;
             justify-content: center;
