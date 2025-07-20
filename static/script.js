@@ -253,7 +253,7 @@ export function submitSelectedGroups() {
  
   showLoading();
 
-  dns = dns.replace(/^https?:\/\//, '');
+  dns = dns.replace(/^https?:\/\/|\/$/g, '');
   
   console.log(dns);
 
