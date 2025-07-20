@@ -327,30 +327,40 @@
             box-sizing: border-box;
         }
 
-        .share-box {
+       .share-box {
           font-weight: bold;
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           background-color: #fff4e6;
           padding: 20px;
-          margin: 30px;
+          margin: 30px auto;
           border-radius: 10px;
           text-align: center;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+          max-width: 900px;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
         }
 
         .share-box button {
-            border: none;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            cursor: pointer;
-            display: inline-block;
-            background-color: #FF5E5B;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background-color 0.3s;
+          border: none;
+          font-family: inherit;
+          cursor: pointer;
+          display: inline-block;
+          background-color: #FF5E5B;
+          color: white;
+          padding: 12px 25px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: bold;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.25s, transform 0.15s;
+          white-space: nowrap;
+          max-width: 100%;
+        }
+
+        .share-box button:hover {
+          background-color: #e14b49;
+          transform: translateY(-2px);
         }
 
         .modal {
