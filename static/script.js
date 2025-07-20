@@ -203,6 +203,9 @@ export function submitSelectedGroups() {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.value = group.id;
+            if (group.auto_update === 1) {
+              checkbox.checked = true;
+            }
             checkboxCell.appendChild(checkbox);
 
             const labelCell = document.createElement('td');
