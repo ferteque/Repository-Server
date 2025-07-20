@@ -329,7 +329,7 @@ def update_playlist():
                 "DELETE FROM categories WHERE list_id = %s AND name = %s",
                 (playlist_id, category)
             )
-
+        logging.info(f"[WARN] Antes del for")
         for category in categories_to_insert:
             try:
                 cursor.execute(
@@ -338,7 +338,7 @@ def update_playlist():
                 )
             except mysql.connector.Error as e:
                 logging.error(f"Error inserting group '{category}': {e}")
-
+        logging.info(f"[INFO] Despues del for")
         conn.commit()
         
 
