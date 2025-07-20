@@ -337,7 +337,7 @@ def update_playlist():
                     (playlist_id, category, 0)
                 )
             except mysql.connector.Error as e:
-                logging.error(f"Error inserting group '{group_name}': {e}")
+                logging.error(f"Error inserting group '{category}': {e}")
 
         conn.commit()
         
