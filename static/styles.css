@@ -327,7 +327,31 @@
             box-sizing: border-box;
         }
 
-        
+        .share-box {
+          font-weight: bold;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #fff4e6;
+          padding: 20px;
+          margin: 30px;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .share-box button {
+            border: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            cursor: pointer;
+            display: inline-block;
+            background-color: #FF5E5B;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
 
         .modal {
           display: none;
