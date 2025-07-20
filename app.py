@@ -314,11 +314,13 @@ def update_playlist():
         cursor.execute("SELECT name FROM categories WHERE list_id = %s", (playlist_id,))
         existing_categories = set(row['name'] for row in cursor.fetchall())
         
+        logging.info(f"[WARN] Antes del new_categories")
         new_categories = set(group_titles)
 
         categories_to_delete = existing_categories - new_categories
 
         categories_to_insert = new_categories - existing_categories
+        logging.info(f"[WARN] Despues de las operaciones")
         for category in categories_to_delete:
             cursor.execute(
                 "DELETE FROM categories WHERE list_id = %s AND name = %s",
