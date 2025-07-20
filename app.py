@@ -239,16 +239,13 @@ def save_selected_groups():
         for group in groups:
             group_id = group.get("id")
             auto_update = group.get("auto_update", 0)
+            logging.info(f"[DEBUG] Para la categoria {group_id} el valor de auto_update es {auto_update}")
             cursor.execute(
                 "UPDATE categories SET auto_update = %s WHERE id = %s",
                 (auto_update, group_id)
-            )
-
-        logging.info(f"Llegamos hasta despues del execute?")
+            )        
 
         conn.commit()
-
-        logging.info(f"Llegamos hasta despues del commit?")
         cursor.close()
         conn.close()
 
