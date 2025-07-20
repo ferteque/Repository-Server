@@ -36,7 +36,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
   fetch("/playlists")
     .then(res => res.json())
     .then(data => {
-      const tileContainer = document.getElementById("tileContainer"); // Assegura’t que aquest div existeix
+      const tileContainer = document.getElementById("tileContainer");
 
       data.forEach(row => {
         const [dd, mm, yyyy] = row.timestamp.split('/');
@@ -44,21 +44,51 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 
         const tile = document.createElement("div");
         tile.className = "tile";
+
         tile.innerHTML = `
-          <h3 class="limited-text">#${row.id} — ${row.service_name}</h3>
-          <p><strong>Discord:</strong> <span class="limited-text">${row.reddit_user}</span></p>
-          <p><strong>Countries:</strong> <span class="limited-text">${row.countries}</span></p>
-          <p><strong>Categories:</strong> <span class="limited-text">${row.main_categories}</span></p>
-          <p><strong>Last Updated:</strong> <span>${row.timestamp}</span></p>
-          <p><strong>Downloads:</strong> ${row.clicks}</p>
-          <p><strong>Donations:</strong> ${
-            isValidUrl(row.donation_info)
-              ? `<a href="${row.donation_info}" target="_blank" class="donate-btn">Donate</a>`
-              : '<span style="color:gray;">N/A</span>'
-          }</p>
+          <div class="tile-row">
+            <div class="label">ID</div>
+            <div class="value">#${row.id}</div>
+          </div>
+          <div class="tile-row">
+            <div class="label">Service</div>
+            <div class="value limited-text">${row.service_name}</div>
+          </div>
+          <div class="tile-row">
+            <div class="label">Discord</div>
+            <div class="value limited-text">${row.reddit_user}</div>
+          </div>
+          <div class="tile-row">
+            <div class="label">Countries</div>
+            <div class="value limited-text">${row.countries}</div>
+          </div>
+          <div class="tile-row">
+            <div class="label">Categories</div>
+            <div class="value limited-text">${row.main_categories}</div>
+          </div>
+          <div class="tile-row">
+            <div class="label">Last Updated</div>
+            <div class="value">${row.timestamp}</div>
+          </div>
+          <div class="tile-row">
+            <div class="label">Downloads</div>
+            <div class="value">${row.clicks}</div>
+          </div>
+          <div class="tile-row">
+            <div class="label">Donations</div>
+            <div class="value">
+              ${
+                isValidUrl(row.donation_info)
+                  ? `<a href="${row.donation_info}" target="_blank" class="donate-btn">Donate</a>`
+                  : '<span style="color:gray;">N/A</span>'
+              }
+            </div>
+          </div>
         `;
 
-        tile.onclick = () => selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
+        tile.onclick = () =>
+          selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
+
         tileContainer.appendChild(tile);
       });
     })
