@@ -315,17 +315,26 @@ def update_playlist():
             conn.commit()
         
         group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
-        cursor.execute(
-                    "DELETE FROM categories WHERE list_id = %s", (playlist_id,)
-                )
-        
-        for group_name in group_titles:
-            try:
-                logging.info(f"Group name: {group_name}")
-                cursor.execute(
-                    "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
-                    (playlist_id, group_name, 0)
-                )
+        cursor.execute("SELECT name FROM categories WHERE list_id = %s", (playlist_id,))
+        existing_categories = set(row[0] for row in cursor.fetchall())
+
+        new_categories = set(group_titles)
+
+        categories_to_delete = existing_categories - new_categories
+
+        categories_to_insert = new_categories - existing_categories
+
+        for category in categories_to_delete:
+            cursor.execute(
+                "DELETE FROM categories WHERE list_id = %s AND name = %s",
+                (playlist_id, category)
+            )
+
+        for category in categories_to_insert:
+            cursor.execute(
+                "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
+                (playlist_id, category, 0)
+            )
             except mysql.connector.Error as e:
                 logging.error(f"Error inserting group '{group_name}': {e}")
 
@@ -333,7 +342,7 @@ def update_playlist():
         
 
         
-        cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
+        cursor.execute("SELECT id, name,auto_update FROM categories WHERE list_id = %s", (playlist_id,))
         groups = cursor.fetchall()
 
         cursor.close()
@@ -374,7 +383,7 @@ def update_playlist():
                 "message": "Playlist updated successfully",
                 "playlist_id": playlist_id,
                 "m3u_url": final_path,
-                "groups": [{'id': row['id'], 'name': row['name']} for row in groups]
+                "groups": [{'id': row['id'], 'name': row['name'], 'auto_update': row['auto_update']} for row in groups]
             })
         except Exception as e:
             logging.exception("Error serializing response for groups")
