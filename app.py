@@ -286,13 +286,9 @@ def update_playlist():
         temp_path = os.path.join(UPLOAD_FOLDER, temp_filename)
         file.save(temp_path)
 
-        logging.info(f"Llegamos hasta la creacion del fichero temporal?")        
-
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        logging.info(f"Llegamos hasta antes de la llamada SELECT")
         cursor.execute(f"SELECT owner_password_hash FROM {DB_TABLE}  WHERE id = %s", (playlist_id,))
-        logging.info(f"Llegamos hasta despues de la llamada SELECT")
         result = cursor.fetchone()
         DB_list_password = result['owner_password_hash'].encode()
 
@@ -316,14 +312,13 @@ def update_playlist():
         
         group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
         cursor.execute("SELECT name FROM categories WHERE list_id = %s", (playlist_id,))
-        existing_categories = set(row[0] for row in cursor.fetchall())
-        logging.info(f"[WARN] Antes del new_categories")
+        existing_categories = set(row['name'] for row in cursor.fetchall())
+        
         new_categories = set(group_titles)
 
         categories_to_delete = existing_categories - new_categories
 
         categories_to_insert = new_categories - existing_categories
-        logging.info(f"[WARN] Despues de las operaciones")
         for category in categories_to_delete:
             cursor.execute(
                 "DELETE FROM categories WHERE list_id = %s AND name = %s",
@@ -348,7 +343,6 @@ def update_playlist():
 
         cursor.close()
         conn.close()
-        logging.info(f"Llegamos hasta despues de la llamada de UPDATE")
 
         if not os.path.exists(temp_path):
             logging.error(f"El archivo temporal no existe: {temp_path}")
