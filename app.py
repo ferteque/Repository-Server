@@ -331,10 +331,11 @@ def update_playlist():
             )
 
         for category in categories_to_insert:
-            cursor.execute(
-                "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
-                (playlist_id, category, 0)
-            )
+            try:
+                cursor.execute(
+                    "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
+                    (playlist_id, category, 0)
+                )
             except mysql.connector.Error as e:
                 logging.error(f"Error inserting group '{group_name}': {e}")
 
