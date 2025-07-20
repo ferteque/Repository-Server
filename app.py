@@ -230,7 +230,7 @@ def upload_playlist():
 def save_selected_groups():
     data = request.get_json()
 
-    group_ids = data.get('group_ids', [])
+    groups = data.get("groups", [])
 
     try:
         conn = get_connection()
