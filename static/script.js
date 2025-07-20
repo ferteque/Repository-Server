@@ -46,42 +46,36 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
         tile.className = "tile";
 
         tile.innerHTML = `
-          <div class="tile-row">
-            <div class="label">ID</div>
-            <div class="value">#${row.id}</div>
-          </div>
-          <div class="tile-row">
-            <div class="label">Service</div>
-            <div class="value limited-text">${row.service_name}</div>
-          </div>
-          <div class="tile-row">
-            <div class="label">Discord</div>
-            <div class="value limited-text">${row.reddit_user}</div>
-          </div>
-          <div class="tile-row">
-            <div class="label">Countries</div>
-            <div class="value limited-text">${row.countries}</div>
-          </div>
-          <div class="tile-row">
-            <div class="label">Categories</div>
-            <div class="value limited-text">${row.main_categories}</div>
-          </div>
-          <div class="tile-row">
-            <div class="label">Last Updated</div>
-            <div class="value">${row.timestamp}</div>
-          </div>
-          <div class="tile-row">
-            <div class="label">Downloads</div>
-            <div class="value">${row.clicks}</div>
-          </div>
-          <div class="tile-row">
-            <div class="label">Donations</div>
-            <div class="value">
-              ${
-                isValidUrl(row.donation_info)
-                  ? `<a href="${row.donation_info}" target="_blank" class="donate-btn">Donate</a>`
-                  : '<span style="color:gray;">N/A</span>'
-              }
+          <div class="tile-header">#${row.id} — ${row.service_name}</div>
+          <div class="tile-content">
+            <div class="tile-row">
+              <div class="label">Discord</div>
+              <div class="value limited-text">${row.reddit_user}</div>
+            </div>
+            <div class="tile-row">
+              <div class="label">Countries</div>
+              <div class="value limited-text">${row.countries}</div>
+            </div>
+            <div class="tile-row">
+              <div class="label">Categories</div>
+              <div class="value limited-text">${row.main_categories}</div>
+            </div>
+            <div class="tile-row">
+              <div class="label">Last Updated</div>
+              <div class="value">${row.timestamp}</div>
+            </div>
+            <div class="tile-row">
+              <div class="label">Downloads</div>
+              <div class="value">${row.clicks}</div>
+            </div>
+            <div class="tile-row">
+              <div class="label">Donations</div>
+              <div class="value">
+                ${
+                  isValidUrl(row.donation_info)
+                    ? `<a href="${row.donation_info}" target="_blank" class="donate-btn">Donate</a>`
+                    : '<span style="color:gray;">N/A</span>'
+                } </div>
             </div>
           </div>
         `;
