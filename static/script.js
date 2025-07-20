@@ -68,15 +68,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
               <div class="label">Downloads</div>
               <div class="value">${row.clicks}</div>
             </div>
-            <div class="tile-row">
-              <div class="label">Donations</div>
-              <div class="value">
-                ${
-                  isValidUrl(row.donation_info)
-                    ? `<a href="${row.donation_info}" target="_blank" class="donate-btn">Donate</a>`
-                    : '<span style="color:gray;">N/A</span>'
-                } </div>
-            </div>
+            
           </div>
         `;
 
