@@ -789,6 +789,15 @@
           border-radius: 6px;
           background-color: #f9f9f9;
         }
+        
+        #tileContainer {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+          justify-content: center;
+          align-items: start;
+          padding: 20px;
+        }
 
 
 
