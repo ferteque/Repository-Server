@@ -142,8 +142,11 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 }
 
 export function submitSelectedGroups() {
-    const checkboxes = document.querySelectorAll('#group-list input[type="checkbox"]:checked');
-    const selectedGroupIds = Array.from(checkboxes).map(cb => parseInt(cb.value));
+    const checkboxes = document.querySelectorAll('#group-list input[type="checkbox"]');
+    const selectedGroups = Array.from(checkboxes).map(cb => ({
+        id: parseInt(cb.value),
+        auto_update: cb.checked ? 1 : 0
+    }));
 
     fetch('/save_selected_groups', {
         method: 'POST',
@@ -151,9 +154,9 @@ export function submitSelectedGroups() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            group_ids: selectedGroupIds
+            groups: selectedGroups
         })
-    })
+    });
     .then(response => {
         if (!response.ok) throw new Error('Network error');
         return response.json();
