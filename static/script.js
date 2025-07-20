@@ -36,7 +36,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
   fetch("/playlists")
     .then(res => res.json())
     .then(data => {
-      const tileContainer = document.getElementById("tileContainer"); 
+      const tileContainer = document.getElementById("tileContainer"); // Assegura’t que aquest div existeix
 
       data.forEach(row => {
         const [dd, mm, yyyy] = row.timestamp.split('/');
@@ -45,11 +45,11 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
         const tile = document.createElement("div");
         tile.className = "tile";
         tile.innerHTML = `
-          <h3>#${row.id} — ${row.service_name}</h3>
-          <p><strong>Discord:</strong> ${row.reddit_user}</p>
-          <p><strong>Countries:</strong> ${row.countries}</p>
-          <p><strong>Categories:</strong> ${row.main_categories}</p>
-          <p><strong>Last Updated:</strong> ${row.timestamp}</p>
+          <h3 class="limited-text">#${row.id} — ${row.service_name}</h3>
+          <p><strong>Discord:</strong> <span class="limited-text">${row.reddit_user}</span></p>
+          <p><strong>Countries:</strong> <span class="limited-text">${row.countries}</span></p>
+          <p><strong>Categories:</strong> <span class="limited-text">${row.main_categories}</span></p>
+          <p><strong>Last Updated:</strong> <span>${row.timestamp}</span></p>
           <p><strong>Downloads:</strong> ${row.clicks}</p>
           <p><strong>Donations:</strong> ${
             isValidUrl(row.donation_info)
