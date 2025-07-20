@@ -176,9 +176,6 @@
         tr:hover {
             background-color: #f2f2f2;
         }
-        .selected {
-            background-color: #add8e6 !important;
-        }
        
         #log-in {
             display: block;
