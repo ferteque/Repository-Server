@@ -230,23 +230,22 @@ def upload_playlist():
 def save_selected_groups():
     data = request.get_json()
 
-    group_ids = data.get('group_ids', [])
+    groups = data.get("groups", [])
 
     try:
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
 
-        for group_id in group_ids:
+        for group in groups:
+            group_id = group.get("id")
+            auto_update = group.get("auto_update", 0)
+            logging.info(f"[DEBUG] Para la categoria {group_id} el valor de auto_update es {auto_update}")
             cursor.execute(
-                "UPDATE categories SET auto_update = 1 WHERE id = %s",
-                (group_id,)
-            )
-
-        logging.info(f"Llegamos hasta despues del execute?")
+                "UPDATE categories SET auto_update = %s WHERE id = %s",
+                (auto_update, group_id)
+            )        
 
         conn.commit()
-
-        logging.info(f"Llegamos hasta despues del commit?")
         cursor.close()
         conn.close()
 
@@ -286,13 +285,9 @@ def update_playlist():
         temp_path = os.path.join(UPLOAD_FOLDER, temp_filename)
         file.save(temp_path)
 
-        logging.info(f"Llegamos hasta la creacion del fichero temporal?")        
-
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        logging.info(f"Llegamos hasta antes de la llamada SELECT")
         cursor.execute(f"SELECT owner_password_hash FROM {DB_TABLE}  WHERE id = %s", (playlist_id,))
-        logging.info(f"Llegamos hasta despues de la llamada SELECT")
         result = cursor.fetchone()
         DB_list_password = result['owner_password_hash'].encode()
 
@@ -315,30 +310,40 @@ def update_playlist():
             conn.commit()
         
         group_titles = process_m3u_file(temp_path, "DNS", "USERNAME", "PASSWORD")
-        cursor.execute(
-                    "DELETE FROM categories WHERE list_id = %s", (playlist_id,)
-                )
+        cursor.execute("SELECT name FROM categories WHERE list_id = %s", (playlist_id,))
+        existing_categories = set(row['name'] for row in cursor.fetchall())
         
-        for group_name in group_titles:
+        logging.info(f"[WARN] Antes del new_categories")
+        new_categories = set(group_titles)
+
+        categories_to_delete = existing_categories - new_categories
+
+        categories_to_insert = new_categories - existing_categories
+        logging.info(f"[WARN] Despues de las operaciones")
+        for category in categories_to_delete:
+            cursor.execute(
+                "DELETE FROM categories WHERE list_id = %s AND name = %s",
+                (playlist_id, category)
+            )
+        logging.info(f"[WARN] Antes del for")
+        for category in categories_to_insert:
             try:
-                logging.info(f"Group name: {group_name}")
                 cursor.execute(
                     "INSERT INTO categories (list_id, name, auto_update) VALUES (%s, %s, %s)",
-                    (playlist_id, group_name, 0)
+                    (playlist_id, category, 0)
                 )
             except mysql.connector.Error as e:
-                logging.error(f"Error inserting group '{group_name}': {e}")
-
+                logging.error(f"Error inserting group '{category}': {e}")
+        logging.info(f"[INFO] Despues del for")
         conn.commit()
         
 
         
-        cursor.execute("SELECT id, name FROM categories WHERE list_id = %s", (playlist_id,))
+        cursor.execute("SELECT id, name,auto_update FROM categories WHERE list_id = %s", (playlist_id,))
         groups = cursor.fetchall()
 
         cursor.close()
         conn.close()
-        logging.info(f"Llegamos hasta despues de la llamada de UPDATE")
 
         if not os.path.exists(temp_path):
             logging.error(f"El archivo temporal no existe: {temp_path}")
@@ -374,7 +379,7 @@ def update_playlist():
                 "message": "Playlist updated successfully",
                 "playlist_id": playlist_id,
                 "m3u_url": final_path,
-                "groups": [{'id': row['id'], 'name': row['name']} for row in groups]
+                "groups": [{'id': row['id'], 'name': row['name'], 'auto_update': row['auto_update']} for row in groups]
             })
         except Exception as e:
             logging.exception("Error serializing response for groups")
