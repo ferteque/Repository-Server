@@ -33,33 +33,38 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
   }
 
   export function loadCSV() {
-    fetch("/playlists")
-      .then(res => res.json())
-      .then(data => {
-        const tableBody = document.getElementById("tableBody");
-        data.forEach(row => {
-          const [dd, mm, yyyy] = row.timestamp.split('/');
-          const orderedDate = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
-          const newRow = document.createElement("tr");
-          newRow.innerHTML = `
-            <td>${row.id}</td>
-            <td>${row.service_name}</td>
-            <td>${row.reddit_user}</td>
-            <td>${row.countries}</td>
-            <td>${row.main_categories}</td>
-            <td sorttable_customkey="${orderedDate}">${row.timestamp}</td>
-            <td>${row.clicks}</td>
-            <td>${
-              isValidUrl(row.donation_info)
-                ? `<a href="${row.donation_info}" target="_blank" class="donate-btn">Donate</a>`
-                : '<span style="color:gray;">N/A</span>'
-            }</td>`;
-          newRow.onclick = () => selectRow(newRow, row.id, row.service_name, row.epg_url, row.github_epg_url);
-          tableBody.appendChild(newRow);
-        });
-      })
-      .catch(err => console.error("Error loading data:", err));
-  }
+  fetch("/playlists")
+    .then(res => res.json())
+    .then(data => {
+      const tileContainer = document.getElementById("tileContainer"); 
+
+      data.forEach(row => {
+        const [dd, mm, yyyy] = row.timestamp.split('/');
+        const orderedDate = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.innerHTML = `
+          <h3>#${row.id} — ${row.service_name}</h3>
+          <p><strong>Discord:</strong> ${row.reddit_user}</p>
+          <p><strong>Countries:</strong> ${row.countries}</p>
+          <p><strong>Categories:</strong> ${row.main_categories}</p>
+          <p><strong>Last Updated:</strong> ${row.timestamp}</p>
+          <p><strong>Downloads:</strong> ${row.clicks}</p>
+          <p><strong>Donations:</strong> ${
+            isValidUrl(row.donation_info)
+              ? `<a href="${row.donation_info}" target="_blank" class="donate-btn">Donate</a>`
+              : '<span style="color:gray;">N/A</span>'
+          }</p>
+        `;
+
+        tile.onclick = () => selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
+        tileContainer.appendChild(tile);
+      });
+    })
+    .catch(err => console.error("Error loading data:", err));
+}
+
 
   export function submitPlaylist(formData) {
     fetch('/upload_playlist', {
