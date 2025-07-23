@@ -23,11 +23,11 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
   });
 
 
-  export function isValidUrl(url) {
+  export function isValidUrl(str) {
     try {
-      new URL(url);
+      new URL(str);
       return true;
-    } catch {
+    } catch (_) {
       return false;
     }
   }
