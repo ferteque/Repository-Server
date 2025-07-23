@@ -1,5 +1,5 @@
 
-export function selectRow(row, id, service, epg, gitHubEPG, donationInfo) {
+export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit_user) {
   document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
   row.classList.add("selected");
 
@@ -21,6 +21,7 @@ setTimeout(() => {
 
   if (donationLink && donationInfo && isValidUrl(donationInfo)) {
     donationLink.href = donationInfo;
+    donationLink.textContent = "Donate to " + reddit_user;
     donationContainer.style.display = "block";
   } else if (donationContainer) {
     donationContainer.style.display = "none";
