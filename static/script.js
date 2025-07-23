@@ -71,7 +71,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
               
             </div>
           `;
-
+        document.addEventListener("DOMContentLoaded", () => {
           tile.onclick = () => {
             selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
 
@@ -84,8 +84,9 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
               } else if (donationContainer) {
                 donationContainer.style.display = "none";
               }
-          }
-
+            
+            }
+          });
           tileContainer.appendChild(tile);
       });
     })
