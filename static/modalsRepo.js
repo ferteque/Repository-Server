@@ -13,7 +13,9 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo) {
     document.getElementById(field).value = field.includes("GitHub") ? gitHubEPG : epg;
   });
 
-  // ⬇️ Afegeix aquesta part per controlar el botó de donació
+document.getElementById("modeSelectorModal").style.display = "block";
+
+setTimeout(() => {
   const donationLink = document.getElementById("OwnerDonation");
   const donationContainer = donationLink?.closest(".donation-call");
 
@@ -23,6 +25,7 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo) {
   } else if (donationContainer) {
     donationContainer.style.display = "none";
   }
+}, 0); // Executa després del reflow del DOM
 
   document.getElementById("modeSelectorModal").style.display = "block";
 }
