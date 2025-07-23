@@ -77,12 +77,12 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
             const donationLink = document.getElementById("OwnerDonation");
             const donationContainer = donationLink?.closest("div");
 
-            if (row.donation_info && isValidUrl(row.donation_info)) {
-              donationLink.href = row.donation_info;
-              donationContainer.style.display = "block";
-            } else if (donationContainer) {
-              donationContainer.style.display = "none";
-            }
+            if (donationLink && row.donation_info && isValidUrl(row.donation_info)) {
+                donationLink.href = row.donation_info;
+                donationLink.closest("div").style.display = "block";
+              } else if (donationLink) {
+                donationLink.closest("div").style.display = "none";
+              }
           }
 
           tileContainer.appendChild(tile);
