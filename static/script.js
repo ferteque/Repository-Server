@@ -89,7 +89,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
       });
     })
       .catch(err => console.error("Error loading data:", err));
-  }
+  });
 }
 
   export function submitPlaylist(formData) {
