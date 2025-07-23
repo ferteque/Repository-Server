@@ -22,16 +22,6 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
     document.getElementById('manualInstructions').style.display = 'block';
   });
 
-
-  export function isValidUrl(str) {
-    try {
-      new URL(str);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
-
   export function loadCSV() {
     fetch("/playlists")
       .then(res => res.json())

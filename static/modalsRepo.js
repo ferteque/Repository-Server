@@ -30,6 +30,15 @@ setTimeout(() => {
   document.getElementById("modeSelectorModal").style.display = "block";
 }
 
+  export function isValidUrl(str) {
+    try {
+      new URL(str);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   export function switchTab(tab) {
     ["m3u", "xtream"].forEach(id => {
       document.getElementById(`tab-${id}`).classList.remove("active");
