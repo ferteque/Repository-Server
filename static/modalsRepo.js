@@ -18,7 +18,7 @@ document.getElementById("modeSelectorModal").style.display = "block";
 setTimeout(() => {
   const donationLink = document.getElementById("OwnerDonation");
   const donationContainer = donationLink?.closest(".donation-call");
-  const iconSpan = document.getElementById("donationIcon");
+  const iconSpan = document.getElementById("donation-icon");
   
   if (donationLink && donationInfo && isValidUrl(donationInfo)) {
     donationLink.href = donationInfo;
