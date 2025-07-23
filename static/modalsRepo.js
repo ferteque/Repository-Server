@@ -18,9 +18,11 @@ document.getElementById("modeSelectorModal").style.display = "block";
 setTimeout(() => {
   const donationLink = document.getElementById("OwnerDonation");
   const donationContainer = donationLink?.closest(".donation-call");
-
+  const iconSpan = document.getElementById("donationIcon");
+  
   if (donationLink && donationInfo && isValidUrl(donationInfo)) {
     donationLink.href = donationInfo;
+    iconSpan.textContent = "❤️ " + redditUser;
     donationLink.textContent = "Donate to " + reddit_user;
     donationContainer.style.display = "block";
   } else if (donationContainer) {
