@@ -79,6 +79,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 
             if (row.donation_info && isValidUrl(row.donation_info)) {
               donationLink.href = row.donation_info;
+              donationContainer.style.display = "block";
             } else if (donationContainer) {
               donationContainer.style.display = "none";
             }
