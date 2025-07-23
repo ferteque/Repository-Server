@@ -74,15 +74,17 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 
           tile.onclick = () => {
             selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
-            const donationLink = document.getElementById("OwnerDonation");
-            const donationContainer = donationLink?.closest("div");
+            document.addEventListener("DOMContentLoaded", () => {
+              const donationLink = document.getElementById("OwnerDonation");
+              const donationContainer = donationLink?.closest(".donation-call");
 
-            if (donationLink && row.donation_info && isValidUrl(row.donation_info)) {
+              if (donationLink && row.donation_info && isValidUrl(row.donation_info)) {
                 donationLink.href = row.donation_info;
-                donationLink.closest("div").style.display = "block";
-              } else if (donationLink) {
-                donationLink.closest("div").style.display = "none";
+                donationContainer.style.display = "block";
+              } else if (donationContainer) {
+                donationContainer.style.display = "none";
               }
+            });
           }
 
           tileContainer.appendChild(tile);
