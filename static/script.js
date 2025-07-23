@@ -33,7 +33,6 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
   }
 
   export function loadCSV() {
-    document.addEventListener("DOMContentLoaded", () => {
     fetch("/playlists")
       .then(res => res.json())
       .then(data => {
@@ -89,7 +88,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
       });
     })
       .catch(err => console.error("Error loading data:", err));
-  });
+
 }
 
   export function submitPlaylist(formData) {
