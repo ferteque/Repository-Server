@@ -31,8 +31,9 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
       return false;
     }
   }
-document.addEventListener("DOMContentLoaded", () => {
-    export function loadCSV() {
+
+  export function loadCSV() {
+    document.addEventListener("DOMContentLoaded", () => {
     fetch("/playlists")
       .then(res => res.json())
       .then(data => {
