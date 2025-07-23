@@ -76,8 +76,16 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
           selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
 
         tileContainer.appendChild(tile);
-      });
-    })
+        const donationLink = tile.querySelector("#OwnerDonation");
+        const donationContainer = donationLink?.closest("div");
+
+        if (row.donation_info && isValidUrl(row.donation_info)) {
+          donationLink.href = row.donation_info;
+        } else if (donationContainer) {
+          donationContainer.style.display = "none";
+        }
+    });
+  })
     .catch(err => console.error("Error loading data:", err));
 }
 
