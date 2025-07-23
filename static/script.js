@@ -71,22 +71,11 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
               
             </div>
           `;
-        document.addEventListener("DOMContentLoaded", () => {
+
           tile.onclick = () => {
-            selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
-
-              const donationLink = document.getElementById("OwnerDonation");
-              const donationContainer = donationLink?.closest(".donation-call");
-
-              if (donationLink && row.donation_info && isValidUrl(row.donation_info)) {
-                donationLink.href = row.donation_info;
-                donationContainer.style.display = "block";
-              } else if (donationContainer) {
-                donationContainer.style.display = "none";
-              }
+            selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url, row.donation_info);
             
             }
-          });
           tileContainer.appendChild(tile);
       });
     })

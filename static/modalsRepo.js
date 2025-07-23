@@ -1,20 +1,31 @@
 
-  export function selectRow(row, id, service, epg, gitHubEPG) {
-    document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
-    row.classList.add("selected");
+export function selectRow(row, id, service, epg, gitHubEPG, donationInfo) {
+  document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
+  row.classList.add("selected");
 
-    gtag('event', 'row_selected', {
-      'event_category': 'interaction',
-      'event_label': `Selected: ${id} ${service}`
-    });
+  gtag('event', 'row_selected', {
+    'event_category': 'interaction',
+    'event_label': `Selected: ${id} ${service}`
+  });
 
-    document.getElementById("selectedID").value = id;
-    ["EPG", "EPGDrive", "GitHub_EPG", "GitHub_EPGDrive"].forEach(field => {
-      document.getElementById(field).value = field.includes("GitHub") ? gitHubEPG : epg;
-    });
+  document.getElementById("selectedID").value = id;
+  ["EPG", "EPGDrive", "GitHub_EPG", "GitHub_EPGDrive"].forEach(field => {
+    document.getElementById(field).value = field.includes("GitHub") ? gitHubEPG : epg;
+  });
 
-    document.getElementById("modeSelectorModal").style.display = "block";
+  // ⬇️ Afegeix aquesta part per controlar el botó de donació
+  const donationLink = document.getElementById("OwnerDonation");
+  const donationContainer = donationLink?.closest(".donation-call");
+
+  if (donationLink && donationInfo && isValidUrl(donationInfo)) {
+    donationLink.href = donationInfo;
+    donationContainer.style.display = "block";
+  } else if (donationContainer) {
+    donationContainer.style.display = "none";
   }
+
+  document.getElementById("modeSelectorModal").style.display = "block";
+}
 
   export function switchTab(tab) {
     ["m3u", "xtream"].forEach(id => {
