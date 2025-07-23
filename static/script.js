@@ -74,7 +74,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
 
           tile.onclick = () => {
             selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
-            document.addEventListener("DOMContentLoaded", () => {
+
               const donationLink = document.getElementById("OwnerDonation");
               const donationContainer = donationLink?.closest(".donation-call");
 
@@ -84,7 +84,6 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
               } else if (donationContainer) {
                 donationContainer.style.display = "none";
               }
-            });
           }
 
           tileContainer.appendChild(tile);
