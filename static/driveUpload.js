@@ -80,7 +80,7 @@
               });
 
               // 8) Devolver link (opcionalmente lo metes en un input)
-              const downloadLink = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=true`;
+              const downloadLink = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=true`; 
               document.getElementById('DriveDownloadLink').value = downloadLink;
 
               resolve({ fileId, downloadLink });
