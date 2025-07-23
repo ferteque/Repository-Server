@@ -22,7 +22,7 @@ setTimeout(() => {
   
   if (donationLink && donationInfo && isValidUrl(donationInfo)) {
     donationLink.href = donationInfo;
-    iconSpan.textContent = "❤️ " + redditUser;
+    iconSpan.textContent = "❤️ " + reddit_user;
     donationLink.textContent = "Donate to " + reddit_user;
     donationContainer.style.display = "block";
   } else if (donationContainer) {
