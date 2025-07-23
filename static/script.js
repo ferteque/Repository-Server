@@ -31,65 +31,65 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
       return false;
     }
   }
+document.addEventListener("DOMContentLoaded", () => {
+    export function loadCSV() {
+    fetch("/playlists")
+      .then(res => res.json())
+      .then(data => {
+        const tileContainer = document.getElementById("tileContainer");
 
-  export function loadCSV() {
-  fetch("/playlists")
-    .then(res => res.json())
-    .then(data => {
-      const tileContainer = document.getElementById("tileContainer");
+        data.forEach(row => {
+          const [dd, mm, yyyy] = row.timestamp.split('/');
+          const orderedDate = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
 
-      data.forEach(row => {
-        const [dd, mm, yyyy] = row.timestamp.split('/');
-        const orderedDate = `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+          const tile = document.createElement("div");
+          tile.className = "tile";
 
-        const tile = document.createElement("div");
-        tile.className = "tile";
-
-        tile.innerHTML = `
-          <div class="tile-header">#${row.id} — ${row.service_name}</div>
-          <div class="tile-content">
-            <div class="tile-row">
-              <div class="label">Discord</div>
-              <div class="value limited-text">${row.reddit_user}</div>
+          tile.innerHTML = `
+            <div class="tile-header">#${row.id} — ${row.service_name}</div>
+            <div class="tile-content">
+              <div class="tile-row">
+                <div class="label">Discord</div>
+                <div class="value limited-text">${row.reddit_user}</div>
+              </div>
+              <div class="tile-row">
+                <div class="label">Countries</div>
+                <div class="value limited-text">${row.countries}</div>
+              </div>
+              <div class="tile-row">
+                <div class="label">Categories</div>
+                <div class="value limited-text">${row.main_categories}</div>
+              </div>
+              <div class="tile-row">
+                <div class="label">Last Updated</div>
+                <div class="value">${row.timestamp}</div>
+              </div>
+              <div class="tile-row">
+                <div class="label">Downloads</div>
+                <div class="value">${row.clicks}</div>
+              </div>
+              
             </div>
-            <div class="tile-row">
-              <div class="label">Countries</div>
-              <div class="value limited-text">${row.countries}</div>
-            </div>
-            <div class="tile-row">
-              <div class="label">Categories</div>
-              <div class="value limited-text">${row.main_categories}</div>
-            </div>
-            <div class="tile-row">
-              <div class="label">Last Updated</div>
-              <div class="value">${row.timestamp}</div>
-            </div>
-            <div class="tile-row">
-              <div class="label">Downloads</div>
-              <div class="value">${row.clicks}</div>
-            </div>
-            
-          </div>
-        `;
+          `;
 
-        tile.onclick = () => {
-          selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
-          const donationLink = document.getElementById("OwnerDonation");
-          const donationContainer = donationLink?.closest("div");
+          tile.onclick = () => {
+            selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url);
+            const donationLink = document.getElementById("OwnerDonation");
+            const donationContainer = donationLink?.closest("div");
 
-          if (row.donation_info && isValidUrl(row.donation_info)) {
-            donationLink.href = row.donation_info;
-          } else if (donationContainer) {
-            donationContainer.style.display = "none";
+            if (row.donation_info && isValidUrl(row.donation_info)) {
+              donationLink.href = row.donation_info;
+            } else if (donationContainer) {
+              donationContainer.style.display = "none";
+            }
           }
-        }
 
-        tileContainer.appendChild(tile);
-    });
-  })
-    .catch(err => console.error("Error loading data:", err));
+          tileContainer.appendChild(tile);
+      });
+    })
+      .catch(err => console.error("Error loading data:", err));
+  }
 }
-
 
   export function submitPlaylist(formData) {
     fetch('/upload_playlist', {
