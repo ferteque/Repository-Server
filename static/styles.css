@@ -730,37 +730,34 @@
   padding: 20px 32px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 💡 centra tot el contingut horitzontalment */
+  align-items: center;
+  gap: 12px;
 }
 
 .tile-row {
   display: flex;
-  justify-content: center;     /* 💡 centra els dos elements */
-  gap: 6px;                    /* separació entre label i valor */
-  margin-bottom: 8px;
-  padding: 6px 0;
-  border-bottom: 1px solid #ddd;
-  flex-wrap: wrap;            /* permet trencar línia si cal */
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+  width: 100%;
 }
 
 .tile-row:last-child {
-  border-bottom: none; /* Evita línia sota l'última fila */
+  border-bottom: none;
 }
 
 .label {
   font-weight: bold;
   color: #333;
-  text-align: left;
-  max-width: 40%;
+  margin-bottom: 4px;
 }
 
 .value {
   font-weight: normal;
   color: #555;
-  text-align: right;
-  max-width: 60%;
-  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .limited-text {
