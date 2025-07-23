@@ -728,15 +728,20 @@
 
 .tile-content {
   padding: 20px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 💡 centra tot el contingut horitzontalment */
 }
 
 .tile-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;     /* 💡 centra els dos elements */
+  gap: 6px;                    /* separació entre label i valor */
   margin-bottom: 8px;
   padding: 6px 0;
-  border-bottom: 1px solid #ddd; /* línia horitzontal suau */
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;            /* permet trencar línia si cal */
+  text-align: center;
 }
 
 .tile-row:last-child {
