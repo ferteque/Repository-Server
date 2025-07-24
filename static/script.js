@@ -36,12 +36,8 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
           tile.className = "tile";
 
           tile.innerHTML = `
-            <div class="tile-header">#${row.id} — ${row.service_name}</div>
+            <div class="tile-header">#${row.id} ${row.reddit_user} — ${row.service_name}  </div>
             <div class="tile-content">
-              <div class="tile-row">
-                <div class="label">Discord</div>
-                <div class="value limited-text">${row.reddit_user}</div>
-              </div>
               <div class="tile-row">
                 <div class="label">Countries</div>
                 <div class="value limited-text">${row.countries}</div>
