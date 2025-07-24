@@ -39,10 +39,6 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
             <div class="tile-header">#${row.id} ${row.reddit_user} — ${row.service_name}  </div>
             <div class="tile-content">
               <div class="tile-row">
-                <div class="label">Discord</div>
-                <div class="value limited-text"></div>
-              </div>
-              <div class="tile-row">
                 <div class="label">Countries</div>
                 <div class="value limited-text">${row.countries}</div>
               </div>
