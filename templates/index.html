@@ -15,12 +15,11 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  
   <title>EPGenius</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
 
 </head>
 <body>
@@ -29,6 +28,8 @@
       <h1 class="page-title">Welcome to EPGenius, a Curated Lists and EPG Repository</h1>
     
     {% include 'disclaimer.html' %}
+
+    {% include 'nextSteps.html' %} 
 
     {% include 'faqAndShare.html' %}
 
@@ -40,9 +41,7 @@
 
     {% include 'table.html' %}
         
-    {% include 'credentials.html' %}
-
-    {% include 'nextSteps.html' %}  
+    {% include 'credentials.html' %} 
 
     {% include 'loading.html' %} 
 

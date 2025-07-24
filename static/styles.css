@@ -176,9 +176,6 @@
         tr:hover {
             background-color: #f2f2f2;
         }
-        .selected {
-            background-color: #add8e6 !important;
-        }
        
         #log-in {
             display: block;
@@ -327,31 +324,40 @@
             box-sizing: border-box;
         }
 
-        .share-box {
+       .share-box {
           font-weight: bold;
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           background-color: #fff4e6;
           padding: 20px;
-          margin: 30px;
+          margin: 30px auto;
           border-radius: 10px;
-          max-width: 600px;
           text-align: center;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+          max-width: 900px;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
         }
 
         .share-box button {
-            border: none;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            cursor: pointer;
-            display: inline-block;
-            background-color: #FF5E5B;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background-color 0.3s;
+          border: none;
+          font-family: inherit;
+          cursor: pointer;
+          display: inline-block;
+          background-color: #FF5E5B;
+          color: white;
+          padding: 12px 25px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: bold;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.25s, transform 0.15s;
+          white-space: nowrap;
+          max-width: 100%;
+        }
+
+        .share-box button:hover {
+          background-color: #e14b49;
+          transform: translateY(-2px);
         }
 
         .modal {
@@ -638,4 +644,209 @@
             bottom: 10px;
             z-index: 10;
         }
-                
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.share-box.tile-style {
+  background-color: #fff4e6;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 40px auto;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* Títol principal */
+.share-box.tile-style h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+} 
+
+/* Contenidor de tiles amb graella responsive */
+#tileContainer.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+  padding: 10px 0;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0 0 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+}
+
+.tile:hover {
+  transform: translateY(-20px);
+}
+
+.tile-header {
+  background-color: #ffe2c2; 
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  color: #333;
+}
+
+.tile-content {
+  padding: 20px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.tile-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+  width: 100%;
+}
+
+.tile-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.value {
+  font-weight: normal;
+  color: #555;
+  word-break: break-word;
+}
+
+.limited-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Modal (pantalla flotant) */
+.modal2 {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contingut del modal */
+.modal-content2 {
+  position: relative; /* ⬅️ Necessari per posicionar .close correctament dins */
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Botó de tancar (la "X") */
+.modal-content2 .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.modal-content2 .close:hover {
+  color: #000;
+}
+
+/* Text del modal */
+.modal-content2 p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* Llista de grups */
+#group-list {
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+/* Botó dins el modal */
+.modal-content2 .btn.btn-primary {
+  background-color: #FF5E5B;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.25s ease;
+}
+
+.modal-content2 .btn.btn-primary:hover {
+  background-color: #e04a48;
+}
+
+
+
+
