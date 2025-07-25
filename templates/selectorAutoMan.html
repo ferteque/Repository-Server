@@ -1,14 +1,25 @@
 <div class="modal2" id="modeSelectorModal" style="display:none;">
-    <div class="modal-content2">
+  <div class="modal-content2">
     <span class="close" id="closeModalSelector">&times;</span>
-        <h3>Please choose how you want to configure your M3U list:</h3>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" id="AutomaticProcess" data-bs-dismiss="modal">Automatic</button>
-          <button class="btn btn-primary" id="ManualSteps" data-bs-dismiss="modal">Manual</button>
-        </div>
+    <h3>Please choose how you want to configure your M3U list:</h3>
+
+    <!-- 🔽 Bloc de donació aquí -->
+    <div class="donation-call" id="donation-section" style="display: none;">
+      <span class="donation-icon" id="donation-icon">❤️</span>
+      <div class="donation-text">
+        Remember to support the list owner if you like their work!
       </div>
+      <a href="" target="_blank" rel="noopener noreferrer" id="OwnerDonation"></a>
+    </div>
+    <br><br>
+    <!-- 🔼 Fi bloc de donació -->
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" id="AutomaticProcess" data-bs-dismiss="modal" style="width:100%">Automatic</button>
+      <button class="btn btn-primary" id="ManualSteps" data-bs-dismiss="modal" style="width:100%">Manual</button>
     </div>
   </div>
+</div>
 
 
 <div id="manualInstructions" class="modal2" style="display:none;">
