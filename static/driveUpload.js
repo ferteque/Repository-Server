@@ -37,7 +37,7 @@
 
               // 5) Compartir con tu Service Account (para que luego pueda hacer update)
               await fetch(
-                `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`,
+                `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`, 
                 {
                   method: 'POST',
                   headers: {
