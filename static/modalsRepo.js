@@ -9,7 +9,7 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
   });
 
   document.getElementById("selectedID").value = id;
-  ["EPG", "EPGDrive", "GitHub_EPG", "GitHub_EPGDrive"].forEach(field => {
+  ["EPG", "EPGDrive"].forEach(field => {
     document.getElementById(field).value = field.includes("GitHub") ? gitHubEPG : epg;
   });
 

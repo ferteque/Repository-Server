@@ -59,7 +59,7 @@ document.getElementById("AutomaticProcess").addEventListener("click", () => {
           `;
 
           tile.onclick = () => {
-            selectRow(tile, row.id, row.service_name, row.epg_url, row.github_epg_url, row.donation_info, row.reddit_user);
+            selectRow(tile, row.id, row.service_name, row.epg_url, row.donation_info, row.reddit_user);
             
             }
           tileContainer.appendChild(tile);

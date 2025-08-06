@@ -536,7 +536,7 @@ def get_playlists():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute(f"SELECT id, reddit_user, service_name, countries, main_categories, epg_url, github_epg_url, timestamp, clicks, donation_info FROM {DB_TABLE}  WHERE display = 1")
+    cursor.execute(f"SELECT id, reddit_user, service_name, countries, main_categories, epg_url, timestamp, clicks, donation_info FROM {DB_TABLE}  WHERE display = 1")
 
     data = cursor.fetchall()
 
