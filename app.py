@@ -210,8 +210,6 @@ def upload_playlist():
 
         newList_email(Details)
 
-
-
         try:
             return jsonify({
                 "message": "Playlist uploaded successfully",
@@ -255,6 +253,34 @@ def save_selected_groups():
         print("Error:", e)
         return jsonify({'error': 'Error when saving categories'}), 500
 
+@app.route('/get_categories/<int:list_id>', methods=['GET'])
+def get_categories(list_id):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT id, name, auto_update
+        FROM categories
+        WHERE list_id = %s
+    """, (list_id,))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    groups = [
+        {
+            'id': row['id'],
+            'name': row['name'],
+            'auto_update': row['auto_update']
+        }
+        for row in rows
+    ]
+
+    return jsonify({
+        "message": "Categories retrieved successfully",
+        "playlist_id": list_id,
+        "groups": groups
+    })
 
 @app.route('/update_playlist', methods=['POST'])
 def update_playlist():
