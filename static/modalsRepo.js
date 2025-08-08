@@ -31,64 +31,81 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
   }, 0); 
 
   fetch(`/get_categories/${id}`)
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        return response.json();
-      })
-      .then(data => {
-        const container = document.getElementById("categoriesContainer");
-        container.innerHTML = ""; 
+  .then(response => {
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return response.json();
+  })
+  .then(data => {
+    const container = document.getElementById("categoriesContainer");
+    container.innerHTML = ""; // Neteja contingut anterior
 
-        const title = document.createElement('h3');
-        title.textContent = "Categories";
-        container.appendChild(title);
+    // Títol
+    const title = document.createElement('h3');
+    title.textContent = "Categories";
+    container.appendChild(title);
 
-        const table = document.createElement('table');
-        table.classList.add('sortable');
+    // Taula ordenable
+    const table = document.createElement('table');
+    table.classList.add('sortable');
 
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
+    // Capçalera
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
 
-        const thAutoUpdate = document.createElement('th');
-        thAutoUpdate.textContent = "Auto-update";
+    const thAutoUpdate = document.createElement('th');
+    thAutoUpdate.textContent = "Auto-update";
 
-        const thCategoryName = document.createElement('th');
-        thCategoryName.textContent = "Category name";
+    const thCategoryName = document.createElement('th');
+    thCategoryName.textContent = "Category name";
 
-        headerRow.appendChild(thAutoUpdate);
-        headerRow.appendChild(thCategoryName);
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
+    headerRow.appendChild(thAutoUpdate);
+    headerRow.appendChild(thCategoryName);
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
 
-        const tbody = document.createElement('tbody');
+    // Cos taula
+    const tbody = document.createElement('tbody');
 
-        data.groups.forEach(group => {
-          const row = document.createElement('tr');
-          row.style.cursor = 'pointer';
+    data.groups.forEach(group => {
+      const row = document.createElement('tr');
 
-          const checkboxCell = document.createElement('td');
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.value = group.id;
-          checkbox.checked = group.auto_update === true || group.auto_update === 1;
-          checkbox.disabled = true; // no editable
-          checkboxCell.appendChild(checkbox);
+      // Cel·la Auto-update amb valor ocult per ordenar
+      const checkboxCell = document.createElement('td');
+      const sortValue = (group.auto_update === true || group.auto_update === 1) ? '1' : '0';
+      checkboxCell.setAttribute('data-sort-value', sortValue);
 
-          const labelCell = document.createElement('td');
-          labelCell.textContent = group.name;
+      // Span ocult amb valor numèric per a sorttable
+      const hiddenSortSpan = document.createElement('span');
+      hiddenSortSpan.textContent = sortValue;
+      hiddenSortSpan.style.display = 'none';
+      checkboxCell.appendChild(hiddenSortSpan);
 
-          row.appendChild(checkboxCell);
-          row.appendChild(labelCell);
-          tbody.appendChild(row);
-        });
+      // Checkbox visible però desactivat
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.value = group.id;
+      checkbox.checked = sortValue === '1';
+      checkbox.disabled = true;
+      checkboxCell.appendChild(checkbox);
 
-        table.appendChild(tbody);
-        container.appendChild(table);
-        if (typeof sorttable !== 'undefined') {
-            sorttable.makeSortable(table);
-          }
-      })
-      .catch(err => console.error("Error carregant categories:", err));
+      // Nom de la categoria
+      const labelCell = document.createElement('td');
+      labelCell.textContent = group.name;
+
+      row.appendChild(checkboxCell);
+      row.appendChild(labelCell);
+      tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    container.appendChild(table);
+
+    // Inicialitzem la taula ordenable
+    if (typeof sorttable !== 'undefined') {
+      sorttable.makeSortable(table);
+    }
+  })
+  .catch(err => console.error("Error carregant categories:", err));
 
     document.getElementById("modeSelectorModal").style.display = "block";
 }
