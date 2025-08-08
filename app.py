@@ -256,7 +256,7 @@ def save_selected_groups():
 @app.route('/get_categories/<int:list_id>', methods=['GET'])
 def get_categories(list_id):
     conn = get_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(dictionary=True)
 
     cursor.execute("""
         SELECT id, name, auto_update
