@@ -13,24 +13,64 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
     document.getElementById(field).value = field.includes("GitHub") ? gitHubEPG : epg;
   });
 
-document.getElementById("modeSelectorModal").style.display = "block";
-
-setTimeout(() => {
-  const donationLink = document.getElementById("OwnerDonation");
-  const donationContainer = donationLink?.closest(".donation-call");
-  const iconSpan = document.getElementById("donation-icon");
-  
-  if (donationLink && donationInfo && isValidUrl(donationInfo)) {
-    donationLink.href = donationInfo;
-    iconSpan.textContent = "❤️ " + reddit_user;
-    donationLink.textContent = "Donate to " + reddit_user;
-    donationContainer.style.display = "block";
-  } else if (donationContainer) {
-    donationContainer.style.display = "none";
-  }
-}, 0); 
-
   document.getElementById("modeSelectorModal").style.display = "block";
+
+  setTimeout(() => {
+    const donationLink = document.getElementById("OwnerDonation");
+    const donationContainer = donationLink?.closest(".donation-call");
+    const iconSpan = document.getElementById("donation-icon");
+    
+    if (donationLink && donationInfo && isValidUrl(donationInfo)) {
+      donationLink.href = donationInfo;
+      iconSpan.textContent = "❤️ " + reddit_user;
+      donationLink.textContent = "Donate to " + reddit_user;
+      donationContainer.style.display = "block";
+    } else if (donationContainer) {
+      donationContainer.style.display = "none";
+    }
+  }, 0); 
+
+  fetch(`/get_categories/${id}`)
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        const container = document.getElementById("categoriesContainer");
+        container.innerHTML = ""; 
+
+        const table = document.createElement('table');
+
+        data.groups.forEach(group => {
+          const row = document.createElement('tr');
+          row.style.cursor = 'pointer';
+
+          const checkboxCell = document.createElement('td');
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.value = group.id;
+          checkbox.disabled = true;
+          checkboxCell.appendChild(checkbox);
+
+          const labelCell = document.createElement('td');
+          labelCell.textContent = group.name;
+
+          row.appendChild(checkboxCell);
+          row.appendChild(labelCell);
+          table.appendChild(row);
+
+          row.addEventListener('click', function (e) {
+            if (e.target !== checkbox) {
+              checkbox.checked = !checkbox.checked;
+            }
+          });
+        });
+
+        container.appendChild(table);
+      })
+      .catch(err => console.error("Error carregant categories:", err));
+
+    document.getElementById("modeSelectorModal").style.display = "block";
 }
 
   export function isValidUrl(str) {
