@@ -49,6 +49,7 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
           checkbox.value = group.id;
+          checkbox.checked = group.auto_update === true || group.auto_update === 1;
           checkbox.disabled = true;
           checkboxCell.appendChild(checkbox);
 
@@ -58,12 +59,6 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
           row.appendChild(checkboxCell);
           row.appendChild(labelCell);
           table.appendChild(row);
-
-          row.addEventListener('click', function (e) {
-            if (e.target !== checkbox) {
-              checkbox.checked = !checkbox.checked;
-            }
-          });
         });
 
         container.appendChild(table);
