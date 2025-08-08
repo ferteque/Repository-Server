@@ -44,6 +44,7 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
         container.appendChild(title);
 
         const table = document.createElement('table');
+        table.classList.add('sortable');
 
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
@@ -59,7 +60,6 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        // 🔹 Cos de la taula
         const tbody = document.createElement('tbody');
 
         data.groups.forEach(group => {
@@ -84,6 +84,9 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
 
         table.appendChild(tbody);
         container.appendChild(table);
+        if (typeof sorttable !== 'undefined') {
+            sorttable.makeSortable(table);
+          }
       })
       .catch(err => console.error("Error carregant categories:", err));
 
