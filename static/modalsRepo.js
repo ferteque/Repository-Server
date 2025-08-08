@@ -39,7 +39,28 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
         const container = document.getElementById("categoriesContainer");
         container.innerHTML = ""; 
 
+        const title = document.createElement('h3');
+        title.textContent = "Categories";
+        container.appendChild(title);
+
         const table = document.createElement('table');
+
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+
+        const thAutoUpdate = document.createElement('th');
+        thAutoUpdate.textContent = "Auto-update";
+
+        const thCategoryName = document.createElement('th');
+        thCategoryName.textContent = "Category name";
+
+        headerRow.appendChild(thAutoUpdate);
+        headerRow.appendChild(thCategoryName);
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // 🔹 Cos de la taula
+        const tbody = document.createElement('tbody');
 
         data.groups.forEach(group => {
           const row = document.createElement('tr');
@@ -50,7 +71,7 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
           checkbox.type = 'checkbox';
           checkbox.value = group.id;
           checkbox.checked = group.auto_update === true || group.auto_update === 1;
-          checkbox.disabled = true;
+          checkbox.disabled = true; // no editable
           checkboxCell.appendChild(checkbox);
 
           const labelCell = document.createElement('td');
@@ -58,9 +79,10 @@ export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit
 
           row.appendChild(checkboxCell);
           row.appendChild(labelCell);
-          table.appendChild(row);
+          tbody.appendChild(row);
         });
 
+        table.appendChild(tbody);
         container.appendChild(table);
       })
       .catch(err => console.error("Error carregant categories:", err));
