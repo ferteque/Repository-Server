@@ -28,7 +28,7 @@ setTimeout(() => {
   } else if (donationContainer) {
     donationContainer.style.display = "none";
   }
-}, 0); // Executa després del reflow del DOM
+}, 0); 
 
   document.getElementById("modeSelectorModal").style.display = "block";
 }
