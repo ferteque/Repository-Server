@@ -15,6 +15,8 @@ export function selectRow(row, id, service, epg, donationInfo, reddit_user) {
 
   document.getElementById("modeSelectorModal").style.display = "block";
 
+  
+
   setTimeout(() => {
     const donationLink = document.getElementById("OwnerDonation");
     const donationContainer = donationLink?.closest(".donation-call");
