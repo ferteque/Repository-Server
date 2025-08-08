@@ -261,7 +261,7 @@ def get_categories(list_id):
     cursor.execute("""
         SELECT id, name, auto_update
         FROM categories
-        WHERE list_id = ?
+        WHERE list_id = %s
     """, (list_id,))
 
     rows = cursor.fetchall()
