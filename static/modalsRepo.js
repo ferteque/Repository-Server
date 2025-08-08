@@ -1,5 +1,5 @@
 
-export function selectRow(row, id, service, epg, gitHubEPG, donationInfo, reddit_user) {
+export function selectRow(row, id, service, epg, donationInfo, reddit_user) {
   document.querySelectorAll("tr").forEach(tr => tr.classList.remove("selected"));
   row.classList.add("selected");
 
